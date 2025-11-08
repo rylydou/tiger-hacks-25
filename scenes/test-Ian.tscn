@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://df8bocc7xlpbs"]
+
+[ext_resource type="Script" uid="uid://dmjoq3abt61mj" path="res://scripts/entities/Ian_Testing/inventory_tester.gd" id="1_6g6dy"]
+[ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="1_i5c44"]
+[ext_resource type="PackedScene" uid="uid://b5njac57k28dv" path="res://scenes/entities/inventory_stock.tscn" id="2_4kl76"]
+[ext_resource type="PackedScene" uid="uid://dfwpcne8mxpak" path="res://scenes/entities/itemprocessor.tscn" id="4_ih210"]
+
+[node name="TestIan" type="Node2D"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("1_6g6dy")
+
+[node name="Button" type="Button" parent="UI"]
+offset_left = 195.0
+offset_top = 863.0
+offset_right = 611.6129
+offset_bottom = 968.0
+text = "Increase Rocks
+"
+
+[node name="processor" parent="." instance=ExtResource("4_ih210")]
+position = Vector2(811, 343)
+is_receiving = true
+item_texture = ExtResource("1_i5c44")
+item_type = 1
+receiving_item = 1
+
+[node name="stock" parent="." instance=ExtResource("2_4kl76")]
+position = Vector2(205, 337)
+is_receiving = true
+is_draggable = true
+item_texture = ExtResource("1_i5c44")
+item_type = 1
+receiving_item = 1
+count = 1
+
+[connection signal="button_down" from="UI/Button" to="UI" method="_on_button_button_down"]
