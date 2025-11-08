@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://qpvaw8teyljk" path="res://scripts/entities/drag_ui/item_matcher.gd" id="1_u2vvq"]
 [ext_resource type="Script" uid="uid://oop22qcygl6r" path="res://scripts/entities/Ian_Testing/change_text_to_incoming.gd" id="3_q3uog"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4kl76"]
-radius = 125.781555
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u2vvq"]
+radius = 99.0
+height = 212.0
 
 [node name="ItemMatcher" type="Area2D"]
 script = ExtResource("1_u2vvq")
@@ -12,7 +13,7 @@ is_receiving = true
 receiving_items = Array[int]([4, 5, 6])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_4kl76")
+shape = SubResource("CapsuleShape2D_u2vvq")
 debug_color = Color(0, 0.5408454, 0.10718905, 0)
 
 [node name="Label" type="Label" parent="."]

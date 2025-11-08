@@ -126,24 +126,32 @@ func _on_item_drag_ended(draggable) -> void:
 	query.collide_with_areas = true
 	query.collide_with_bodies = false
 	var results := space.intersect_point(query, 32)
+	
+	print("Drop detected at: ", p, " - Found ", results.size(), " objects")
 
 	for r in results:
 		if not r.has("collider"):
 			continue
 		var collider = r.collider
+		print("  Collider: ", collider.name, " (", collider.get_class(), ")")
 		
 		if collider == origin_bin:
+			print("    -> Is origin bin, deleting sprite")
 			draggable.queue_free()
 			return
 		if collider is DraggableItemBin:
 			var other_bin: DraggableItemBin = collider
+			print("    -> Is DraggableItemBin, is_receiving: ", other_bin.is_receiving)
 			if other_bin.is_receiving:
 				var origin_item_type = _get_origin_bin_item_type(origin_bin)
 				# For ItemMatcher and subclasses, always try to receive (they validate internally)
 				# For other bins, check if type matches first
 				var should_try_receive = (other_bin is ItemMatcher) or (origin_item_type != Item.ResourceType.NONE and origin_item_type in other_bin.receiving_items)
+				print("      origin_item_type: ", origin_item_type, " should_try_receive: ", should_try_receive)
 				if should_try_receive:
-					if other_bin._try_receive_item(origin_item_type):
+					var receive_result = other_bin._try_receive_item(origin_item_type)
+					print("      _try_receive_item returned: ", receive_result)
+					if receive_result:
 						if origin_bin and origin_bin != other_bin and origin_bin.is_inside_tree():
 							if origin_bin.has_method("decrement_count"):
 								origin_bin.decrement_count()

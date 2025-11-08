@@ -1,25 +1,75 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5wu63p7ncbky"]
+[gd_scene load_steps=10 format=3 uid="uid://b5wu63p7ncbky"]
 
 [ext_resource type="Script" uid="uid://dc28gs7h6p8wo" path="res://scripts/entities/scientist.gd" id="1_rbq33"]
-[ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="2_r3e82"]
+[ext_resource type="Texture2D" uid="uid://dec2x55xjtwji" path="res://content/art/Shop/scientist idle (2).png" id="2_rbq33"]
 [ext_resource type="PackedScene" uid="uid://ix5hgno8iv4n" path="res://scenes/entities/item_matcher.tscn" id="3_olt48"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3e82"]
+atlas = ExtResource("2_rbq33")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olt48"]
+atlas = ExtResource("2_rbq33")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlge7"]
+atlas = ExtResource("2_rbq33")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jpqj"]
+atlas = ExtResource("2_rbq33")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwcw5"]
+atlas = ExtResource("2_rbq33")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pw32j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3e82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olt48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hlge7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jpqj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwcw5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [node name="Scientist" type="Node2D" node_paths=PackedStringArray("sprite_list")]
 script = ExtResource("1_rbq33")
 request_type = 4
-sprite_list = [NodePath("BaseSprite")]
+sprite_list = [NodePath("AnimatedSprite2D")]
 
-[node name="BaseSprite" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("2_r3e82")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(10, -24.000004)
+scale = Vector2(15, 15)
+sprite_frames = SubResource("SpriteFrames_pw32j")
+animation = &"idle"
 
 [node name="ItemMatcher" parent="." instance=ExtResource("3_olt48")]
 unique_name_in_owner = true
 
+[node name="CollisionShape2D" parent="ItemMatcher" index="0"]
+position = Vector2(0, -101)
+
 [node name="TimeRemaining" type="ProgressBar" parent="."]
 unique_name_in_owner = true
-offset_left = -85.0
-offset_top = 29.0
-offset_right = 83.0
-offset_bottom = 56.0
+offset_left = -97.0
+offset_top = -248.0
+offset_right = 71.0
+offset_bottom = -221.0
 show_percentage = false
+
+[editable path="ItemMatcher"]

@@ -5,34 +5,60 @@
 [ext_resource type="PackedScene" uid="uid://b5njac57k28dv" path="res://scenes/entities/inventory_stock.tscn" id="2_4kl76"]
 [ext_resource type="Script" uid="uid://bkehau171e8i6" path="res://scripts/entities/Ian_Testing/money_count.gd" id="2_hykfq"]
 [ext_resource type="PackedScene" uid="uid://dfwpcne8mxpak" path="res://scenes/entities/item_processor.tscn" id="4_ih210"]
-[ext_resource type="PackedScene" uid="uid://b5wu63p7ncbky" path="res://scenes/entities/scientist.tscn" id="7_v4hej"]
+[ext_resource type="Texture2D" uid="uid://buir6w0lvcxiw" path="res://content/art/Shop/UI/table.png" id="7_v4hej"]
 [ext_resource type="Script" uid="uid://dtbr4yjdyrbsi" path="res://scenes/managers/request_manager.gd" id="7_w7qbk"]
 
 [node name="TestIan" type="Node2D"]
+
+[node name="Request_Manager" type="Node2D" parent="." node_paths=PackedStringArray("locations", "enter_location", "exit_location")]
+script = ExtResource("7_w7qbk")
+locations = [NodePath("Scientist Location"), NodePath("Scientist Location 2"), NodePath("Scientist Location 3")]
+enter_location = NodePath("Spawn Location")
+exit_location = NodePath("Exit Location")
+
+[node name="Spawn Location" type="Node2D" parent="Request_Manager"]
+position = Vector2(-159, 495)
+
+[node name="Exit Location" type="Node2D" parent="Request_Manager"]
+position = Vector2(2128, 495)
+
+[node name="Scientist Location" type="Node2D" parent="Request_Manager"]
+position = Vector2(554, 495)
+
+[node name="Scientist Location 2" type="Node2D" parent="Request_Manager"]
+position = Vector2(983, 495)
+
+[node name="Scientist Location 3" type="Node2D" parent="Request_Manager"]
+position = Vector2(1443, 495)
+
+[node name="Table" type="Sprite2D" parent="."]
+position = Vector2(961.111, 539.5)
+scale = Vector2(15, 15)
+texture = ExtResource("7_v4hej")
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("1_6g6dy")
 
 [node name="Button" type="Button" parent="UI"]
-offset_left = 335.0
-offset_top = 969.0
-offset_right = 554.0
-offset_bottom = 1074.0
+offset_left = 725.0
+offset_top = 972.0
+offset_right = 944.0
+offset_bottom = 1077.0
 text = "Increase Rocks
 "
 
 [node name="Button 2" type="Button" parent="UI"]
-offset_left = 706.0
-offset_top = 961.0
-offset_right = 925.0
-offset_bottom = 1066.0
+offset_left = 967.0
+offset_top = 972.0
+offset_right = 1186.0
+offset_bottom = 1077.0
 text = "Increase Animal"
 
 [node name="Button 3" type="Button" parent="UI"]
-offset_left = 1057.0
-offset_top = 961.0
-offset_right = 1276.0
-offset_bottom = 1066.0
+offset_left = 475.0
+offset_top = 972.0
+offset_right = 694.0
+offset_bottom = 1077.0
 text = "Increase Plant
 "
 
@@ -57,43 +83,40 @@ output_item_type = 4
 receiving_items = Array[int]([1])
 
 [node name="plant_processor" parent="." instance=ExtResource("4_ih210")]
-position = Vector2(1589, 154)
+position = Vector2(1754, 143)
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
 output_item_type = 6
 receiving_items = Array[int]([3])
 
 [node name="animal_processor" parent="." instance=ExtResource("4_ih210")]
-position = Vector2(1516, 910)
+position = Vector2(1532.0001, 842.00006)
+scale = Vector2(1.25, 1.25)
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
 output_item_type = 5
 receiving_items = Array[int]([2])
 
 [node name="rock_stock" parent="." instance=ExtResource("2_4kl76")]
-position = Vector2(456, 796)
+position = Vector2(845, 831)
+scale = Vector2(0.85, 0.85)
 item_texture = ExtResource("1_i5c44")
 output_item_type = 1
 count = 1
 
 [node name="animal_stock" parent="." instance=ExtResource("2_4kl76")]
-position = Vector2(811, 785)
+position = Vector2(1100, 831)
+scale = Vector2(0.85, 0.85)
 item_texture = ExtResource("1_i5c44")
 output_item_type = 2
 count = 1
 
 [node name="plant_stock" parent="." instance=ExtResource("2_4kl76")]
-position = Vector2(1176, 785)
+position = Vector2(583, 831)
+scale = Vector2(0.85, 0.85)
 item_texture = ExtResource("1_i5c44")
 output_item_type = 3
 count = 1
-
-[node name="Request_Manager" type="Node2D" parent="."]
-script = ExtResource("7_w7qbk")
-
-[node name="Scientist" parent="." instance=ExtResource("7_v4hej")]
-position = Vector2(454, 506)
-time_limit = 10.0
 
 [connection signal="button_down" from="UI/Button" to="UI" method="_increase_rocks"]
 [connection signal="button_down" from="UI/Button 2" to="UI" method="_increase_animal"]
