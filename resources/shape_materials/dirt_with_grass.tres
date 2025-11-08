@@ -26,6 +26,7 @@ weld = false
 metadata/_custom_type_script = "uid://0lhxan4cqrc1"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("6_m7kkq")
 _edge_meta_materials = Array[ExtResource("1_5kuq4")]([SubResource("Resource_c6rrr")])
 fill_textures = Array[Texture2D]([ExtResource("5_ghjqi")])

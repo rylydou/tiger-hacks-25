@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SS2D_Material_Shape" load_steps=4 format=3 uid="uid://dx000dj5b03a0"]
+
+[ext_resource type="Script" uid="uid://0lhxan4cqrc1" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="1_t847r"]
+[ext_resource type="Texture2D" uid="uid://vdmsum6tcn6f" path="res://content/art/terrain/fill_dev.png" id="2_f4pdv"]
+[ext_resource type="Script" uid="uid://nc5bfedvnpgm" path="res://addons/rmsmartshape/materials/shape_material.gd" id="6_anvup"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("6_anvup")
+fill_textures = Array[Texture2D]([ExtResource("2_f4pdv")])

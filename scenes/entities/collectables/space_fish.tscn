@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnc6d23wuk8d"]
+
+[ext_resource type="Script" uid="uid://bdlkb6g3oildf" path="res://scripts/entities/space_fish.gd" id="1_yurnl"]
+[ext_resource type="Texture2D" uid="uid://c7wno0ats8g23" path="res://content/art/Interactables/fish sprite.png" id="2_yurnl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yurnl"]
+radius = 16.0
+
+[sub_resource type="Curve" id="Curve_yurnl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y8hs5"]
+curve = SubResource("Curve_yurnl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wbfar"]
+particle_flag_disable_z = true
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+spread = 180.0
+initial_velocity_min = 4.0
+initial_velocity_max = 28.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_y8hs5")
+
+[node name="Space Fish" type="Area2D"]
+script = ExtResource("1_yurnl")
+max_stray_distance = 800.0
+dwell_time_range = Vector2(1, 5)
+move_range = Vector2(64, 320)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_yurnl")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yurnl")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+show_behind_parent = true
+amount = 16
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_wbfar")

@@ -4,21 +4,21 @@
 [ext_resource type="Material" uid="uid://cy6fq6ytmcesy" path="res://resources/materials/gravity.tres" id="2_bvaev"]
 [ext_resource type="Texture2D" uid="uid://g1tw6ixsx44q" path="res://content/art/gravity-arrow-1.png" id="3_lmn5p"]
 
+[sub_resource type="QuadMesh" id="QuadMesh_spcul"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_spcul"]
 resource_local_to_scene = true
 radius = 400.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_spcul"]
-
-[node name="Gravity Circle" type="Area2D" node_paths=PackedStringArray("graphic")]
-gravity_space_override = 3
+[node name="Gravity Circle" type="Area2D" node_paths=PackedStringArray("graphic", "shape")]
+gravity_space_override = 4
 gravity_point = true
 gravity_point_center = Vector2(0, 0)
 gravity_direction = Vector2(0, 0)
 script = ExtResource("1_s0tdq")
 radius = 400.0
 graphic = NodePath("Gravity VFX")
-circle_shape = SubResource("CircleShape2D_spcul")
+shape = NodePath("Collision")
 
 [node name="Gravity VFX" type="MeshInstance2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.1254902)

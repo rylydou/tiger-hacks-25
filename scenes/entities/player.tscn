@@ -1,25 +1,38 @@
-[gd_scene load_steps=5 format=3 uid="uid://drbctbpnp652k"]
+[gd_scene load_steps=9 format=3 uid="uid://drbctbpnp652k"]
 
 [ext_resource type="Script" uid="uid://bjieh1uyr44c" path="res://scripts/entities/player.gd" id="1_ucweq"]
 [ext_resource type="Texture2D" uid="uid://b03wh6yfvnl7u" path="res://content/art/Player/player run 48x48(1).png" id="2_1ie0h"]
 [ext_resource type="Script" uid="uid://hpupyh8dlpw3" path="res://scripts/entities/camera.gd" id="3_1ie0h"]
+[ext_resource type="Script" uid="uid://b8hvllotmm5u0" path="res://scripts/components/keep_up.gd" id="4_42nxq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_08t41"]
 radius = 16.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("camera")]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1ie0h"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="PrismMesh" id="PrismMesh_1ie0h"]
+size = Vector3(16, 32, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ie0h"]
+font_size = 12
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "home_arrow_anchor")]
 floor_constant_speed = true
 floor_max_angle = 1.553343
 floor_snap_length = 500.0
 script = ExtResource("1_ucweq")
 camera = NodePath("Camera")
+home_arrow_anchor = NodePath("Home Arrow Anchor")
 jetpack_boost_accel = 1000.0
-jetpack_max_speed = 500.0
+jetpack_max_speed = 1000.0
+jetpack_o2_to_fuel_ratio = 10.0
 space_rotation_speed = 2.0
 space_jetpack_steering_assist_over_time = 0.5
 space_jetpack_steering_assist_manual = 1.0
-space_decel_linear = 100.0
-space_decel_mult = 0.99
+space_decel_linear = 10.0
+space_decel_mult = 0.999
 planet_move_speed = 150.0
 planet_max_move_speed = 250.0
 planet_move_accel_air = 1000.0
@@ -45,3 +58,41 @@ limit_enabled = false
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 2.0
 script = ExtResource("3_1ie0h")
+
+[node name="Home Arrow Anchor" type="Node2D" parent="."]
+z_index = 1000
+z_as_relative = false
+
+[node name="Arrow" type="MeshInstance2D" parent="Home Arrow Anchor"]
+modulate = Color(1, 1, 1, 0.2509804)
+material = SubResource("CanvasItemMaterial_1ie0h")
+position = Vector2(256, 0)
+rotation = -1.5707964
+mesh = SubResource("PrismMesh_1ie0h")
+
+[node name="Node2D" type="Node2D" parent="Home Arrow Anchor"]
+position = Vector2(219, 0)
+
+[node name="Label Anchor" type="Node2D" parent="Home Arrow Anchor/Node2D"]
+top_level = true
+script = ExtResource("4_42nxq")
+
+[node name="Label" type="Label" parent="Home Arrow Anchor/Node2D/Label Anchor"]
+modulate = Color(1, 1, 1, 0.5019608)
+material = SubResource("CanvasItemMaterial_1ie0h")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -12.0
+offset_right = 30.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(30, 12)
+text = "Home"
+label_settings = SubResource("LabelSettings_1ie0h")
+horizontal_alignment = 1
+vertical_alignment = 1

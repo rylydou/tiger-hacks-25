@@ -78,6 +78,16 @@ import/blender/enabled=false
 
 common/snap_controls_to_pixels=false
 
+[layer_names]
+
+2d_physics/layer_1="Ground"
+2d_physics/layer_2="Gravity"
+2d_physics/layer_3="Player"
+2d_physics/layer_4="Rock"
+2d_physics/layer_5="Fish"
+2d_physics/layer_6="Plant"
+2d_physics/layer_7="Worm"
+
 [physics]
 
 2d/default_gravity=0.0

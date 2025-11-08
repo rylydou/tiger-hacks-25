@@ -1,13 +1,21 @@
 class_name Player extends CharacterBody2D
 
 
+@export var o2 := 10.0
+@onready var o2_max := o2
+
 @export var camera: Camera2D
+@export var home_arrow_anchor: Node2D
+@export var fuel_bar: ProgressBar
+@export var o2_bar: ProgressBar
 
 @export_group("Jetpack", "jetpack_")
 
 @export var jetpack_boost_accel := 10.0
 @export var jetpack_max_speed := 100.0
-
+@export var jetpack_fuel_time := 1.0
+@onready var jetpack_fuel_left := jetpack_fuel_time
+@export var jetpack_o2_to_fuel_ratio := 1.0
 
 @export_group("Space Movement", "space_")
 
@@ -38,6 +46,9 @@ class_name Player extends CharacterBody2D
 var gamepad := Gamepad.create(Gamepad.DEVICE_AUTO)
 
 var is_jumping := false
+var wait_until_release_before_boosting := false
+
+var time := 0.0
 
 
 func get_up_vector() -> Vector2:
@@ -45,10 +56,30 @@ func get_up_vector() -> Vector2:
 
 
 func _physics_process(delta: float) -> void:
+	time += delta
+	
 	gamepad.poll(delta)
 	_process_movement(delta)
 	
 	queue_redraw()
+	
+	home_arrow_anchor.look_at(Vector2.ZERO)
+	
+	fuel_bar.value = (jetpack_fuel_left / jetpack_fuel_time) * 100.0
+	fuel_bar.custom_minimum_size.x = jetpack_fuel_time * 150.0
+	
+	o2 -= delta
+	o2_bar.value = (o2 / o2_max) * 100.0
+	
+	if o2 < 10.0:
+		o2_bar.modulate.a = 0.0 if wrapf(time * 5.0, 0.0, 1.0) < 0.5 else 1.0
+	elif o2 < o2_max / 3.0 or o2 < 30.0:
+		o2_bar.modulate.a = 0.0 if wrapf(time * 2.0, 0.0, 1.0) < 0.2 else 1.0
+	
+	if jetpack_fuel_left <= 0.0:
+		fuel_bar.modulate.a = 0.0 if wrapf(time * 5.0, 0.0, 1.0) < 0.5 else 1.0
+	else:
+		fuel_bar.modulate.a = 1.0
 
 
 func _process_movement(delta: float) -> void:
@@ -77,6 +108,28 @@ func _process_movement(delta: float) -> void:
 	var target_zoom := 2.0 if has_gravity else 1.0
 	
 	camera.zoom = Vector2.ONE * lerpf(camera.zoom.x, target_zoom, Math.smooth(1.0, delta))
+	
+	var up := transform.basis_xform(Vector2.UP)
+	var right := transform.basis_xform(Vector2.RIGHT)
+	
+	if not gamepad.jump.down:
+		wait_until_release_before_boosting = false
+	
+	if (
+			gamepad.jump.down
+			and not wait_until_release_before_boosting
+			and velocity.project(up).length() < jetpack_max_speed
+	):
+		var using_o2 := false
+		if jetpack_fuel_left < 0.0:
+			jetpack_fuel_left += delta
+			o2 -= delta * jetpack_o2_to_fuel_ratio
+			using_o2 = true
+		
+		velocity += get_up_vector() * jetpack_boost_accel * delta
+		jetpack_fuel_left -= delta
+		if jetpack_fuel_left <= 0.0 and not using_o2:
+			wait_until_release_before_boosting = true
 
 
 func _process_space(delta: float) -> void:
@@ -87,9 +140,6 @@ func _process_space(delta: float) -> void:
 	
 	is_jumping = false
 	rotation += gamepad.move.x * space_rotation_speed * delta
-	
-	if gamepad.jump.down and velocity.project(up).length() < jetpack_max_speed:
-		velocity += get_up_vector() * jetpack_boost_accel * delta
 	
 	velocity = velocity.move_toward(Vector2.ZERO, space_decel_linear * delta) * space_decel_mult
 	
@@ -111,6 +161,7 @@ func _process_gravity(delta: float) -> void:
 	
 	if is_grounded:
 		is_jumping = false
+		jetpack_fuel_left = jetpack_fuel_time
 	
 	var move_accel := planet_move_accel_ground if is_grounded else planet_move_accel_air
 	
@@ -123,8 +174,8 @@ func _process_gravity(delta: float) -> void:
 	# Deceleration if not moving
 	if (
 			absf(current_move_speed) > planet_max_move_speed
-			|| is_zero_approx(gamepad.move.x)
-			|| signf(velocity.dot(right)) != signf(gamepad.move.x)
+			or is_zero_approx(gamepad.move.x)
+			or signf(velocity.dot(right)) != signf(gamepad.move.x)
 	):
 		var decel_linear = planet_decel_ground_linear if is_grounded else planet_decel_air_linear
 		var decel_mult = planet_decel_ground_mult if is_grounded else planet_decel_air_mult
@@ -135,9 +186,7 @@ func _process_gravity(delta: float) -> void:
 	if is_grounded and gamepad.jump.pressed:
 		is_jumping = true
 		velocity += get_up_vector() * planet_jump_velocity
-	
-	if gamepad.jump.down and velocity.project(up).length() < jetpack_max_speed:
-		velocity += get_up_vector() * jetpack_boost_accel * delta
+		wait_until_release_before_boosting = true
 
 
 func _draw() -> void:
