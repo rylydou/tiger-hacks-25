@@ -10,7 +10,7 @@ radius = 16.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.0, 0.0, 1, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_y8hs5"]
+[sub_resource type="CurveTexture" id="CurveTexture_yurnl"]
 curve = SubResource("Curve_yurnl")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wbfar"]
@@ -23,10 +23,10 @@ initial_velocity_max = 28.0
 gravity = Vector3(0, 0, 0)
 scale_min = 2.0
 scale_max = 5.0
-scale_curve = SubResource("CurveTexture_y8hs5")
+scale_curve = SubResource("CurveTexture_yurnl")
 
 [node name="Space Fish" type="Area2D"]
-collision_layer = 0
+collision_layer = 16
 collision_mask = 4
 script = ExtResource("1_yurnl")
 max_stray_distance = 800.0

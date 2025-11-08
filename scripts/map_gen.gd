@@ -116,15 +116,7 @@ func _trail(position: Vector2 , depth: int) -> void:
 
 
 func check_planet_pos(pos: Vector2, radius: float) -> bool:
-	for try_index in max_spawn_tries:
-		var direction := Math.rand_dir()
-		var distance := randf_range(1000, 5000)
-		
-		var test_pos := position + direction * distance
-		
-		# These planets will overlap!!! try again
-		for other_planet in planets:
-			if Vector2(other_planet.x, other_planet.y).distance_squared_to(pos) < (other_planet.z + radius) ** 2.0:
-				return false
-	
+	for other_planet in planets:
+		if Vector2(other_planet.x, other_planet.y).distance_squared_to(pos) < (other_planet.z + radius) ** 2.0:
+			return false
 	return true

@@ -38,10 +38,10 @@ func pickup() -> void:
 	if picked_up: return
 	picked_up = true
 	
-	Inventory.add_item(RockItem.new())
-	queue_free()
-	
 	DevTools.toast("+1 Space Fish")
+	Inventory.add_item(RockItem.new())
+	SFX.event(&"sfx/pickup", &"fish").at(self).play()
+	queue_free()
 
 
 func _on_body_entered(body: Node2D) -> void:

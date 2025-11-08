@@ -88,6 +88,7 @@ common/snap_controls_to_pixels=false
 2d_physics/layer_5="Fish"
 2d_physics/layer_6="Plant"
 2d_physics/layer_7="Worm"
+2d_physics/layer_8="Interactable"
 
 [physics]
 

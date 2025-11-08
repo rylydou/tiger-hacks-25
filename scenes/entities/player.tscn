@@ -1,7 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://drbctbpnp652k"]
+[gd_scene load_steps=18 format=3 uid="uid://drbctbpnp652k"]
 
 [ext_resource type="Script" uid="uid://bjieh1uyr44c" path="res://scripts/entities/player.gd" id="1_ucweq"]
-[ext_resource type="Texture2D" uid="uid://b03wh6yfvnl7u" path="res://content/art/Player/player run 48x48(1).png" id="2_1ie0h"]
+[ext_resource type="Texture2D" uid="uid://bslv3yxot17o4" path="res://content/art/Player/space idle.png" id="2_42nxq"]
 [ext_resource type="Script" uid="uid://hpupyh8dlpw3" path="res://scripts/entities/camera.gd" id="3_1ie0h"]
 [ext_resource type="Script" uid="uid://b8hvllotmm5u0" path="res://scripts/components/keep_up.gd" id="4_42nxq"]
 
@@ -62,15 +62,20 @@ color_initial_ramp = SubResource("GradientTexture1D_5u6hq")
 hue_variation_min = -0.100000024
 hue_variation_max = 0.09999997
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "home_arrow_anchor", "jetpack_vfx")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_42nxq"]
+size = Vector2(45, 32)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "home_arrow_anchor", "jetpack_vfx", "interaction_area", "flip_node")]
 collision_layer = 5
 floor_constant_speed = true
 floor_max_angle = 1.553343
-floor_snap_length = 500.0
+floor_snap_length = 8.0
 script = ExtResource("1_ucweq")
 camera = NodePath("Camera")
 home_arrow_anchor = NodePath("Home Arrow Anchor")
 jetpack_vfx = NodePath("Jetpack VFX")
+interaction_area = NodePath("Flip/Pickup Area")
+flip_node = NodePath("Flip")
 jetpack_boost_accel = 1000.0
 jetpack_max_speed = 500.0
 jetpack_o2_to_fuel_ratio = 10.0
@@ -89,10 +94,6 @@ planet_decel_ground_mult = 0.99
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_08t41")
-
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_1ie0h")
-hframes = 8
 
 [node name="Camera" type="Camera2D" parent="."]
 ignore_rotation = false
@@ -149,3 +150,17 @@ position = Vector2(1, 16)
 amount = 128
 lifetime = 3.0
 process_material = SubResource("ParticleProcessMaterial_42nxq")
+
+[node name="Flip" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Flip"]
+texture = ExtResource("2_42nxq")
+hframes = 9
+
+[node name="Pickup Area" type="Area2D" parent="Flip"]
+collision_layer = 0
+collision_mask = 128
+
+[node name="Collision" type="CollisionShape2D" parent="Flip/Pickup Area"]
+position = Vector2(10.5, 0)
+shape = SubResource("RectangleShape2D_42nxq")

@@ -9,6 +9,8 @@ class_name Player extends CharacterBody2D
 @export var fuel_bar: ProgressBar
 @export var o2_bar: ProgressBar
 @export var jetpack_vfx: GPUParticles2D
+@export var interaction_area: Area2D
+@export var flip_node: Node2D
 
 @export_group("Jetpack", "jetpack_")
 
@@ -92,11 +94,13 @@ func _physics_process(delta: float) -> void:
 		fuel_bar.modulate.a = 0.0 if wrapf(time * 5.0, 0.0, 1.0) < 0.5 else 1.0
 	else:
 		fuel_bar.modulate.a = 1.0
+	
+	if gamepad.action.pressed:
+		interact()
 
 
 func _process_movement(delta: float) -> void:
 	var gravity := get_gravity()
-	
 	var has_gravity := not gravity.is_zero_approx()
 	
 	if has_gravity:
@@ -127,10 +131,7 @@ func _process_movement(delta: float) -> void:
 		
 		jetpack_vfx.emitting = true
 		
-		if (
-				current_jetpack_speed < jetpack_max_speed
-				or velocity.normalized().dot(up) < 0.99
-		):
+		if current_jetpack_speed < jetpack_max_speed:
 			var using_o2 := false
 			if jetpack_fuel_left < 0.0:
 				jetpack_fuel_left += delta
@@ -152,6 +153,9 @@ func _process_movement(delta: float) -> void:
 		_process_space(delta)
 	
 	move_and_slide()
+	
+	if not is_zero_approx(gamepad.move.x):
+		flip_node.scale.x = signf(gamepad.move.x)
 
 
 func _process_space(delta: float) -> void:
@@ -164,13 +168,6 @@ func _process_space(delta: float) -> void:
 	rotation += gamepad.move.x * space_rotation_speed * delta
 	
 	velocity = velocity.move_toward(Vector2.ZERO, space_decel_linear * delta) * space_decel_mult
-	
-	# velocity = velocity
-	
-	var magnitude := velocity.length()
-	var new_angle := rotate_toward(velocity.angle(), up.angle(), (space_jetpack_steering_assist_over_time + space_jetpack_steering_assist_manual * float(is_boosting)) * delta)
-	
-	velocity = Vector2.from_angle(new_angle) * magnitude
 
 
 func _process_gravity(delta: float) -> void:
@@ -217,3 +214,11 @@ func _draw() -> void:
 	
 	draw_line(Vector2.ZERO, gravity.rotated(-rotation), Color.RED, 4.0)
 	draw_line(Vector2.ZERO, velocity.rotated(-rotation), Color.GREEN, 4.0)
+
+
+func interact() -> void:
+	var objects := interaction_area.get_overlapping_areas()
+	objects.append_array(interaction_area.get_overlapping_bodies())
+	
+	for object in objects:
+		object.propagate_call(&"_interact")
