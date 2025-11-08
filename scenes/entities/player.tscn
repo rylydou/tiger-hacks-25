@@ -1,25 +1,41 @@
 [gd_scene load_steps=5 format=3 uid="uid://drbctbpnp652k"]
 
 [ext_resource type="Script" uid="uid://bjieh1uyr44c" path="res://scripts/entities/player.gd" id="1_ucweq"]
-[ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="2_08t41"]
+[ext_resource type="Texture2D" uid="uid://b03wh6yfvnl7u" path="res://content/art/Player/player run 48x48(1).png" id="2_1ie0h"]
 [ext_resource type="Script" uid="uid://hpupyh8dlpw3" path="res://scripts/entities/camera.gd" id="3_1ie0h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_08t41"]
+radius = 16.0
 
 [node name="Player" type="CharacterBody2D"]
+floor_constant_speed = true
+floor_max_angle = 1.553343
+floor_snap_length = 500.0
 script = ExtResource("1_ucweq")
+jetpack_boost_accel = 1000.0
+space_rotation_speed = 3.0
+space_decel_linear = 100.0
+space_decel_mult = 0.99
+planet_max_move_speed = 150.0
+planet_move_accel_air = 500.0
+planet_move_accel_ground = 2000.0
+planet_jump_velocity = 200.0
+planet_decel_air_linear = 300.0
+planet_decel_air_mult = 0.99
+planet_decel_ground_linear = 2000.0
+planet_decel_ground_mult = 0.99
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_08t41")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_08t41")
+texture = ExtResource("2_1ie0h")
+hframes = 8
 
 [node name="Camera" type="Camera2D" parent="."]
 ignore_rotation = false
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(2, 2)
 process_callback = 0
 limit_enabled = false
-position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 script = ExtResource("3_1ie0h")

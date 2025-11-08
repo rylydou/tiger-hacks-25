@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode blend_add;
 
 uniform float scale = 2.0;
 uniform float speed = 1.0;
@@ -11,9 +12,19 @@ uniform float inner_feather_start = 0.25;
 uniform float inner_feather_end = 0.5;
 uniform float outer_feather = 0.9;
 
+
+varying flat vec4 MODULATE;
+
+
 float remap(float value, float in_min, float in_max, float out_min, float out_max) {
     return out_min + (value - in_min) * (out_max - out_min) / (in_max - in_min);
 }
+
+
+void vertex() {
+	MODULATE = COLOR;
+}
+
 
 void fragment() {
 	vec2 center = vec2(0.5);
@@ -38,6 +49,8 @@ void fragment() {
 	COLOR = texture(TEXTURE, vec2(x, y));
 	COLOR.a *= smoothstep(1.0, outer_feather, r);
 	COLOR.a *= smoothstep(inner_feather_start, inner_feather_end, r);
+	
+	COLOR *= MODULATE;
 	
 	// COLOR.r = r;
 	// COLOR.g = theta / PI / 2.0;
