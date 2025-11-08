@@ -1,0 +1,9 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://bu2phahk26jxu"]
+
+[ext_resource type="FontFile" uid="uid://cfjw1u3ncp4le" path="res://content/font/Chillax-Variable.woff2" id="1_7p3vi"]
+
+[resource]
+base_font = ExtResource("1_7p3vi")
+variation_opentype = {
+2003265652: 700
+}

@@ -1,0 +1,9 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://cdhiu1bi7qwhn"]
+
+[ext_resource type="FontFile" uid="uid://cfjw1u3ncp4le" path="res://content/font/Chillax-Variable.woff2" id="1_hdqen"]
+
+[resource]
+base_font = ExtResource("1_hdqen")
+variation_opentype = {
+2003265652: 400
+}

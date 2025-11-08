@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://drbctbpnp652k"]
+[gd_scene load_steps=19 format=3 uid="uid://drbctbpnp652k"]
 
 [ext_resource type="Script" uid="uid://bjieh1uyr44c" path="res://scripts/entities/player.gd" id="1_ucweq"]
 [ext_resource type="Texture2D" uid="uid://bslv3yxot17o4" path="res://content/art/Player/space idle.png" id="2_42nxq"]
 [ext_resource type="Script" uid="uid://hpupyh8dlpw3" path="res://scripts/entities/camera.gd" id="3_1ie0h"]
+[ext_resource type="FontVariation" uid="uid://bu2phahk26jxu" path="res://resources/fonts/bold.tres" id="4_5u6hq"]
 [ext_resource type="Script" uid="uid://b8hvllotmm5u0" path="res://scripts/components/keep_up.gd" id="4_42nxq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_08t41"]
@@ -16,7 +17,8 @@ light_mode = 1
 size = Vector3(16, 32, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_1ie0h"]
-font_size = 12
+font = ExtResource("4_5u6hq")
+font_size = 20
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_42nxq"]
 blend_mode = 1
@@ -116,7 +118,7 @@ rotation = -1.5707964
 mesh = SubResource("PrismMesh_1ie0h")
 
 [node name="Node2D" type="Node2D" parent="Home Arrow Anchor"]
-position = Vector2(219, 0)
+position = Vector2(200, 0)
 
 [node name="Label Anchor" type="Node2D" parent="Home Arrow Anchor/Node2D"]
 top_level = true

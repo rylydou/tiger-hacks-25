@@ -54,14 +54,17 @@ var jump_timer := 0.0
 var wait_until_release_before_boosting := false
 
 var time := 0.0
+var is_dead := false
 
 
 func _ready() -> void:
-	o2 = 60 + 30 * Stats.oxygen_upgrades
 	o2_max = o2
+	o2 = 60 + 30 * Stats.oxygen_upgrades
+	o2_bar.custom_minimum_size.x = o2_max / 60.0 * 200.0
 	
 	jetpack_fuel_time = 1.0 + 1.0 * Stats.fuel_upgrades
 	jetpack_fuel_left = jetpack_fuel_time
+	fuel_bar.custom_minimum_size.x = jetpack_fuel_time * 200.0
 
 
 func get_up_vector() -> Vector2:
@@ -69,6 +72,12 @@ func get_up_vector() -> Vector2:
 
 
 func _physics_process(delta: float) -> void:
+	if is_dead: return
+	
+	if o2 < 0.0:
+		die()
+		return
+	
 	time += delta
 	jump_timer -= delta
 	
@@ -80,7 +89,6 @@ func _physics_process(delta: float) -> void:
 	home_arrow_anchor.look_at(Vector2.ZERO)
 	
 	fuel_bar.value = (jetpack_fuel_left / jetpack_fuel_time) * 100.0
-	fuel_bar.custom_minimum_size.x = jetpack_fuel_time * 150.0
 	
 	o2 -= delta
 	o2_bar.value = (o2 / o2_max) * 100.0
@@ -88,7 +96,7 @@ func _physics_process(delta: float) -> void:
 	if o2 < 10.0:
 		o2_bar.modulate.a = 0.0 if wrapf(time * 5.0, 0.0, 1.0) < 0.5 else 1.0
 	elif o2 < o2_max / 3.0 or o2 < 30.0:
-		o2_bar.modulate.a = 0.0 if wrapf(time * 2.0, 0.0, 1.0) < 0.2 else 1.0
+		o2_bar.modulate.a = 0.0 if wrapf(time * 1.0, 0.0, 1.0) < 0.1 else 1.0
 	
 	if jetpack_fuel_left <= 0.0:
 		fuel_bar.modulate.a = 0.0 if wrapf(time * 5.0, 0.0, 1.0) < 0.5 else 1.0
@@ -217,8 +225,14 @@ func _draw() -> void:
 
 
 func interact() -> void:
-	var objects := interaction_area.get_overlapping_areas()
-	objects.append_array(interaction_area.get_overlapping_bodies())
+	var objects := interaction_area.get_overlapping_bodies()
+	objects.append_array(interaction_area.get_overlapping_areas())
 	
 	for object in objects:
 		object.propagate_call(&"_interact")
+
+
+func die() -> void:
+	if is_dead: return
+	is_dead = true
+	get_tree().change_scene_to_file("res://scenes/test-Ian.tscn")
