@@ -32,6 +32,17 @@ func pick_new_target() -> void:
 		look_at(target_pos)
 
 
+var picked_up := false
+
 func pickup() -> void:
-	Inventory.add(RockItem.new())
+	if picked_up: return
+	picked_up = true
+	
+	Inventory.add_item(RockItem.new())
 	queue_free()
+	
+	DevTools.toast("+1 Space Fish")
+
+
+func _on_body_entered(body: Node2D) -> void:
+	pickup()

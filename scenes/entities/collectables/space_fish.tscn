@@ -26,6 +26,8 @@ scale_max = 5.0
 scale_curve = SubResource("CurveTexture_y8hs5")
 
 [node name="Space Fish" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("1_yurnl")
 max_stray_distance = 800.0
 dwell_time_range = Vector2(1, 5)
@@ -43,3 +45,5 @@ show_behind_parent = true
 amount = 16
 lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_wbfar")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

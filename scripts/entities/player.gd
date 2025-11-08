@@ -8,6 +8,7 @@ class_name Player extends CharacterBody2D
 @export var home_arrow_anchor: Node2D
 @export var fuel_bar: ProgressBar
 @export var o2_bar: ProgressBar
+@export var jetpack_vfx: GPUParticles2D
 
 @export_group("Jetpack", "jetpack_")
 
@@ -46,6 +47,8 @@ class_name Player extends CharacterBody2D
 var gamepad := Gamepad.create(Gamepad.DEVICE_AUTO)
 
 var is_jumping := false
+var is_boosting := false
+var jump_timer := 0.0
 var wait_until_release_before_boosting := false
 
 var time := 0.0
@@ -57,6 +60,7 @@ func get_up_vector() -> Vector2:
 
 func _physics_process(delta: float) -> void:
 	time += delta
+	jump_timer -= delta
 	
 	gamepad.poll(delta)
 	_process_movement(delta)
@@ -85,9 +89,6 @@ func _physics_process(delta: float) -> void:
 func _process_movement(delta: float) -> void:
 	var gravity := get_gravity()
 	
-	if not gamepad.jump.down:
-		velocity += gravity * delta
-	
 	var has_gravity := not gravity.is_zero_approx()
 	
 	if has_gravity:
@@ -98,15 +99,7 @@ func _process_movement(delta: float) -> void:
 	else:
 		motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	
-	if has_gravity:
-		_process_gravity(delta)
-	else:
-		_process_space(delta)
-	
-	move_and_slide()
-	
-	var target_zoom := 2.0 if has_gravity else 1.0
-	
+	var target_zoom := 2.0 if has_gravity else 0.5
 	camera.zoom = Vector2.ONE * lerpf(camera.zoom.x, target_zoom, Math.smooth(1.0, delta))
 	
 	var up := transform.basis_xform(Vector2.UP)
@@ -115,21 +108,42 @@ func _process_movement(delta: float) -> void:
 	if not gamepad.jump.down:
 		wait_until_release_before_boosting = false
 	
+	jetpack_vfx.emitting = false
+	is_boosting = false
+	
 	if (
 			gamepad.jump.down
 			and not wait_until_release_before_boosting
-			and velocity.project(up).length() < jetpack_max_speed
 	):
-		var using_o2 := false
-		if jetpack_fuel_left < 0.0:
-			jetpack_fuel_left += delta
-			o2 -= delta * jetpack_o2_to_fuel_ratio
-			using_o2 = true
+		var current_jetpack_speed := velocity.dot(up)
 		
-		velocity += get_up_vector() * jetpack_boost_accel * delta
-		jetpack_fuel_left -= delta
-		if jetpack_fuel_left <= 0.0 and not using_o2:
-			wait_until_release_before_boosting = true
+		jetpack_vfx.emitting = true
+		
+		if (
+				current_jetpack_speed < jetpack_max_speed
+				or velocity.normalized().dot(up) < 0.99
+		):
+			var using_o2 := false
+			if jetpack_fuel_left < 0.0:
+				jetpack_fuel_left += delta
+				o2 -= delta * jetpack_o2_to_fuel_ratio
+				using_o2 = true
+			
+			velocity += get_up_vector() * jetpack_boost_accel * delta
+			jetpack_fuel_left -= delta
+			is_boosting = true
+			if jetpack_fuel_left <= 0.0 and not using_o2:
+				wait_until_release_before_boosting = true
+	else:
+		if not (is_jumping and gamepad.jump.down and jump_timer > 0.0):
+			velocity += gravity * delta
+	
+	if has_gravity:
+		_process_gravity(delta)
+	else:
+		_process_space(delta)
+	
+	move_and_slide()
 
 
 func _process_space(delta: float) -> void:
@@ -146,7 +160,7 @@ func _process_space(delta: float) -> void:
 	# velocity = velocity
 	
 	var magnitude := velocity.length()
-	var new_angle := rotate_toward(velocity.angle(), up.angle(), (space_jetpack_steering_assist_over_time + absf(gamepad.move.x) * space_jetpack_steering_assist_manual) * delta)
+	var new_angle := rotate_toward(velocity.angle(), up.angle(), (space_jetpack_steering_assist_over_time + space_jetpack_steering_assist_manual * float(is_boosting)) * delta)
 	
 	velocity = Vector2.from_angle(new_angle) * magnitude
 
@@ -170,6 +184,7 @@ func _process_gravity(delta: float) -> void:
 	
 	if absf(current_move_speed) < absf(planet_move_speed):
 		velocity += right * gamepad.move.x * move_accel * delta
+		jump_timer = 1.0
 	
 	# Deceleration if not moving
 	if (
@@ -190,7 +205,6 @@ func _process_gravity(delta: float) -> void:
 
 
 func _draw() -> void:
-	return
 	var gravity := get_gravity()
 	
 	draw_line(Vector2.ZERO, gravity.rotated(-rotation), Color.RED, 4.0)
