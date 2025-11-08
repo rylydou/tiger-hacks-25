@@ -3,10 +3,6 @@ extends Node
 # Array of Item instances
 var items: Array[Item] = []
 
-# Maximum inventory size
-# This is managed by PlayerStats _ready
-var max_inventory_size: int = 10
-
 # Signals
 signal item_added(item: Item)
 signal item_removed(item: Item)
@@ -21,7 +17,7 @@ func _ready() -> void:
 # Add an item to inventory
 func add_item(item: Item) -> bool:
 	# Check if inventory is full
-	if items.size() >= max_inventory_size:
+	if items.size() >= Stats.max_inventory_size:
 		inventory_full.emit()
 		return false
 	
@@ -99,12 +95,12 @@ func get_size() -> int:
 
 # Get remaining space
 func get_remaining_space() -> int:
-	return max_inventory_size - items.size()
+	return Stats.max_inventory_size - items.size()
 
 
 # Check if inventory is full
 func is_full() -> bool:
-	return items.size() >= max_inventory_size
+	return items.size() >= Stats.max_inventory_size
 
 
 # Check if inventory is empty
@@ -121,7 +117,7 @@ func clear() -> void:
 # Print inventory contents
 func print_inventory() -> void:
 	print("=== INVENTORY ===")
-	print("Size: ", items.size(), " / ", max_inventory_size)
+	print("Size: ", items.size(), " / ", Stats.max_inventory_size)
 	print()
 	
 	for i in range(items.size()):
