@@ -254,7 +254,7 @@ output_item_type = 6
 receiving_items = Array[int]([3])
 
 [node name="animal_processor" parent="Draggable_Areas" instance=ExtResource("4_ih210")]
-position = Vector2(1532.0001, 842.00006)
+position = Vector2(1532, 809.00006)
 scale = Vector2(1.25, 1.25)
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
@@ -262,21 +262,21 @@ output_item_type = 5
 receiving_items = Array[int]([2])
 
 [node name="rock_stock" parent="Draggable_Areas" instance=ExtResource("2_4kl76")]
-position = Vector2(845, 831)
+position = Vector2(845, 800)
 scale = Vector2(0.85, 0.85)
 item_texture = ExtResource("1_i5c44")
 output_item_type = 1
 count = 1
 
 [node name="animal_stock" parent="Draggable_Areas" instance=ExtResource("2_4kl76")]
-position = Vector2(1100, 831)
+position = Vector2(1100, 800)
 scale = Vector2(0.85, 0.85)
 item_texture = ExtResource("1_i5c44")
 output_item_type = 2
 count = 1
 
 [node name="plant_stock" parent="Draggable_Areas" instance=ExtResource("2_4kl76")]
-position = Vector2(583, 831)
+position = Vector2(583, 800)
 scale = Vector2(0.85, 0.85)
 item_texture = ExtResource("1_i5c44")
 output_item_type = 3

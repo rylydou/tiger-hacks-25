@@ -6,4 +6,4 @@ func _on_processor_processing_progress_changed(progress: float) -> void:
 
 
 func _on_processor_processing_completed() -> void:
-	value = 0
+	value = 100.0
