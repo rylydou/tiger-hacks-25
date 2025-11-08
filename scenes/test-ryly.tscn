@@ -1,4 +1,4 @@
-[gd_scene load_steps=135 format=4 uid="uid://drgnc25yvxlqe"]
+[gd_scene load_steps=161 format=4 uid="uid://drgnc25yvxlqe"]
 
 [ext_resource type="Script" uid="uid://bmschkfueo481" path="res://scripts/map_gen.gd" id="1_vk337"]
 [ext_resource type="PackedScene" uid="uid://drbctbpnp652k" path="res://scenes/entities/player.tscn" id="3_1jrt7"]
@@ -17,7 +17,9 @@
 [ext_resource type="Shader" uid="uid://tje23bwfsjg8" path="res://content/shaders/space.gdshader" id="16_asg5j"]
 [ext_resource type="Texture2D" uid="uid://ba251g1rf35k6" path="res://resources/atmospheres/ice.tres" id="16_n26kp"]
 [ext_resource type="Texture2D" uid="uid://3skofyyqxame" path="res://resources/atmospheres/sulfur.tres" id="19_rmxqu"]
+[ext_resource type="Texture2D" uid="uid://6wdooay4tiy3" path="res://resources/atmospheres/fire.tres" id="20_n26kp"]
 [ext_resource type="Texture2D" uid="uid://vdmsum6tcn6f" path="res://content/art/terrain/fill_dev.png" id="21_1ybtr"]
+[ext_resource type="Texture2D" uid="uid://c0c73410pcsa0" path="res://resources/atmospheres/puke.tres" id="21_t4vwl"]
 [ext_resource type="Resource" uid="uid://dx000dj5b03a0" path="res://resources/shape_materials/dev.tres" id="22_i4ty8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_548c8"]
@@ -688,6 +690,143 @@ texture = ExtResource("21_1ybtr")
 mesh = SubResource("ArrayMesh_no37y")
 z_index = -10
 
+[sub_resource type="Resource" id="Resource_no37y"]
+script = ExtResource("5_1pos8")
+position = Vector2(-130.87057, -171.81775)
+
+[sub_resource type="Resource" id="Resource_n1ekm"]
+script = ExtResource("5_1pos8")
+position = Vector2(-169.52283, -74.3819)
+
+[sub_resource type="Resource" id="Resource_rfto8"]
+script = ExtResource("5_1pos8")
+position = Vector2(-124.42856, -47.80847)
+
+[sub_resource type="Resource" id="Resource_igbhq"]
+script = ExtResource("5_1pos8")
+position = Vector2(-153.41772, 35.93808)
+
+[sub_resource type="Resource" id="Resource_6sja5"]
+script = ExtResource("5_1pos8")
+position = Vector2(-103.49194, 95.52695)
+
+[sub_resource type="Resource" id="Resource_jc16y"]
+script = ExtResource("5_1pos8")
+position = Vector2(-130.06534, 162.36313)
+
+[sub_resource type="Resource" id="Resource_b5cpn"]
+script = ExtResource("5_1pos8")
+position = Vector2(-20.55066, 196.1838)
+
+[sub_resource type="Resource" id="Resource_tisk4"]
+script = ExtResource("5_1pos8")
+position = Vector2(-9.277039, 140.62125)
+
+[sub_resource type="Resource" id="Resource_oyea1"]
+script = ExtResource("5_1pos8")
+position = Vector2(82.52203, 125.32138)
+
+[sub_resource type="Resource" id="Resource_7cqnj"]
+script = ExtResource("5_1pos8")
+position = Vector2(111.51123, 43.99063)
+
+[sub_resource type="Resource" id="Resource_pdcrl"]
+script = ExtResource("5_1pos8")
+position = Vector2(166.26855, 56.069427)
+
+[sub_resource type="Resource" id="Resource_huef2"]
+script = ExtResource("5_1pos8")
+position = Vector2(176.73688, -35.729645)
+
+[sub_resource type="Resource" id="Resource_eaaq2"]
+script = ExtResource("5_1pos8")
+position = Vector2(108.29016, -45.3927)
+texture_idx = -3
+
+[sub_resource type="Resource" id="Resource_fx0h0"]
+script = ExtResource("5_1pos8")
+position = Vector2(102.65338, -115.44989)
+
+[sub_resource type="Resource" id="Resource_lxktq"]
+script = ExtResource("5_1pos8")
+position = Vector2(150.96875, -157.32324)
+
+[sub_resource type="Resource" id="Resource_amaih"]
+script = ExtResource("5_1pos8")
+position = Vector2(87.35358, -206.44373)
+
+[sub_resource type="Resource" id="Resource_e4btu"]
+script = ExtResource("5_1pos8")
+position = Vector2(29.375183, -156.51791)
+
+[sub_resource type="Resource" id="Resource_durm6"]
+script = ExtResource("5_1pos8")
+position = Vector2(-35.850464, -181.48071)
+
+[sub_resource type="Resource" id="Resource_e3e7l"]
+script = ExtResource("5_1pos8")
+position = Vector2(-36.65576, -239.4592)
+texture_idx = 3
+
+[sub_resource type="Resource" id="Resource_4uast"]
+script = ExtResource("5_1pos8")
+position = Vector2(-139.7284, -236.23816)
+texture_idx = 6
+
+[sub_resource type="Resource" id="Resource_hkbd6"]
+script = ExtResource("5_1pos8")
+position = Vector2(-130.87057, -171.81775)
+
+[sub_resource type="Resource" id="Resource_buy54"]
+script = ExtResource("6_asg5j")
+_points = {
+0: SubResource("Resource_no37y"),
+1: SubResource("Resource_n1ekm"),
+2: SubResource("Resource_rfto8"),
+5: SubResource("Resource_igbhq"),
+6: SubResource("Resource_6sja5"),
+7: SubResource("Resource_jc16y"),
+8: SubResource("Resource_b5cpn"),
+9: SubResource("Resource_tisk4"),
+10: SubResource("Resource_oyea1"),
+11: SubResource("Resource_7cqnj"),
+12: SubResource("Resource_pdcrl"),
+13: SubResource("Resource_huef2"),
+14: SubResource("Resource_eaaq2"),
+15: SubResource("Resource_fx0h0"),
+16: SubResource("Resource_lxktq"),
+17: SubResource("Resource_amaih"),
+18: SubResource("Resource_e4btu"),
+19: SubResource("Resource_durm6"),
+20: SubResource("Resource_e3e7l"),
+21: SubResource("Resource_4uast"),
+22: SubResource("Resource_hkbd6")
+}
+_point_order = PackedInt32Array(22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 2, 1, 0)
+_constraints = {
+Vector2i(0, 22): 15
+}
+_next_key = 23
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1kp2j"]
+_surfaces = [{
+"aabb": AABB(-169.52283, -239.4592, 0, 346.2597, 435.643, 1e-05),
+"attribute_data": PackedByteArray("/////3i6C8H4PGzBeLoLwfg8bMH/////gJ8SwI51b8GAnxLAjnVvwf/////gZg/AEHs1weBmD8AQezXB/////2AA6z+WhBzBYADrP5aEHMH/////CLWuQJhxTsEIta5AmHFOwf////8A+BZBwFIdwQD4FkHAUh3B/////5CU2EAgkjXAkJTYQCCSNcD/////pLwwQSjrDsCkvDBBKOsOwP/////ARCZBGEdgQMBEJkEYR2BA/////8AF30Bo9i9AwAXfQGj2L0D/////SAulQIyk+kBIC6VAjKT6QP/////AbhS/Cp8MQcBuFL8KnwxB/////8BnpL8OL0RBwGekvw4vREH/////uhACwfZcIkG6EALB9lwiQf/////g+87AzA2/QOD7zsDMDb9A//////BqGcGYwA9A8GoZwZjAD0D/////bNv4wOA7P8Bs2/jA4Ds/wP////+ITs1AWObmwIhOzUBY5ubA/////9iFKcGIw5TA2IUpwYjDlMD/////3t4CwVjRK8He3gLBWNErwQ=="),
+"format": 34359742527,
+"index_count": 57,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsACwAMAA0ADgAPABAAAwAFABEABgAIAAkACQALAA0AAgADABEAEQAGAAkACQANAA4AAgARAAkACQAOABAAAAACAAkACQAQABIAEgATABMAEwAAAAkACQASABMA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("eLoLw/g8bMMAAAAAgJ8Swo51b8MAAAAA4GYPwhB7NcMAAAAAYADrQZaEHMMAAAAACLWuQphxTsMAAAAAAPgWQ8BSHcMAAAAAkJTYQiCSNcIAAAAApLwwQyjrDsIAAAAAwEQmQxhHYEIAAAAAwAXfQmj2L0IAAAAASAulQoyk+kIAAAAAwG4UwQqfDEMAAAAAwGekwQ4vREMAAAAAuhACw/ZcIkMAAAAA4PvOwswNv0IAAAAA8GoZw5jAD0IAAAAAbNv4wuA7P8IAAAAAiE7NQljm5sIAAAAA2IUpw4jDlMIAAAAA3t4Cw1jRK8MAAAAA/////////7//////////v/////////+//////////7//////////v/////////+//////////7//////////v/////////+//////////7//////////v/////////+//////////7//////////v/////////+//////////7//////////v/////////+//////////7//////////vw==")
+}]
+
+[sub_resource type="Resource" id="Resource_xnqlg"]
+script = ExtResource("7_548c8")
+texture = ExtResource("21_1ybtr")
+mesh = SubResource("ArrayMesh_1kp2j")
+z_index = -10
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmxqu"]
 bg_color = Color(0, 0, 0, 0.5019608)
 
@@ -766,10 +905,10 @@ polygon = PackedVector2Array(42.975876, -154.8583, 109.56975, -133.00185, 153.28
 
 [node name="Planet Libary" type="Node" parent="."]
 
-[node name="Planet Template 2" type="AnimatableBody2D" parent="Planet Libary"]
+[node name="__Template__" type="AnimatableBody2D" parent="Planet Libary"]
 position = Vector2(8028, -6886)
 
-[node name="Atmosphere" type="MeshInstance2D" parent="Planet Libary/Planet Template 2"]
+[node name="Atmosphere" type="MeshInstance2D" parent="Planet Libary/__Template__"]
 z_index = -100
 texture_filter = 2
 material = ExtResource("14_1pos8")
@@ -777,7 +916,7 @@ scale = Vector2(704, 704)
 mesh = SubResource("QuadMesh_spcul")
 texture = ExtResource("3_asg5j")
 
-[node name="Gravity Circle" parent="Planet Libary/Planet Template 2" instance=ExtResource("3_1pos8")]
+[node name="Gravity Circle" parent="Planet Libary/__Template__" instance=ExtResource("3_1pos8")]
 
 [node name="Planet - Jagged 1" type="AnimatableBody2D" parent="Planet Libary"]
 position = Vector2(-127, -891)
@@ -896,24 +1035,24 @@ metadata/_custom_type_script = "uid://dhdc4b8yddyej"
 visible = false
 polygon = PackedVector2Array(-229.85791, -113.1822, -196.03769, -197.04489, -120.48506, -213.0541, -85.96229, -181.01657, -85.46069, -89.01773, -60.200302, -66.4621, 84.88761, -68.472305, 109.44339, -82.53345, 110.9682, -183.01299, 140.48347, -214.04008, 209.51704, -212.03677, 235.53378, -183.01228, 226.06343, 111.74051, 197.52037, 153.03137, 131.48242, 165.55621, 104.39679, 138.01016, 108.44458, 48.52723, 78.89364, 27.759598, -70.48452, 29.535713, -87.220985, 46.9786, -86.462746, 126.51553, -122.83264, 161.87552, -200.0302, 149.5424, -238.08617, 78.41068)
 
-[node name="Planet Template" type="AnimatableBody2D" parent="Planet Libary"]
+[node name="Planet - Big" type="AnimatableBody2D" parent="Planet Libary"]
 position = Vector2(463, -2375)
 script = ExtResource("13_548c8")
 gravity_radius = 600.0
 inner_safe_radius = 700.0
 
-[node name="Atmosphere" type="MeshInstance2D" parent="Planet Libary/Planet Template"]
+[node name="Atmosphere" type="MeshInstance2D" parent="Planet Libary/Planet - Big"]
 z_index = -100
 texture_filter = 2
 material = ExtResource("14_1pos8")
 scale = Vector2(1200, 1200)
 mesh = SubResource("QuadMesh_spcul")
-texture = ExtResource("16_n26kp")
+texture = ExtResource("20_n26kp")
 
-[node name="Gravity Circle" parent="Planet Libary/Planet Template" instance=ExtResource("3_1pos8")]
+[node name="Gravity Circle" parent="Planet Libary/Planet - Big" instance=ExtResource("3_1pos8")]
 radius = 600.0
 
-[node name="SS2D_Shape" type="Node2D" parent="Planet Libary/Planet Template"]
+[node name="SS2D_Shape" type="Node2D" parent="Planet Libary/Planet - Big"]
 script = ExtResource("4_5urus")
 _points = SubResource("Resource_axw2t")
 _meshes = Array[ExtResource("7_548c8")]([SubResource("Resource_w2icj")])
@@ -921,9 +1060,36 @@ shape_material = ExtResource("22_i4ty8")
 collision_polygon_node_path = NodePath("../CollisionPolygon2D")
 metadata/_custom_type_script = "uid://dhdc4b8yddyej"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Planet Libary/Planet Template"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Planet Libary/Planet - Big"]
 visible = false
 polygon = PackedVector2Array(314.4884, -254.22247, 352.46338, -83.33496, 344.8684, 91.349976, 268.91846, 250.84497, 120.81592, 341.985, -53.86902, 345.78247, -209.56653, 269.83252, -319.69397, 129.32495, -346.2765, -45.359985, -296.90894, -216.24744, -148.80652, -314.98242, 25.878418, -337.76746, 196.76599, -311.18494)
+
+[node name="Planet Template 3" type="AnimatableBody2D" parent="Planet Libary"]
+position = Vector2(2010, -2109)
+script = ExtResource("13_548c8")
+
+[node name="Atmosphere" type="MeshInstance2D" parent="Planet Libary/Planet Template 3"]
+z_index = -100
+texture_filter = 2
+material = ExtResource("14_1pos8")
+scale = Vector2(704, 704)
+mesh = SubResource("QuadMesh_spcul")
+texture = ExtResource("21_t4vwl")
+
+[node name="Gravity Circle" parent="Planet Libary/Planet Template 3" instance=ExtResource("3_1pos8")]
+
+[node name="SS2D_Shape" type="Node2D" parent="Planet Libary/Planet Template 3"]
+position = Vector2(-9, 30)
+script = ExtResource("4_5urus")
+_points = SubResource("Resource_buy54")
+_meshes = Array[ExtResource("7_548c8")]([SubResource("Resource_xnqlg")])
+shape_material = ExtResource("22_i4ty8")
+collision_polygon_node_path = NodePath("../CollisionPolygon2D")
+metadata/_custom_type_script = "uid://dhdc4b8yddyej"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Planet Libary/Planet Template 3"]
+visible = false
+polygon = PackedVector2Array(-139.87057, -141.81775, -148.7284, -206.23816, -45.65576, -209.4592, -44.850464, -151.48071, 20.375183, -126.517914, 78.35358, -176.44373, 141.96875, -127.32324, 93.65338, -85.44989, 99.29016, -15.3927, 167.73688, -5.729645, 157.26855, 86.06943, 102.51123, 73.99063, 73.52203, 155.32138, -18.277039, 170.62125, -29.55066, 226.1838, -139.06534, 192.36313, -112.49194, 125.52695, -162.41772, 65.93808, -133.42856, -17.808472, -178.52283, -44.381897)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

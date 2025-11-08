@@ -6,7 +6,9 @@ const TPS := 60.0
 
 static var atmospheres: Array[GradientTexture1D] = [
 	preload("res://resources/atmospheres/blue-teal-green.tres"),
+	preload("res://resources/atmospheres/fire.tres"),
 	preload("res://resources/atmospheres/ice.tres"),
+	preload("res://resources/atmospheres/puke.tres"),
 	preload("res://resources/atmospheres/purple-gold.tres"),
 	preload("res://resources/atmospheres/sulfur.tres"),
 ]

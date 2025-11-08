@@ -12,10 +12,10 @@ var incorrect_multiplier: float = 0.20
 var current_score: int = 0
 
 # Oxygen upgrades
-var max_oxygen_upgrades: int = 5
+var oxygen_upgrades: int = 0
 
 # Fuel upgrades
-var max_fuel_upgrades: int = 5
+var fuel_upgrades: int = 0
 
 # Processing upgrades
 var processing_speed: float = 1.0 # Percent of Speed (1.0 = 100%)

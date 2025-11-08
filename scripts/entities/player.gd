@@ -54,6 +54,14 @@ var wait_until_release_before_boosting := false
 var time := 0.0
 
 
+func _ready() -> void:
+	o2 = 60 + 30 * Stats.oxygen_upgrades
+	o2_max = o2
+	
+	jetpack_fuel_time = 1.0 + 1.0 * Stats.fuel_upgrades
+	jetpack_fuel_left = jetpack_fuel_time
+
+
 func get_up_vector() -> Vector2:
 	return transform.basis_xform(Vector2.UP)
 
