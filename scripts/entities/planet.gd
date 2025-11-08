@@ -52,6 +52,21 @@ func setup() -> void:
 	
 	atmosphere.texture = Global.atmospheres.pick_random()
 	atmosphere.scale *= 1.5
+	
+	var scene: PackedScene
+	
+	if type == Type.Flora:
+		scene = preload("res://scenes/entities/collectables/zen_flora.tscn")
+	elif type == Type.Mineral:
+		scene = preload("res://scenes/entities/collectables/boom_rock.tscn")
+	
+	if scene != null:
+		var curve := shape.get_point_array().get_curve()
+		var length := curve.get_baked_length()
+		var trans := curve.sample_baked_with_rotation(randf() * length)
+		var node: Node2D = scene.instantiate()
+		node.transform = trans
+		shape.add_child(node)
 
 
 func randomize_types() -> void:
