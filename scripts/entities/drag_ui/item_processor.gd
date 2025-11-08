@@ -8,6 +8,7 @@ signal processing_progress_changed(progress: float)
 @export var max_capacity: int = 1
 var _processing_time: float = 0.0
 var _last_progress_emission: float = 0.0
+var _display_sprite: Sprite2D = null
 
 
 func _ready() -> void:
@@ -15,6 +16,11 @@ func _ready() -> void:
 	super._ready()
 	is_draggable = false
 	_is_active = true
+	
+	# Create display sprite for showing processed item
+	_display_sprite = Sprite2D.new()
+	_display_sprite.visible = false
+	add_child(_display_sprite)
 
 
 func _process(delta: float) -> void:
@@ -38,6 +44,7 @@ func _process(delta: float) -> void:
 	if _processing_time <= 0.0:
 		_processing_time = 0.0
 		is_draggable = true
+		_show_processed_item()
 		processing_completed.emit()
 
 
@@ -59,7 +66,7 @@ func _spawn_draggable_at(global_point: Vector2) -> void:
 	# Create sprite with output item's icon and mark with output type
 	var sprite = Sprite2D.new()
 	
-	# Get the output item's icon
+	# Get the output item's icon and scale
 	var output_item: Item = null
 	match output_item_type:
 		Item.ResourceType.ROCK:
@@ -69,14 +76,15 @@ func _spawn_draggable_at(global_point: Vector2) -> void:
 		Item.ResourceType.ANIMAL:
 			output_item = AnimalItem.new()
 		Item.ResourceType.REFINED_ROCK:
-			output_item = RefinedRockItem.new() if ClassDB.class_exists("RefinedRockItem") else null
+			output_item = RefinedRockItem.new()
 		Item.ResourceType.REFINED_PLANT:
-			output_item = RefinedPlantItem.new() if ClassDB.class_exists("RefinedPlantItem") else null
+			output_item = RefinedPlantItem.new()
 		Item.ResourceType.REFINED_ANIMAL:
-			output_item = RefinedAnimalItem.new() if ClassDB.class_exists("RefinedAnimalItem") else null
+			output_item = RefinedAnimalItem.new()
 	
 	if output_item and output_item.icon:
 		sprite.texture = output_item.icon
+		sprite.scale = output_item.sprite_scale
 	elif item_texture:
 		sprite.texture = item_texture
 	
@@ -108,6 +116,42 @@ func decrement_count() -> void:
 		is_draggable = false
 		_processing_time = 0.0
 		_last_progress_emission = 0.0
+		_hide_processed_item()
+
+
+func _show_processed_item() -> void:
+	# Display the processed output item
+	if not _display_sprite:
+		return
+	
+	var output_item: Item = null
+	match output_item_type:
+		Item.ResourceType.ROCK:
+			output_item = RockItem.new()
+		Item.ResourceType.PLANT:
+			output_item = PlantItem.new()
+		Item.ResourceType.ANIMAL:
+			output_item = AnimalItem.new()
+		Item.ResourceType.REFINED_ROCK:
+			output_item = RefinedRockItem.new()
+		Item.ResourceType.REFINED_PLANT:
+			output_item = RefinedPlantItem.new()
+		Item.ResourceType.REFINED_ANIMAL:
+			output_item = RefinedAnimalItem.new()
+	
+	if output_item and output_item.icon:
+		_display_sprite.texture = output_item.icon
+		_display_sprite.scale = output_item.sprite_scale
+		_display_sprite.visible = true
+	elif item_texture:
+		_display_sprite.texture = item_texture
+		_display_sprite.visible = true
+
+
+func _hide_processed_item() -> void:
+	# Hide the processed item display
+	if _display_sprite:
+		_display_sprite.visible = false
 
 
 func _get_processing_duration() -> float:

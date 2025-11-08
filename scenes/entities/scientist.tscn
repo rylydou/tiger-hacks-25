@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5wu63p7ncbky"]
+[gd_scene load_steps=11 format=3 uid="uid://b5wu63p7ncbky"]
 
 [ext_resource type="Script" uid="uid://dc28gs7h6p8wo" path="res://scripts/entities/scientist.gd" id="1_rbq33"]
 [ext_resource type="Texture2D" uid="uid://dec2x55xjtwji" path="res://content/art/Shop/scientist idle (2).png" id="2_rbq33"]
 [ext_resource type="PackedScene" uid="uid://ix5hgno8iv4n" path="res://scenes/entities/item_matcher.tscn" id="3_olt48"]
+[ext_resource type="Texture2D" uid="uid://dcw1xh87sw4uy" path="res://content/art/Shop/UI/speech bubble.png" id="4_r3e82"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r3e82"]
 atlas = ExtResource("2_rbq33")
@@ -66,10 +67,16 @@ position = Vector2(0, -101)
 
 [node name="TimeRemaining" type="ProgressBar" parent="."]
 unique_name_in_owner = true
-offset_left = -97.0
-offset_top = -248.0
-offset_right = 71.0
-offset_bottom = -221.0
+offset_left = -82.0
+offset_top = -236.0
+offset_right = 86.0
+offset_bottom = -209.0
 show_percentage = false
+
+[node name="ItemDisplay" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -347.00003)
+scale = Vector2(15, 15)
+texture = ExtResource("4_r3e82")
 
 [editable path="ItemMatcher"]

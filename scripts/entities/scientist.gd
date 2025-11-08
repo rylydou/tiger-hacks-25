@@ -10,9 +10,11 @@ signal scientist_done
 
 @onready var item_matcher: ItemMatcher = $ItemMatcher
 @onready var time_remaining: ProgressBar = $TimeRemaining
+@onready var item_display: Sprite2D = $ItemDisplay
 
 var _countdown: float = 0.0
 var _request_created: bool = false
+var _display_timer: float = 0.0
 var _is_moving: bool = false
 var _move_start_pos: Vector2 = Vector2.ZERO
 var _move_end_pos: Vector2 = Vector2.ZERO
@@ -21,10 +23,14 @@ var _move_duration: float = 0.0
 var _target_location: Node2D = null
 var _enter_location: Node2D = null
 var _exit_location: Node2D = null
+var _has_arrived: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Hide item display initially
+	item_display.visible = false
+	
 	# Pick a random sprite and play its idle animation
 	if sprite_list.size() > 0:
 		var random_sprite = sprite_list.pick_random()
@@ -47,13 +53,14 @@ func _ready() -> void:
 	if _request_created:
 		_configure_request()
 	
-	# Start countdown
-	_countdown = time_limit
+	# Start countdown will be set when create_request() is called
+	# Don't start it here, wait for the actual time_limit to be set
 
 func create_request(request_type: Item.ResourceType, amount: int, time_limit_sec: float) -> void:
 	self.request_type = request_type
 	amount_needed = amount
 	time_limit = time_limit_sec
+	_countdown = time_limit_sec  # Set countdown to the actual time limit
 	_request_created = true
 	
 	if is_node_ready():
@@ -87,6 +94,25 @@ func _configure_request() -> void:
 		time_remaining.min_value = 0.0
 		time_remaining.max_value = time_limit
 		time_remaining.value = time_limit
+	
+	# Set item display texture based on request type
+	var item: Item = null
+	match request_type:
+		Item.ResourceType.ROCK:
+			item = RockItem.new()
+		Item.ResourceType.PLANT:
+			item = PlantItem.new()
+		Item.ResourceType.ANIMAL:
+			item = AnimalItem.new()
+		Item.ResourceType.REFINED_ROCK:
+			item = RefinedRockItem.new()
+		Item.ResourceType.REFINED_PLANT:
+			item = RefinedPlantItem.new()
+		Item.ResourceType.REFINED_ANIMAL:
+			item = RefinedAnimalItem.new()
+	
+	if item and item.icon:
+		item_display.texture = item.icon
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -103,6 +129,17 @@ func _process(delta: float) -> void:
 		if progress >= 1.0:
 			_is_moving = false
 			global_position = _move_end_pos
+			# Show item display once arrived
+			if not _has_arrived:
+				_has_arrived = true
+				item_display.visible = true
+				_display_timer = 5.0
+	
+	# Handle item display timer
+	if _display_timer > 0.0:
+		_display_timer -= delta
+		if _display_timer <= 0.0:
+			item_display.visible = false
 	
 	# Countdown timer
 	if _countdown > 0.0:
@@ -125,6 +162,9 @@ func _start_move_to(target_pos: Vector2) -> void:
 
 
 func _on_request_fulfilled() -> void:
+	# Hide item display
+	item_display.visible = false
+	
 	# Move to exit location if available
 	if _exit_location:
 		print("Scientist moving to exit location")
@@ -138,6 +178,9 @@ func _on_request_fulfilled() -> void:
 
 
 func _on_time_out() -> void:
+	# Hide item display
+	item_display.visible = false
+	
 	# Move to exit location if available
 	if _exit_location:
 		_start_move_to(_exit_location.global_position)
