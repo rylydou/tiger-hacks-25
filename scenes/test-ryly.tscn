@@ -715,7 +715,7 @@ border_color = Color(0, 0, 0, 0)
 
 [node name="Map Gen" type="Node2D" parent="." node_paths=PackedStringArray("planets_pool_node", "planets_parent")]
 script = ExtResource("1_vk337")
-planet_padding = 100.0
+planet_padding = 300.0
 branch_count = Array[int]([2, 5, 2, 1])
 distance_ranges = Array[Vector2]([Vector2(500, 1000), Vector2(1000, 2000), Vector2(1000, 3000), Vector2(2000, 5000)])
 planets_pool_node = NodePath("../Planet Libary")
@@ -728,7 +728,7 @@ z_index = -1000
 z_as_relative = false
 texture_repeat = 2
 material = SubResource("ShaderMaterial_548c8")
-scale = Vector2(10000, 10000)
+scale = Vector2(100000, 100000)
 mesh = SubResource("QuadMesh_vk337")
 
 [node name="Player" parent="." node_paths=PackedStringArray("fuel_bar", "o2_bar") instance=ExtResource("3_1jrt7")]
