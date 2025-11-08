@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://df8bocc7xlpbs"]
+[gd_scene load_steps=8 format=3 uid="uid://df8bocc7xlpbs"]
 
 [ext_resource type="Script" uid="uid://dmjoq3abt61mj" path="res://scripts/entities/Ian_Testing/inventory_tester.gd" id="1_6g6dy"]
 [ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="1_i5c44"]
 [ext_resource type="PackedScene" uid="uid://b5njac57k28dv" path="res://scenes/entities/inventory_stock.tscn" id="2_4kl76"]
 [ext_resource type="Script" uid="uid://bkehau171e8i6" path="res://scripts/entities/Ian_Testing/money_count.gd" id="2_hykfq"]
 [ext_resource type="PackedScene" uid="uid://dfwpcne8mxpak" path="res://scenes/entities/item_processor.tscn" id="4_ih210"]
-[ext_resource type="PackedScene" uid="uid://ix5hgno8iv4n" path="res://scenes/entities/item_matcher.tscn" id="6_w7qbk"]
+[ext_resource type="PackedScene" uid="uid://b5wu63p7ncbky" path="res://scenes/entities/scientist.tscn" id="7_v4hej"]
+[ext_resource type="Script" uid="uid://dtbr4yjdyrbsi" path="res://scenes/managers/request_manager.gd" id="7_w7qbk"]
 
 [node name="TestIan" type="Node2D"]
 
@@ -90,19 +91,12 @@ item_type = 3
 receiving_item = 3
 count = 1
 
-[node name="rock_request" parent="." instance=ExtResource("6_w7qbk")]
-position = Vector2(456, 468)
-item_type = 1
+[node name="Request_Manager" type="Node2D" parent="."]
+script = ExtResource("7_w7qbk")
 
-[node name="plant_request" parent="." instance=ExtResource("6_w7qbk")]
-position = Vector2(1176, 455)
-item_type = 6
-receiving_item = 6
-
-[node name="animal_request" parent="." instance=ExtResource("6_w7qbk")]
-position = Vector2(811, 457)
-item_type = 5
-receiving_item = 5
+[node name="Scientist" parent="." instance=ExtResource("7_v4hej")]
+position = Vector2(454, 506)
+time_limit = 10.0
 
 [connection signal="button_down" from="UI/Button" to="UI" method="_increase_rocks"]
 [connection signal="button_down" from="UI/Button 2" to="UI" method="_increase_animal"]

@@ -119,6 +119,11 @@ func _on_item_drag_ended(draggable) -> void:
 						if origin_bin and origin_bin != other_bin and origin_bin.is_inside_tree():
 							if origin_bin.has_method("decrement_count"):
 								origin_bin.decrement_count()
+							# Remove item from inventory if origin is InventoryStock
+							if origin_bin is InventoryStock and Inventory:
+								var items_of_type = Inventory.get_items_by_type(origin_item_type)
+								if not items_of_type.is_empty():
+									Inventory.remove_item(items_of_type[0])
 						draggable.set_meta("origin_bin", other_bin)
 						draggable.queue_free()
 						return
@@ -131,7 +136,6 @@ func _try_receive_item(item_type: Item.ResourceType = Item.ResourceType.NONE) ->
 	if not is_receiving:
 		return false
 	increment_count()
-	print("Item received: ", item_type, " in bin of type ", receiving_item, "count is now ", count)
 	return true
 
 
