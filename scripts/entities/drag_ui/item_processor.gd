@@ -82,15 +82,15 @@ func decrement_count() -> void:
 
 func _get_processing_duration() -> float:
 	# Get processing time based on item type
+	var base_time: float = 5.0
 	match receiving_item:
 		Item.ResourceType.ROCK:
-			return RockItem.new().processing_duration
+			base_time =  RockItem.new().processing_duration
 		Item.ResourceType.PLANT:
-			return PlantItem.new().processing_duration
+			base_time = PlantItem.new().processing_duration
 		Item.ResourceType.ANIMAL:
-			return AnimalItem.new().processing_duration
-		_:
-			return 5.0
+			base_time = AnimalItem.new().processing_duration
+	return base_time/Stats.get_processing_speed()
 
 
 func _try_receive_item(item_type: Item.ResourceType = Item.ResourceType.NONE) -> bool:

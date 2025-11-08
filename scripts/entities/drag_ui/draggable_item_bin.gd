@@ -111,7 +111,10 @@ func _on_item_drag_ended(draggable) -> void:
 			var other_bin: DraggableItemBin = collider
 			if other_bin.is_receiving:
 				var origin_item_type = _get_origin_bin_item_type(origin_bin)
-				if origin_item_type != Item.ResourceType.NONE and origin_item_type == other_bin.receiving_item:
+				# For ItemMatcher and subclasses, always try to receive (they validate internally)
+				# For other bins, check if type matches first
+				var should_try_receive = (other_bin is ItemMatcher) or (origin_item_type != Item.ResourceType.NONE and origin_item_type == other_bin.receiving_item)
+				if should_try_receive:
 					if other_bin._try_receive_item(origin_item_type):
 						if origin_bin and origin_bin != other_bin and origin_bin.is_inside_tree():
 							if origin_bin.has_method("decrement_count"):
@@ -128,6 +131,7 @@ func _try_receive_item(item_type: Item.ResourceType = Item.ResourceType.NONE) ->
 	if not is_receiving:
 		return false
 	increment_count()
+	print("Item received: ", item_type, " in bin of type ", receiving_item, "count is now ", count)
 	return true
 
 

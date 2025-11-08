@@ -2,7 +2,7 @@ class_name Item
 
 
 #unforuntately I have it so you must update this enum as well as the get_type_string function manually
-enum ResourceType { NONE, ROCK, ANIMAL, PLANT, REFINED_ROCK}
+enum ResourceType { NONE, ROCK, ANIMAL, PLANT, REFINED_ROCK, REFINED_ANIMAL, REFINED_PLANT }
 
 var resource_type: ResourceType = ResourceType.NONE
 var item_name: String = "Item"

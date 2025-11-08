@@ -1,7 +1,10 @@
+extends Node
+
 # Array of Item instances
 var items: Array[Item] = []
 
 # Maximum inventory size
+# This is managed by PlayerStats _ready
 var max_inventory_size: int = 10
 
 # Signals

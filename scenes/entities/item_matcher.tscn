@@ -1,18 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5njac57k28dv"]
+[gd_scene load_steps=4 format=3 uid="uid://ix5hgno8iv4n"]
 
-[ext_resource type="Script" uid="uid://d2g3it0prc7jt" path="res://scripts/entities/drag_ui/inventory_stock.gd" id="1_yx766"]
-[ext_resource type="Script" uid="uid://oop22qcygl6r" path="res://scripts/entities/Ian_Testing/change_text_to_incoming.gd" id="3_wrbnh"]
+[ext_resource type="Script" uid="uid://qpvaw8teyljk" path="res://scripts/entities/drag_ui/item_matcher.gd" id="1_u2vvq"]
+[ext_resource type="Script" uid="uid://oop22qcygl6r" path="res://scripts/entities/Ian_Testing/change_text_to_incoming.gd" id="3_q3uog"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4kl76"]
 radius = 125.781555
 
-[node name="stock" type="Area2D"]
-script = ExtResource("1_yx766")
-is_draggable = true
+[node name="ItemMatcher" type="Area2D"]
+script = ExtResource("1_u2vvq")
+acceptable_items = Array[int]([4, 5, 6])
+is_receiving = true
+receiving_item = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4kl76")
-debug_color = Color(0, 0.47032475, 0.7207494, 0)
+debug_color = Color(0, 0.5408454, 0.10718905, 0)
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8
@@ -29,6 +31,6 @@ grow_vertical = 2
 text = "Count: "
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_wrbnh")
+script = ExtResource("3_q3uog")
 
 [connection signal="count_changed" from="." to="Label" method="change_text_to_incoming"]

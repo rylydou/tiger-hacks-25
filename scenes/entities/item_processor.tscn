@@ -12,7 +12,7 @@ script = ExtResource("1_qdks7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4kl76")
-debug_color = Color(0.040893078, 0.53938746, 0, 0)
+debug_color = Color(0.8366186, 0.0143795675, 0, 0)
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8

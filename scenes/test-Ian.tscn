@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://df8bocc7xlpbs"]
+[gd_scene load_steps=7 format=3 uid="uid://df8bocc7xlpbs"]
 
 [ext_resource type="Script" uid="uid://dmjoq3abt61mj" path="res://scripts/entities/Ian_Testing/inventory_tester.gd" id="1_6g6dy"]
 [ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="1_i5c44"]
 [ext_resource type="PackedScene" uid="uid://b5njac57k28dv" path="res://scenes/entities/inventory_stock.tscn" id="2_4kl76"]
+[ext_resource type="Script" uid="uid://bkehau171e8i6" path="res://scripts/entities/Ian_Testing/money_count.gd" id="2_hykfq"]
 [ext_resource type="PackedScene" uid="uid://dfwpcne8mxpak" path="res://scenes/entities/item_processor.tscn" id="4_ih210"]
+[ext_resource type="PackedScene" uid="uid://ix5hgno8iv4n" path="res://scenes/entities/item_matcher.tscn" id="6_w7qbk"]
 
 [node name="TestIan" type="Node2D"]
 
@@ -11,27 +13,97 @@
 script = ExtResource("1_6g6dy")
 
 [node name="Button" type="Button" parent="UI"]
-offset_left = 195.0
-offset_top = 863.0
-offset_right = 611.6129
-offset_bottom = 968.0
+offset_left = 335.0
+offset_top = 969.0
+offset_right = 554.0
+offset_bottom = 1074.0
 text = "Increase Rocks
 "
 
-[node name="processor" parent="." instance=ExtResource("4_ih210")]
-position = Vector2(811, 343)
+[node name="Button 2" type="Button" parent="UI"]
+offset_left = 706.0
+offset_top = 961.0
+offset_right = 925.0
+offset_bottom = 1066.0
+text = "Increase Animal"
+
+[node name="Button 3" type="Button" parent="UI"]
+offset_left = 1057.0
+offset_top = 961.0
+offset_right = 1276.0
+offset_bottom = 1066.0
+text = "Increase Plant
+"
+
+[node name="Label" type="Label" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 41.0
+offset_top = 28.0
+offset_right = -1580.0
+offset_bottom = -963.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "money"
+script = ExtResource("2_hykfq")
+
+[node name="rock_processor" parent="." instance=ExtResource("4_ih210")]
+position = Vector2(138, 921)
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
-item_type = 1
+item_type = 4
 receiving_item = 1
 
-[node name="stock" parent="." instance=ExtResource("2_4kl76")]
-position = Vector2(205, 337)
+[node name="plant_processor" parent="." instance=ExtResource("4_ih210")]
+position = Vector2(1589, 154)
 is_receiving = true
-is_draggable = true
+item_texture = ExtResource("1_i5c44")
+item_type = 6
+receiving_item = 3
+
+[node name="animal_processor" parent="." instance=ExtResource("4_ih210")]
+position = Vector2(1516, 910)
+is_receiving = true
+item_texture = ExtResource("1_i5c44")
+item_type = 5
+receiving_item = 2
+
+[node name="rock_stock" parent="." instance=ExtResource("2_4kl76")]
+position = Vector2(456, 796)
 item_texture = ExtResource("1_i5c44")
 item_type = 1
 receiving_item = 1
 count = 1
 
-[connection signal="button_down" from="UI/Button" to="UI" method="_on_button_button_down"]
+[node name="animal_stock" parent="." instance=ExtResource("2_4kl76")]
+position = Vector2(811, 785)
+item_texture = ExtResource("1_i5c44")
+item_type = 2
+receiving_item = 2
+count = 1
+
+[node name="plant_stock" parent="." instance=ExtResource("2_4kl76")]
+position = Vector2(1176, 785)
+item_texture = ExtResource("1_i5c44")
+item_type = 3
+receiving_item = 3
+count = 1
+
+[node name="rock_request" parent="." instance=ExtResource("6_w7qbk")]
+position = Vector2(456, 468)
+item_type = 1
+
+[node name="plant_request" parent="." instance=ExtResource("6_w7qbk")]
+position = Vector2(1176, 455)
+item_type = 6
+receiving_item = 6
+
+[node name="animal_request" parent="." instance=ExtResource("6_w7qbk")]
+position = Vector2(811, 457)
+item_type = 5
+receiving_item = 5
+
+[connection signal="button_down" from="UI/Button" to="UI" method="_increase_rocks"]
+[connection signal="button_down" from="UI/Button 2" to="UI" method="_increase_animal"]
+[connection signal="button_down" from="UI/Button 3" to="UI" method="_increase_plant"]
