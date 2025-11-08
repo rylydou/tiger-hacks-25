@@ -4,7 +4,7 @@ class_name Item
 #unforuntately I have it so you must update this enum as well as the get_type_string function manually
 enum ResourceType { NONE, ROCK, ANIMAL, PLANT, REFINED_ROCK}
 
-var resource_type: ResourceType = ResourceType.ROCK
+var resource_type: ResourceType = ResourceType.NONE
 var item_name: String = "Item"
 var icon: Texture2D = preload("res://icon.svg")
 var description: String = "Description of the item."

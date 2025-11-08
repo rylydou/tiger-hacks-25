@@ -33,7 +33,7 @@ soundscaper/todo_file.editor="user://sound_event_todo.txt"
 
 DevTools="*res://addons/devtools/autoload.tscn"
 SFX="*res://addons/soundscaper/scripts/sfx.gd"
-Inventory="*res://scripts/common/Inventory/inventory.gd"
+Inventory="*res://scripts/static/items/inventory.gd"
 
 [debug]
 

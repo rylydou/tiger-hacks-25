@@ -11,7 +11,7 @@ func _ready() -> void:
 	if Inventory:
 		Inventory.connect("item_added", Callable(self, "_on_inventory_item_added"))
 		Inventory.connect("item_removed", Callable(self, "_on_inventory_item_removed"))
-		Inventory.connect("item_count_changed", Callable(self, "_on_inventory_item_count_changed"))
+		Inventory.connect("inventory_changed", Callable(self, "_on_inventory_changed"))
 		
 		_update_count_from_inventory()
 
@@ -32,19 +32,18 @@ func _update_count_from_inventory() -> void:
 	count = _get_type_count()
 
 
-func _on_inventory_item_added(item_type: Item.ResourceType, item_count: int) -> void:
+func _on_inventory_item_added(item: Item) -> void:
 	# Update count when items are added
-	if item_type == self.item_type:
+	if item.resource_type == self.item_type:
 		_update_count_from_inventory()
 
 
-func _on_inventory_item_removed(item_type: Item.ResourceType) -> void:
+func _on_inventory_item_removed(item: Item) -> void:
 	# Update count when items are removed
-	if item_type == self.item_type:
+	if item.resource_type == self.item_type:
 		_update_count_from_inventory()
 
 
-func _on_inventory_item_count_changed(item_type: Item.ResourceType, old_count: int, new_count: int) -> void:
-	# Update count when inventory count changes
-	if item_type == self.item_type:
-		_update_count_from_inventory()
+func _on_inventory_changed() -> void:
+	# Update count on any inventory change
+	_update_count_from_inventory()

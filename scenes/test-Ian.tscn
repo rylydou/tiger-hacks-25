@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dmjoq3abt61mj" path="res://scripts/entities/Ian_Testing/inventory_tester.gd" id="1_6g6dy"]
 [ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="1_i5c44"]
 [ext_resource type="PackedScene" uid="uid://b5njac57k28dv" path="res://scenes/entities/inventory_stock.tscn" id="2_4kl76"]
-[ext_resource type="PackedScene" uid="uid://dfwpcne8mxpak" path="res://scenes/entities/itemprocessor.tscn" id="4_ih210"]
+[ext_resource type="PackedScene" uid="uid://dfwpcne8mxpak" path="res://scenes/entities/item_processor.tscn" id="4_ih210"]
 
 [node name="TestIan" type="Node2D"]
 
