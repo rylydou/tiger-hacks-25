@@ -40,4 +40,5 @@ show_percentage = false
 script = ExtResource("3_56fmi")
 
 [connection signal="count_changed" from="." to="Label" method="change_text_to_incoming"]
+[connection signal="processing_completed" from="." to="ProgressBar" method="_on_processor_processing_completed"]
 [connection signal="processing_progress_changed" from="." to="ProgressBar" method="_on_processor_processing_progress_changed"]

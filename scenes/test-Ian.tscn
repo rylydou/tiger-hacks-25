@@ -53,42 +53,39 @@ script = ExtResource("2_hykfq")
 position = Vector2(138, 921)
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
-item_type = 4
-receiving_item = 1
+output_item_type = 4
+receiving_items = Array[int]([1])
 
 [node name="plant_processor" parent="." instance=ExtResource("4_ih210")]
 position = Vector2(1589, 154)
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
-item_type = 6
-receiving_item = 3
+output_item_type = 6
+receiving_items = Array[int]([3])
 
 [node name="animal_processor" parent="." instance=ExtResource("4_ih210")]
 position = Vector2(1516, 910)
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
-item_type = 5
-receiving_item = 2
+output_item_type = 5
+receiving_items = Array[int]([2])
 
 [node name="rock_stock" parent="." instance=ExtResource("2_4kl76")]
 position = Vector2(456, 796)
 item_texture = ExtResource("1_i5c44")
-item_type = 1
-receiving_item = 1
+output_item_type = 1
 count = 1
 
 [node name="animal_stock" parent="." instance=ExtResource("2_4kl76")]
 position = Vector2(811, 785)
 item_texture = ExtResource("1_i5c44")
-item_type = 2
-receiving_item = 2
+output_item_type = 2
 count = 1
 
 [node name="plant_stock" parent="." instance=ExtResource("2_4kl76")]
 position = Vector2(1176, 785)
 item_texture = ExtResource("1_i5c44")
-item_type = 3
-receiving_item = 3
+output_item_type = 3
 count = 1
 
 [node name="Request_Manager" type="Node2D" parent="."]

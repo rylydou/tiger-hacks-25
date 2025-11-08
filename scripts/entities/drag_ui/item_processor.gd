@@ -56,11 +56,41 @@ func _input_event(viewport, event, shape_idx) -> void:
 
 
 func _spawn_draggable_at(global_point: Vector2) -> void:
-	# Create sprite and mark with item type
-	super._spawn_draggable_at(global_point)
+	# Create sprite with output item's icon and mark with output type
+	var sprite = Sprite2D.new()
 	
-	if _active_drag_sprite:
-		_active_drag_sprite.set_meta("item_type", item_type)
+	# Get the output item's icon
+	var output_item: Item = null
+	match output_item_type:
+		Item.ResourceType.ROCK:
+			output_item = RockItem.new()
+		Item.ResourceType.PLANT:
+			output_item = PlantItem.new()
+		Item.ResourceType.ANIMAL:
+			output_item = AnimalItem.new()
+		Item.ResourceType.REFINED_ROCK:
+			output_item = RefinedRockItem.new() if ClassDB.class_exists("RefinedRockItem") else null
+		Item.ResourceType.REFINED_PLANT:
+			output_item = RefinedPlantItem.new() if ClassDB.class_exists("RefinedPlantItem") else null
+		Item.ResourceType.REFINED_ANIMAL:
+			output_item = RefinedAnimalItem.new() if ClassDB.class_exists("RefinedAnimalItem") else null
+	
+	if output_item and output_item.icon:
+		sprite.texture = output_item.icon
+	elif item_texture:
+		sprite.texture = item_texture
+	
+	sprite.global_position = global_point
+	sprite.set_meta("origin_bin", self)
+	sprite.set_meta("item_type", output_item_type)
+	
+	var root = get_tree().get_current_scene() if get_tree().get_current_scene() else get_tree().get_root()
+	root.add_child(sprite)
+	
+	_active_drag_sprite = sprite
+	_dragging = true
+	_drag_offset = sprite.global_position - get_global_mouse_position()
+	_is_active = true
 
 
 func increment_count() -> void:
@@ -83,14 +113,17 @@ func decrement_count() -> void:
 func _get_processing_duration() -> float:
 	# Get processing time based on item type
 	var base_time: float = 5.0
-	match receiving_item:
+	if receiving_items.is_empty():
+		return base_time / Stats.get_processing_speed()
+	
+	match receiving_items[0]:
 		Item.ResourceType.ROCK:
-			base_time =  RockItem.new().processing_duration
+			base_time = RockItem.new().processing_duration
 		Item.ResourceType.PLANT:
 			base_time = PlantItem.new().processing_duration
 		Item.ResourceType.ANIMAL:
 			base_time = AnimalItem.new().processing_duration
-	return base_time/Stats.get_processing_speed()
+	return base_time / Stats.get_processing_speed()
 
 
 func _try_receive_item(item_type: Item.ResourceType = Item.ResourceType.NONE) -> bool:
@@ -98,7 +131,7 @@ func _try_receive_item(item_type: Item.ResourceType = Item.ResourceType.NONE) ->
 	if count >= max_capacity:
 		return false
 	
-	if item_type != receiving_item:
+	if not (item_type in receiving_items):
 		return false
 	
 	var result = super._try_receive_item(item_type)

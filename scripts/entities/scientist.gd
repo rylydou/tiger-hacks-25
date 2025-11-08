@@ -14,7 +14,8 @@ var _countdown: float = 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	sprite_list.pick_random().visible = true
-	item_matcher.receiving_item = request_type
+	item_matcher.receiving_items = [request_type]
+	item_matcher.correct_items = [request_type]
 	item_matcher.amount_needed = amount_needed
 	
 	# Connect to item matcher signals

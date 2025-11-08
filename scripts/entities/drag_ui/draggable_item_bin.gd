@@ -8,8 +8,8 @@ signal count_changed(count: int)
 @export var is_receiving: bool = false
 @export var is_draggable: bool = false
 @export var item_texture: Texture2D
-@export var item_type: Item.ResourceType = Item.ResourceType.NONE
-@export var receiving_item: Item.ResourceType = Item.ResourceType.NONE  # Only receive items of this type
+@export var output_item_type: Item.ResourceType = Item.ResourceType.NONE
+@export var receiving_items: Array[Item.ResourceType] = []  # Items this bin can receive
 @export var drag_button: int = MOUSE_BUTTON_LEFT
 
 # Cached count from inventory
@@ -71,9 +71,37 @@ func _unhandled_input(event: InputEvent) -> void:
 func _spawn_draggable_at(global_point: Vector2) -> void:
 	# Create draggable sprite and start dragging
 	var sprite = Sprite2D.new()
-	if item_texture:
+	var sprite_scale_to_use = Vector2.ONE
+	
+	# Try to get texture and scale from output item's properties
+	if output_item_type != Item.ResourceType.NONE:
+		var temp_item: Item = null
+		match output_item_type:
+			Item.ResourceType.ROCK:
+				temp_item = RockItem.new()
+			Item.ResourceType.PLANT:
+				temp_item = PlantItem.new()
+			Item.ResourceType.ANIMAL:
+				temp_item = AnimalItem.new()
+			Item.ResourceType.REFINED_ROCK:
+				temp_item = RefinedRockItem.new()
+			Item.ResourceType.REFINED_PLANT:
+				temp_item = RefinedPlantItem.new()
+			Item.ResourceType.REFINED_ANIMAL:
+				temp_item = RefinedAnimalItem.new()
+	
+		if temp_item:
+			if temp_item.icon:
+				sprite.texture = temp_item.icon
+			# Use the item's sprite scale
+			sprite_scale_to_use = temp_item.sprite_scale
+	
+	# Fall back to item_texture if no icon found
+	if not sprite.texture and item_texture:
 		sprite.texture = item_texture
+	
 	sprite.global_position = global_point
+	sprite.scale = sprite_scale_to_use
 	sprite.set_meta("origin_bin", self)
 	
 	var root = get_tree().get_current_scene() if get_tree().get_current_scene() else get_tree().get_root()
@@ -113,7 +141,7 @@ func _on_item_drag_ended(draggable) -> void:
 				var origin_item_type = _get_origin_bin_item_type(origin_bin)
 				# For ItemMatcher and subclasses, always try to receive (they validate internally)
 				# For other bins, check if type matches first
-				var should_try_receive = (other_bin is ItemMatcher) or (origin_item_type != Item.ResourceType.NONE and origin_item_type == other_bin.receiving_item)
+				var should_try_receive = (other_bin is ItemMatcher) or (origin_item_type != Item.ResourceType.NONE and origin_item_type in other_bin.receiving_items)
 				if should_try_receive:
 					if other_bin._try_receive_item(origin_item_type):
 						if origin_bin and origin_bin != other_bin and origin_bin.is_inside_tree():
@@ -152,5 +180,5 @@ func decrement_count() -> void:
 func _get_origin_bin_item_type(origin_bin) -> Item.ResourceType:
 	# Get the item type from the origin bin
 	if origin_bin and origin_bin is DraggableItemBin:
-		return origin_bin.item_type
+		return origin_bin.output_item_type
 	return Item.ResourceType.NONE

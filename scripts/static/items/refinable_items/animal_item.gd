@@ -3,6 +3,8 @@ class_name AnimalItem
 
 
 func _init(p_name: String = "Animal", p_icon: Texture2D = null, p_description: String = "") -> void:
+	if p_icon == null:
+		p_icon = preload("res://content/art/Interactables/fish icon.png")
 	super._init(p_name, Item.ResourceType.ANIMAL, p_icon, p_description)
 
 

@@ -7,11 +7,11 @@ signal request_fulfilled()
 
 @export var base_reward: int = 100
 
-# List of acceptable items
-@export var acceptable_items: Array[Item.ResourceType] = []
+# List of correct items to accept
+@export var correct_items: Array[Item.ResourceType] = []
 
-# The correct item to receive
-var correct_item: Item.ResourceType = Item.ResourceType.NONE
+# The primary correct item to receive
+var primary_correct_item: Item.ResourceType = Item.ResourceType.NONE
 @export var amount_needed: int = 1
 
 
@@ -19,14 +19,14 @@ func _ready() -> void:
 	# Initialize as receiving bin
 	super._ready()
 	is_receiving = true
-	correct_item = receiving_item
+	primary_correct_item = receiving_items[0] if not receiving_items.is_empty() else Item.ResourceType.NONE
 
 
-func set_acceptable_items(items: Array[Item.ResourceType]) -> void:
-	# Set list of items this matcher will accept
-	acceptable_items = items
-	if acceptable_items.is_empty():
-		push_warning("No acceptable items set for ItemMatcher")
+func set_correct_items(items: Array[Item.ResourceType]) -> void:
+	# Set list of items this matcher accepts as correct
+	correct_items = items
+	if correct_items.is_empty():
+		push_warning("No correct items set for ItemMatcher")
 
 
 func _try_receive_item(item_type: Item.ResourceType = Item.ResourceType.NONE) -> bool:
@@ -41,8 +41,8 @@ func _try_receive_item(item_type: Item.ResourceType = Item.ResourceType.NONE) ->
 		#print("  -> Invalid item type (NONE)")
 		return false
 	
-	if not (item_type in acceptable_items):
-		#print("  -> Item type not in acceptable_items: ", acceptable_items)
+	if not (item_type in correct_items):
+		#print("  -> Item type not in correct_items: ", correct_items)
 		return false
 	
 	#print("  -> Item acceptable, receiving...")
@@ -51,7 +51,7 @@ func _try_receive_item(item_type: Item.ResourceType = Item.ResourceType.NONE) ->
 	#print("  -> super._try_receive_item returned: ", result)
 	
 	# Check if it's correct and emit appropriate signal
-	if item_type == correct_item:
+	if item_type == primary_correct_item:
 		#print("  -> Item is CORRECT! Rewarding...")
 		Stats.add_money(int(base_reward * Stats.reward_multiplier))
 		correct_item_received.emit()
