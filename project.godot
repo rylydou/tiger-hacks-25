@@ -12,6 +12,10 @@ config_version=5
 
 general/accessibility_support=2
 
+[addons]
+
+ss2d/version="3.3.0"
+
 [application]
 
 config/name="Tiger Hacks 25"
@@ -52,7 +56,7 @@ naming/node_name_num_separator=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/devtools/plugin.cfg", "res://addons/run_preset/plugin.cfg", "res://addons/soundscaper/plugin.cfg")
+enabled=PackedStringArray("res://addons/devtools/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg", "res://addons/run_preset/plugin.cfg", "res://addons/soundscaper/plugin.cfg")
 
 [file_customization]
 

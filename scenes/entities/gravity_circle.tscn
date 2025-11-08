@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://ck3fueytbbeax"]
+
+[ext_resource type="Script" uid="uid://v1vo0fr5woac" path="res://scripts/entities/gravity_circle.gd" id="1_s0tdq"]
+[ext_resource type="Material" uid="uid://cy6fq6ytmcesy" path="res://resources/materials/gravity.tres" id="2_bvaev"]
+[ext_resource type="Texture2D" uid="uid://g1tw6ixsx44q" path="res://content/art/gravity-arrow-1.png" id="3_lmn5p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_spcul"]
+resource_local_to_scene = true
+radius = 400.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_spcul"]
+
+[node name="Gravity Circle" type="Area2D" node_paths=PackedStringArray("graphic")]
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+script = ExtResource("1_s0tdq")
+radius = 400.0
+graphic = NodePath("Gravity VFX")
+circle_shape = SubResource("CircleShape2D_spcul")
+
+[node name="Gravity VFX" type="MeshInstance2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.1254902)
+z_index = -50
+texture_filter = 4
+texture_repeat = 2
+material = ExtResource("2_bvaev")
+scale = Vector2(960.00006, 960.00006)
+mesh = SubResource("QuadMesh_spcul")
+texture = ExtResource("3_lmn5p")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_spcul")

@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bwpxb5ywxny0s"]
+
+[ext_resource type="Shader" uid="uid://43thiy0gmwcd" path="res://content/shaders/atmosphere.gdshader" id="1_78k7t"]
+
+[resource]
+shader = ExtResource("1_78k7t")
