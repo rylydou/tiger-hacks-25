@@ -72,6 +72,10 @@ import/blender/enabled=false
 
 common/snap_controls_to_pixels=false
 
+[physics]
+
+2d/default_gravity=0.0
+
 [rendering]
 
 renderer/rendering_method="mobile"

@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cy6fq6ytmcesy"]
+
+[ext_resource type="Shader" uid="uid://jasu1gdrkohd" path="res://content/shaders/gravity.gdshader" id="1_l2xob"]
+
+[resource]
+shader = ExtResource("1_l2xob")
+shader_parameter/speed = 1.0
+shader_parameter/arrow_x_density = 10.0
+shader_parameter/arrow_y_density = 5.0
+shader_parameter/stagger = 1.0
+shader_parameter/twist = 0.0
+shader_parameter/inner_feather_start = 0.25
+shader_parameter/inner_feather_end = 0.5
+shader_parameter/outer_feather = 0.9

@@ -1,3 +1,16 @@
-[gd_scene format=3 uid="uid://cobt7kj4b7bjl"]
+[gd_scene load_steps=4 format=3 uid="uid://cobt7kj4b7bjl"]
+
+[ext_resource type="Material" uid="uid://cy6fq6ytmcesy" path="res://resources/materials/gravity.tres" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://g1tw6ixsx44q" path="res://content/art/gravity-arrow-1.png" id="2_0wfyh"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_sgp6g"]
 
 [node name="Main" type="Node"]
+
+[node name="Gravity" type="MeshInstance2D" parent="."]
+texture_filter = 4
+texture_repeat = 2
+material = ExtResource("1_o5qli")
+scale = Vector2(1000, 1000)
+mesh = SubResource("QuadMesh_sgp6g")
+texture = ExtResource("2_0wfyh")

@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://drgnc25yvxlqe"]
+
+[ext_resource type="Material" uid="uid://cy6fq6ytmcesy" path="res://resources/materials/gravity.tres" id="1_vs8jj"]
+[ext_resource type="Texture2D" uid="uid://g1tw6ixsx44q" path="res://content/art/gravity-arrow-1.png" id="2_1jrt7"]
+[ext_resource type="Script" uid="uid://v1vo0fr5woac" path="res://scripts/entities/gravity_circle.gd" id="2_spcul"]
+[ext_resource type="PackedScene" uid="uid://drbctbpnp652k" path="res://scenes/entities/player.tscn" id="3_1jrt7"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_spcul"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_spcul"]
+radius = 1536.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1jrt7"]
+radius = 512.0
+
+[node name="Ryly Testing" type="Node2D"]
+
+[node name="Planet" type="AnimatableBody2D" parent="."]
+
+[node name="Gravity Circle" type="Area2D" parent="Planet"]
+gravity_space_override = 1
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+script = ExtResource("2_spcul")
+
+[node name="Gravity VFX" type="MeshInstance2D" parent="Planet/Gravity Circle"]
+texture_filter = 4
+texture_repeat = 2
+material = ExtResource("1_vs8jj")
+scale = Vector2(2000, 2000)
+mesh = SubResource("QuadMesh_spcul")
+texture = ExtResource("2_1jrt7")
+
+[node name="Collision" type="CollisionShape2D" parent="Planet/Gravity Circle"]
+shape = SubResource("CircleShape2D_spcul")
+
+[node name="Collision" type="CollisionShape2D" parent="Planet"]
+shape = SubResource("CircleShape2D_1jrt7")
+
+[node name="Player" parent="." instance=ExtResource("3_1jrt7")]
+position = Vector2(5, -661)
+air_decel_space = 25.0
+air_decel_gravity = 100.0
+ground_decel = 300.0
+move_speed = 600.0
