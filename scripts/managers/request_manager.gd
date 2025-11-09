@@ -50,6 +50,8 @@ func _try_spawn_scientist() -> void:
 			break
 	
 	if location_idx == -1:
+		# Debug: print occupied locations for troubleshooting
+		print("RequestManager: No available locations. Occupied: ", get_number_occupied_locations(), " / ", locations.size())
 		return  # No available locations
 	
 	# Mark location as occupied
@@ -94,6 +96,7 @@ func _try_spawn_scientist() -> void:
 	
 	# If no allowed requests could be determined, fallback to global possible_requests
 	if allowed_requests.size() == 0:
+		print("  No items in inventory, using default possible_requests")
 		allowed_requests = possible_requests.duplicate()
 
 	var request_type = allowed_requests.pick_random()
@@ -104,9 +107,10 @@ func _try_spawn_scientist() -> void:
 		max_available = Inventory.get_count(request_type)
 	if max_available > 0:
 		quantity = min(quantity, max_available)
+	
 	scientist.create_request(request_type, quantity, time_limit)
 
-	print("Spawned scientist at location %d requesting %d of type %s" % [location_idx, quantity, str(request_type)])
+	print("Spawned scientist at location %d requesting %d of type %s" % [location_idx, quantity, Item.ResourceType.keys()[request_type]])
 
 
 func _on_scientist_done(location_idx: int) -> void:

@@ -225,6 +225,9 @@ func _on_incorrect_item_received() -> void:
 	if not is_inside_tree():
 		return
 
+	scientist_done.emit()
+	queue_free()
+
 
 func _on_correct_item_received() -> void:
 	pass

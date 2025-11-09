@@ -71,6 +71,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _spawn_draggable_at(global_point: Vector2) -> void:
 	# Create draggable sprite and start dragging
 	var sprite = Sprite2D.new()
+	sprite.centered = true  # Ensure sprite renders from center
 	var sprite_scale_to_use = Vector2.ONE
 	
 	# Try to get texture and scale from output item's properties
