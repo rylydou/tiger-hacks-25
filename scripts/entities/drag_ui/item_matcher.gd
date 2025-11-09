@@ -5,7 +5,7 @@ signal correct_item_received()
 signal incorrect_item_received()
 signal request_fulfilled()
 
-@export var base_reward: int = 100
+@export var base_reward: int = 1
 
 # List of correct items to accept
 @export var correct_items: Array[Item.ResourceType] = []

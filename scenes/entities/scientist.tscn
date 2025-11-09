@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b5wu63p7ncbky"]
+[gd_scene load_steps=13 format=3 uid="uid://b5wu63p7ncbky"]
 
 [ext_resource type="Script" uid="uid://dc28gs7h6p8wo" path="res://scripts/entities/scientist.gd" id="1_rbq33"]
 [ext_resource type="Texture2D" uid="uid://dec2x55xjtwji" path="res://content/art/Shop/scientist idle (2).png" id="2_rbq33"]
@@ -48,6 +48,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r3e82"]
+bg_color = Color(0, 0, 0, 0.5019608)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_olt48"]
+bg_color = Color(0.81960785, 0.78039217, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 0)
+
 [node name="Scientist" type="Node2D" node_paths=PackedStringArray("sprite_list")]
 script = ExtResource("1_rbq33")
 request_type = 4
@@ -67,10 +78,12 @@ position = Vector2(0, -51)
 
 [node name="TimeRemaining" type="ProgressBar" parent="."]
 unique_name_in_owner = true
-offset_left = -82.0
-offset_top = -170.0
-offset_right = 86.0
-offset_bottom = -143.0
+offset_left = -77.0
+offset_top = -167.0
+offset_right = 70.0
+offset_bottom = -140.0
+theme_override_styles/background = SubResource("StyleBoxFlat_r3e82")
+theme_override_styles/fill = SubResource("StyleBoxFlat_olt48")
 show_percentage = false
 
 [node name="ItemDisplay" type="Sprite2D" parent="."]

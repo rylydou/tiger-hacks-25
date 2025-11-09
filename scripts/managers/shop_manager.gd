@@ -24,6 +24,8 @@ func _start_game() -> void:
 func _on_item_removed(item: Item) -> void:
 	if Inventory.items.size() <= 0:
 		EndGameButton.show()
+	else:
+		EndGameButton.hide()
 
 func _end_game() -> void:
 	if rq_mngr:

@@ -84,8 +84,8 @@ func setup(target_loc: Node2D, enter_loc: Node2D, exit_loc: Node2D, time_limit_s
 
 func _configure_request() -> void:
 	# Setup item matcher with request parameters
-	item_matcher.receiving_items = [request_type]
-	item_matcher.correct_items = [request_type]
+	item_matcher.receiving_items = [Item.ResourceType.ROCK, Item.ResourceType.PLANT, Item.ResourceType.ANIMAL, Item.ResourceType.REFINED_ROCK, Item.ResourceType.REFINED_PLANT, Item.ResourceType.REFINED_ANIMAL]
+	item_matcher.correct_items = [Item.ResourceType.ROCK, Item.ResourceType.PLANT, Item.ResourceType.ANIMAL, Item.ResourceType.REFINED_ROCK, Item.ResourceType.REFINED_PLANT, Item.ResourceType.REFINED_ANIMAL]
 	item_matcher.primary_correct_item = request_type
 	item_matcher.amount_needed = amount_needed
 	
@@ -168,6 +168,7 @@ func _start_move_to(target_pos: Vector2) -> void:
 func _on_request_fulfilled() -> void:
 	# Hide item display
 	item_display.visible = false
+	item_matcher.queue_free()
 	
 	# Move to exit location if available
 	if _exit_location:
@@ -207,7 +208,22 @@ func _on_time_out() -> void:
 
 
 func _on_incorrect_item_received() -> void:
-	pass
+	# Hide item display
+	item_display.visible = false
+	item_matcher.queue_free()
+	
+	# Move to exit location if available
+	if _exit_location:
+		print("Scientist moving to exit location")
+		_start_move_to(_exit_location.global_position)
+		# Wait for movement to complete before signaling done.
+		# Guard against scene changes: if this node leaves the tree, get_tree() becomes null
+		while _is_moving and is_inside_tree():
+			await get_tree().process_frame
+
+	# If the node was removed from the scene tree during the wait (scene change), abort
+	if not is_inside_tree():
+		return
 
 
 func _on_correct_item_received() -> void:

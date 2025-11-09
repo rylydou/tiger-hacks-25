@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfwpcne8mxpak"]
+[gd_scene load_steps=11 format=3 uid="uid://dfwpcne8mxpak"]
 
 [ext_resource type="Script" uid="uid://brclw2aka383s" path="res://scripts/entities/drag_ui/item_processor.gd" id="1_qdks7"]
 [ext_resource type="Script" uid="uid://jtpckaifu51u" path="res://scripts/entities/Ian_Testing/progress_bar.gd" id="3_56fmi"]
 [ext_resource type="Script" uid="uid://oop22qcygl6r" path="res://scripts/entities/Ian_Testing/change_text_to_incoming.gd" id="3_jov01"]
+[ext_resource type="Texture2D" uid="uid://s7x3wra26x8v" path="res://content/art/Shop/smoke particle.png" id="4_teq4h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4kl76"]
 radius = 75.00667
@@ -17,6 +18,24 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0, 0, 0, 0)
+
+[sub_resource type="Curve" id="Curve_teq4h"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.26291078, 1), 0.0, 0.0, 0, 0, Vector2(0.6666667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_5sqoa"]
+curve = SubResource("Curve_teq4h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o3dlr"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 96.2
+angle_min = -720.0
+angle_max = 736.5
+gravity = Vector3(0, -20, 0)
+scale_min = 5.0
+scale_max = 5.0
+alpha_curve = SubResource("CurveTexture_5sqoa")
 
 [node name="processor" type="Area2D"]
 script = ExtResource("1_qdks7")
@@ -53,6 +72,15 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_teq4h")
 show_percentage = false
 script = ExtResource("3_56fmi")
 
+[node name="ProcessingParticles" type="GPUParticles2D" parent="."]
+position = Vector2(9, -7.0000305)
+emitting = false
+texture = ExtResource("4_teq4h")
+randomness = 0.41
+process_material = SubResource("ParticleProcessMaterial_o3dlr")
+
 [connection signal="count_changed" from="." to="Label" method="change_text_to_incoming"]
+[connection signal="processing_completed" from="." to="." method="turn_off_particles"]
 [connection signal="processing_completed" from="." to="ProgressBar" method="_on_processor_processing_completed"]
 [connection signal="processing_progress_changed" from="." to="ProgressBar" method="_on_processor_processing_progress_changed"]
+[connection signal="processing_started" from="." to="." method="turn_on_particles"]

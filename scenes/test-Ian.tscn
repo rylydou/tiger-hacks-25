@@ -104,11 +104,16 @@ text = "Ready?"
 
 [node name="EndSellingButton" type="Button" parent="UI"]
 visible = false
-offset_left = 435.5
-offset_top = 265.0
-offset_right = 716.5
-offset_bottom = 383.0
-theme_override_font_sizes/font_size = 80
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.75
+offset_top = 23.0
+offset_right = 83.75
+offset_bottom = 100.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
 text = "Done?"
 
 [node name="Button" type="Button" parent="UI"]
@@ -138,7 +143,7 @@ text = "Increase Plant
 "
 
 [node name="CoinCounter" type="Sprite2D" parent="UI"]
-position = Vector2(140.00002, 86)
+position = Vector2(140.00002, 78)
 scale = Vector2(9, 9)
 texture = ExtResource("8_v4hej")
 
@@ -149,9 +154,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -476.0
-offset_top = -274.0
+offset_top = -282.0
 offset_right = -333.0
-offset_bottom = -164.0
+offset_bottom = -172.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 50

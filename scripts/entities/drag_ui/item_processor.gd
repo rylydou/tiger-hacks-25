@@ -207,3 +207,13 @@ func get_remaining_time() -> float:
 	# Return remaining processing time
 	return max(0.0, _processing_time)
 
+func turn_on_particles(duration: float) -> void:
+	if has_node("ProcessingParticles"):
+		var particles = $ProcessingParticles
+		particles.emitting = true
+
+func turn_off_particles() -> void:
+	if has_node("ProcessingParticles"):
+		var particles = $ProcessingParticles
+		particles.emitting = false
+
