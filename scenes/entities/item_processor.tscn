@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://s7x3wra26x8v" path="res://content/art/Shop/smoke particle.png" id="4_teq4h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4kl76"]
-radius = 75.00667
+radius = 136.1323
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6gk4m"]
 bg_color = Color(0, 0, 0, 0.5019608)
@@ -29,7 +29,7 @@ curve = SubResource("Curve_teq4h")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o3dlr"]
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 96.2
+emission_sphere_radius = 98.32
 angle_min = -720.0
 angle_max = 736.5
 gravity = Vector3(0, -20, 0)

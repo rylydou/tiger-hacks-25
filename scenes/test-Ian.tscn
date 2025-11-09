@@ -56,8 +56,8 @@ rq_mngr = NodePath("Request_Manager")
 upgrades_menu = NodePath("UI/Upgrades")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(576, 324)
-scale = Vector2(9, 9)
+position = Vector2(960, 540)
+scale = Vector2(15, 15)
 texture = ExtResource("1_v1yww")
 
 [node name="Request_Manager" type="Node2D" parent="." node_paths=PackedStringArray("locations", "enter_location", "exit_location")]
@@ -67,78 +67,85 @@ enter_location = NodePath("Spawn Location")
 exit_location = NodePath("Exit Location")
 
 [node name="Spawn Location" type="Node2D" parent="Request_Manager"]
-position = Vector2(-171, 335)
+position = Vector2(-231, 564)
 
 [node name="Exit Location" type="Node2D" parent="Request_Manager"]
-position = Vector2(1345, 335)
+position = Vector2(2073, 564)
 
 [node name="Scientist Location 3" type="Node2D" parent="Request_Manager"]
-position = Vector2(328, 335)
+position = Vector2(548, 564)
 
 [node name="Scientist Location 2" type="Node2D" parent="Request_Manager"]
-position = Vector2(516, 335)
+position = Vector2(840, 564)
 
 [node name="Scientist Location" type="Node2D" parent="Request_Manager"]
-position = Vector2(697, 335)
+position = Vector2(1176, 564)
 
 [node name="RockGrinder" type="Sprite2D" parent="."]
-position = Vector2(122, 450)
-scale = Vector2(9, 9)
+position = Vector2(193, 748)
+scale = Vector2(15, 15)
 texture = ExtResource("3_veaf7")
 
 [node name="Table" type="Sprite2D" parent="."]
-position = Vector2(576, 324)
-scale = Vector2(9, 9)
+position = Vector2(960, 540)
+scale = Vector2(15, 15)
 texture = ExtResource("7_v4hej")
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("1_6g6dy")
 
 [node name="BeginButton" type="Button" parent="UI"]
-offset_left = 435.5
-offset_top = 265.0
-offset_right = 716.5
-offset_bottom = 383.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.5
+offset_top = -59.0
+offset_right = 140.5
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 80
 text = "Ready?"
 
 [node name="EndSellingButton" type="Button" parent="UI"]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -83.75
-offset_top = 23.0
+offset_top = 31.0
 offset_right = 83.75
-offset_bottom = 100.0
+offset_bottom = 108.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "Done?"
 
 [node name="Button" type="Button" parent="UI"]
-offset_left = 460.0
-offset_top = 579.0
-offset_right = 679.0
-offset_bottom = 684.0
-scale = Vector2(0.65467703, 0.65467703)
+offset_left = 805.0
+offset_top = 927.0
+offset_right = 1024.0
+offset_bottom = 1032.0
+scale = Vector2(1.1725829, 1.1725829)
 text = "Increase Rocks
 "
 
 [node name="Button 2" type="Button" parent="UI"]
-offset_left = 702.0
-offset_top = 579.0
-offset_right = 921.0
-offset_bottom = 684.0
-scale = Vector2(0.65467703, 0.65467703)
+offset_left = 1047.0
+offset_top = 927.0
+offset_right = 1266.0
+offset_bottom = 1032.0
+scale = Vector2(1.1725829, 1.1725829)
 text = "Increase Animal"
 
 [node name="Button 3" type="Button" parent="UI"]
-offset_left = 210.0
-offset_top = 579.0
-offset_right = 429.0
-offset_bottom = 684.0
-scale = Vector2(0.65467703, 0.65467703)
+offset_left = 555.0
+offset_top = 927.0
+offset_right = 774.0
+offset_bottom = 1032.0
+scale = Vector2(1.1725829, 1.1725829)
 text = "Increase Plant
 "
 
@@ -153,10 +160,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -476.0
-offset_top = -282.0
-offset_right = -333.0
-offset_bottom = -172.0
+offset_left = -859.0
+offset_top = -498.0
+offset_right = -716.0
+offset_bottom = -388.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 50
@@ -342,7 +349,7 @@ text = "Go!"
 [node name="Draggable_Areas" type="Node2D" parent="."]
 
 [node name="rock_processor" parent="Draggable_Areas" instance=ExtResource("4_ih210")]
-position = Vector2(100, 469.00003)
+position = Vector2(155, 810)
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
 output_item_type = 4
@@ -359,7 +366,7 @@ offset_bottom = 113.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_ys0qk")
 
 [node name="plant_processor" parent="Draggable_Areas" instance=ExtResource("4_ih210")]
-position = Vector2(1014, 186)
+position = Vector2(1692, 292)
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
 output_item_type = 6
@@ -371,7 +378,7 @@ offset_bottom = 106.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_5sqoa")
 
 [node name="animal_processor" parent="Draggable_Areas" instance=ExtResource("4_ih210")]
-position = Vector2(919, 485.00003)
+position = Vector2(1539, 810)
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
 output_item_type = 5
@@ -383,22 +390,19 @@ offset_bottom = 121.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_6vqkv")
 
 [node name="rock_stock" parent="Draggable_Areas" instance=ExtResource("2_4kl76")]
-position = Vector2(500.9999, 473.9999)
-scale = Vector2(0.52707964, 0.52707964)
+position = Vector2(840, 803)
 item_texture = ExtResource("1_i5c44")
 output_item_type = 1
 count = 1
 
 [node name="animal_stock" parent="Draggable_Areas" instance=ExtResource("2_4kl76")]
-position = Vector2(656.9998, 473.9999)
-scale = Vector2(0.5236825, 0.5236825)
+position = Vector2(1101, 803)
 item_texture = ExtResource("1_i5c44")
 output_item_type = 2
 count = 1
 
 [node name="plant_stock" parent="Draggable_Areas" instance=ExtResource("2_4kl76")]
-position = Vector2(337.99997, 473.9999)
-scale = Vector2(0.53967804, 0.53967804)
+position = Vector2(576, 803)
 item_texture = ExtResource("1_i5c44")
 output_item_type = 3
 count = 1

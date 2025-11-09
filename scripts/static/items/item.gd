@@ -9,11 +9,11 @@ var item_name: String = "Item"
 var icon: Texture2D = preload("res://icon.svg")
 var description: String = "Description of the item."
 var processing_duration: float = 5.0
-var sprite_scale: Vector2 = Vector2.ONE * 9
+var sprite_scale: Vector2 = Vector2.ONE * 15
 var reward: int = 10  # Default reward value
 
 
-func _init(p_name: String = "Item", p_type: ResourceType = ResourceType.ROCK, p_icon: Texture2D = preload("res://icon.svg"), p_description: String = "", p_reward: int = 10, p_sprite_scale: Vector2 = Vector2.ONE * 9) -> void:
+func _init(p_name: String = "Item", p_type: ResourceType = ResourceType.ROCK, p_icon: Texture2D = preload("res://icon.svg"), p_description: String = "", p_reward: int = 10, p_sprite_scale: Vector2 = Vector2.ONE * 15) -> void:
 	item_name = p_name
 	resource_type = p_type
 	icon = p_icon

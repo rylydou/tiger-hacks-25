@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://cogko1d26b6ph" path="res://scripts/entities/planet.gd" id="13_548c8"]
 [ext_resource type="Material" uid="uid://bwpxb5ywxny0s" path="res://resources/materials/atmosphere.tres" id="14_1pos8"]
 [ext_resource type="Script" uid="uid://oeg44bebals3" path="res://scripts/shop_area.gd" id="16_afkmt"]
-[ext_resource type="Shader" uid="uid://tje23bwfsjg8" path="res://content/shaders/space.gdshader" id="16_asg5j"]
+[ext_resource type="Shader" path="res://content/shaders/space.gdshader" id="16_asg5j"]
 [ext_resource type="Texture2D" uid="uid://ba251g1rf35k6" path="res://resources/atmospheres/ice.tres" id="16_n26kp"]
 [ext_resource type="Texture2D" uid="uid://cxbtxef0ws3tm" path="res://content/art/Shop/shop sprite.png" id="17_afkmt"]
 [ext_resource type="Texture2D" uid="uid://3skofyyqxame" path="res://resources/atmospheres/sulfur.tres" id="19_rmxqu"]
@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://vdmsum6tcn6f" path="res://content/art/terrain/fill_dev.png" id="21_1ybtr"]
 [ext_resource type="Texture2D" uid="uid://c0c73410pcsa0" path="res://resources/atmospheres/puke.tres" id="21_t4vwl"]
 [ext_resource type="FontFile" uid="uid://cfjw1u3ncp4le" path="res://content/font/Chillax-Variable.woff2" id="22_1ybtr"]
-[ext_resource type="Resource" uid="uid://dx000dj5b03a0" path="res://resources/shape_materials/dev.tres" id="22_i4ty8"]
+[ext_resource type="Resource" path="res://resources/shape_materials/dev.tres" id="22_i4ty8"]
 [ext_resource type="AudioStream" uid="uid://bp47jeg7tv2mn" path="res://content/audio/music/space_1.ogg" id="23_aovi2"]
 [ext_resource type="AudioStream" uid="uid://dnd5hqpjr1rnh" path="res://content/audio/music/space_2.ogg" id="24_6otqx"]
 
