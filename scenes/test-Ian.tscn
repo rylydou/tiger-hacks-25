@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://df8bocc7xlpbs"]
+[gd_scene load_steps=29 format=3 uid="uid://df8bocc7xlpbs"]
 
 [ext_resource type="Script" uid="uid://dmjoq3abt61mj" path="res://scripts/entities/Ian_Testing/inventory_tester.gd" id="1_6g6dy"]
 [ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="1_i5c44"]
@@ -19,6 +19,55 @@
 [ext_resource type="FontVariation" uid="uid://cdhiu1bi7qwhn" path="res://resources/fonts/regular.tres" id="12_rnh5r"]
 [ext_resource type="AudioStream" uid="uid://b7rr5784bywmk" path="res://content/art/Shop/Sounds/refining plant.wav" id="13_6vqkv"]
 [ext_resource type="AudioStream" uid="uid://ckdkw07ianrv3" path="res://content/art/Shop/Sounds/refining fish.mp3" id="18_5lkhm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4sdq5"]
+bg_color = Color(0, 0, 0, 0.89411765)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5lkhm"]
+bg_color = Color(0.34901962, 0.015686275, 0.3764706, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b871"]
+bg_color = Color(0.28977185, 0.010632733, 0.31320363, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_es57r"]
+bg_color = Color(0.43186024, 0.02530508, 0.46353972, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jch1s"]
+bg_color = Color(0.34467104, 0.014235078, 0.3704768, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvqsl"]
 content_margin_left = 24.0
@@ -108,21 +157,45 @@ texture = ExtResource("7_v4hej")
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("1_6g6dy")
 
-[node name="BeginButton" type="Button" parent="UI"]
+[node name="CoinCounter" type="Sprite2D" parent="UI"]
+position = Vector2(140.00002, 78)
+scale = Vector2(9, 9)
+texture = ExtResource("8_v4hej")
+
+[node name="money" type="Label" parent="UI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -140.5
-offset_top = -59.0
-offset_right = 140.5
-offset_bottom = 59.0
+offset_left = -862.0
+offset_top = -498.0
+offset_right = -713.0
+offset_bottom = -388.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("8_rnh5r")
+theme_override_font_sizes/font_size = 50
+text = "99999"
+vertical_alignment = 1
+script = ExtResource("2_hykfq")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4sdq5")
+
+[node name="BeginButton" type="Button" parent="UI/PanelContainer"]
+layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("7_b8ql7")
 theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_5lkhm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7b871")
 text = "Ready?"
 
 [node name="EndSellingButton" type="Button" parent="UI"]
@@ -137,9 +210,12 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("8_rnh5r")
 theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_es57r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jch1s")
 text = "Done?"
 
 [node name="Button" type="Button" parent="UI"]
+visible = false
 offset_left = 805.0
 offset_top = 927.0
 offset_right = 1024.0
@@ -149,6 +225,7 @@ text = "Increase Rocks
 "
 
 [node name="Button 2" type="Button" parent="UI"]
+visible = false
 offset_left = 1047.0
 offset_top = 927.0
 offset_right = 1266.0
@@ -157,6 +234,7 @@ scale = Vector2(1.1725829, 1.1725829)
 text = "Increase Animal"
 
 [node name="Button 3" type="Button" parent="UI"]
+visible = false
 offset_left = 555.0
 offset_top = 927.0
 offset_right = 774.0
@@ -164,29 +242,6 @@ offset_bottom = 1032.0
 scale = Vector2(1.1725829, 1.1725829)
 text = "Increase Plant
 "
-
-[node name="CoinCounter" type="Sprite2D" parent="UI"]
-position = Vector2(140.00002, 78)
-scale = Vector2(9, 9)
-texture = ExtResource("8_v4hej")
-
-[node name="money" type="Label" parent="UI"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -859.0
-offset_top = -498.0
-offset_right = -716.0
-offset_bottom = -388.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("8_rnh5r")
-theme_override_font_sizes/font_size = 50
-text = "99999"
-vertical_alignment = 1
-script = ExtResource("2_hykfq")
 
 [node name="Upgrades" type="Control" parent="UI" node_paths=PackedStringArray("oxygen_upgrade_bar", "fuel_upgrade_bar", "processing_upgrade_bar", "inventory_upgrade_bar")]
 visible = false
@@ -462,8 +517,8 @@ count = 1
 theme_override_colors/font_color = Color(0.3882353, 0.60784316, 1, 1)
 
 [connection signal="finished" from="BGMusic" to="." method="_on_bg_music_finished"]
-[connection signal="button_down" from="UI/BeginButton" to="." method="_start_game"]
-[connection signal="button_down" from="UI/BeginButton" to="UI/BeginButton" method="hide"]
+[connection signal="button_down" from="UI/PanelContainer/BeginButton" to="." method="_start_game"]
+[connection signal="button_down" from="UI/PanelContainer/BeginButton" to="UI/PanelContainer" method="hide"]
 [connection signal="button_down" from="UI/EndSellingButton" to="." method="_end_game"]
 [connection signal="button_down" from="UI/EndSellingButton" to="UI/EndSellingButton" method="hide"]
 [connection signal="button_down" from="UI/Button" to="UI" method="_increase_rocks"]
