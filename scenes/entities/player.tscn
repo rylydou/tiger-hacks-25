@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://drbctbpnp652k"]
+[gd_scene load_steps=63 format=3 uid="uid://drbctbpnp652k"]
 
 [ext_resource type="Script" uid="uid://bjieh1uyr44c" path="res://scripts/entities/player.gd" id="1_ucweq"]
 [ext_resource type="Texture2D" uid="uid://bslv3yxot17o4" path="res://content/art/Player/space idle.png" id="2_42nxq"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://u2uesxoatlid" path="res://content/art/Player/space jump.png" id="6_ss7kx"]
 [ext_resource type="Texture2D" uid="uid://c72d40nvs758q" path="res://content/art/Player/space hover.png" id="7_c5rqy"]
 [ext_resource type="Texture2D" uid="uid://cymiaq2k7d4lu" path="res://content/art/Player/space jab.png" id="7_dnykm"]
+[ext_resource type="AudioStream" uid="uid://6mm78k6tqt5p" path="res://content/audio/sfx/512815__mostyxs__good-jetpack-sound-loop.wav" id="10_b6tgf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_08t41"]
 radius = 16.0
@@ -380,7 +381,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_42nxq"]
 size = Vector2(45, 32)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "home_arrow_anchor", "jetpack_vfx", "jetpack_vfx_o2", "interaction_area", "flip_node", "sprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "home_arrow_anchor", "jetpack_vfx", "jetpack_vfx_o2", "interaction_area", "flip_node", "sprite", "jetpack_sfx")]
 collision_layer = 5
 floor_constant_speed = true
 floor_max_angle = 1.553343
@@ -393,6 +394,7 @@ jetpack_vfx_o2 = NodePath("Jetpack VFX O2")
 interaction_area = NodePath("Flip/Pickup Area")
 flip_node = NodePath("Flip")
 sprite = NodePath("Flip/Sprite")
+jetpack_sfx = NodePath("AudioStreamPlayer2D")
 jetpack_boost_accel = 1000.0
 jetpack_max_speed = 500.0
 jetpack_o2_to_fuel_ratio = 10.0
@@ -420,6 +422,9 @@ limit_enabled = false
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 2.0
 script = ExtResource("3_1ie0h")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Camera"]
+current = true
 
 [node name="Home Arrow Anchor" type="Node2D" parent="."]
 z_index = 1000
@@ -492,3 +497,9 @@ collision_mask = 128
 [node name="Collision" type="CollisionShape2D" parent="Flip/Pickup Area"]
 position = Vector2(10.5, 0)
 shape = SubResource("RectangleShape2D_42nxq")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_b6tgf")
+volume_db = -80.0
+autoplay = true
+bus = &"sfx"

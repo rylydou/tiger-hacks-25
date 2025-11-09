@@ -18,6 +18,7 @@ static var instance: Player
 @export var sprite: AnimatedSprite2D
 @export var fuel_warn_label: CanvasItem
 @export var o2_warn_label: CanvasItem
+@export var jetpack_sfx: AudioStreamPlayer2D
 
 @export_group("Jetpack", "jetpack_")
 
@@ -166,6 +167,7 @@ func _process_movement(delta: float) -> void:
 	):
 		var current_jetpack_speed := velocity.dot(up)
 		
+		is_boosting = true
 		if jetpack_fuel_left <= 0.0:
 			jetpack_vfx_o2.emitting = true
 		else:
@@ -180,7 +182,6 @@ func _process_movement(delta: float) -> void:
 			
 			velocity += get_up_vector() * jetpack_boost_accel * delta
 			jetpack_fuel_left -= delta
-			is_boosting = true
 			if jetpack_fuel_left <= 0.0 and not using_o2:
 				wait_until_release_before_boosting = true
 	else:
@@ -197,6 +198,11 @@ func _process_movement(delta: float) -> void:
 	if not is_zero_approx(gamepad.move.x):
 		flip_node.scale.x = signf(gamepad.move.x)
 	
+	jetpack_sfx.volume_linear = move_toward(
+			jetpack_sfx.volume_linear,
+			0.3 if is_boosting else 0.0,
+			(3.0 if is_boosting else 10.0) * delta
+	)
 	
 	# Update sprite
 	

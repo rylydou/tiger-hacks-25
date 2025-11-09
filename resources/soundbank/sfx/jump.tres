@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SoundEvent" load_steps=3 format=3 uid="uid://b4gmhd22jq40h"]
+
+[ext_resource type="Script" uid="uid://crch1a5rk337u" path="res://addons/soundscaper/scripts/resources/sound_event.gd" id="1_70nat"]
+[ext_resource type="AudioStream" uid="uid://ckkr5i83fm2ys" path="res://content/audio/sfx/jump.ogg" id="2_70nat"]
+
+[resource]
+script = ExtResource("1_70nat")
+streams = Array[AudioStream]([ExtResource("2_70nat")])
+bus = &"sfx"
+volume = -4.0
+pitch = 4.0
+random_pitch_variation = 4.0
+metadata/_custom_type_script = "uid://crch1a5rk337u"
