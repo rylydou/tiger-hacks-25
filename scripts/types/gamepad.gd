@@ -194,6 +194,12 @@ func poll_keyboard(delta: float) -> void:
 			or Input.is_physical_key_pressed(KEY_DOWN)
 	), delta)
 	
+	jump.track((
+			Input.is_physical_key_pressed(KEY_Z)
+			or Input.is_physical_key_pressed(KEY_SPACE)
+			or Input.is_physical_key_pressed(KEY_W)
+	), delta)
+	
 	var right := float(
 			Input.is_physical_key_pressed(KEY_D)
 			or Input.is_physical_key_pressed(KEY_RIGHT)

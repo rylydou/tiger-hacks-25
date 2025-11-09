@@ -18,8 +18,11 @@ static var instance: Player
 @export var sprite: AnimatedSprite2D
 @export var fuel_warn_label: CanvasItem
 @export var o2_warn_label: CanvasItem
+@export var inventory_label: Label
 @export var jetpack_sfx: AudioStreamPlayer2D
 @export var intense_animation_player: AnimationPlayer
+
+@export var general_max_speed := 1000.0
 
 @export_group("Jetpack", "jetpack_")
 
@@ -82,7 +85,7 @@ func _ready() -> void:
 	o2_max = o2
 	o2_bar.custom_minimum_size.x = mini((o2_max / 60.0) * 200.0, 1500.0)
 	
-	jetpack_fuel_time = 1.0 + 1.0 * Stats.fuel_upgrades
+	jetpack_fuel_time = 1.0 + 0.5 * Stats.fuel_upgrades
 	jetpack_fuel_left = jetpack_fuel_time
 	fuel_bar.custom_minimum_size.x = mini(jetpack_fuel_time * 200.0, 1500.0)
 	
@@ -139,6 +142,10 @@ func _physics_process(delta: float) -> void:
 	
 	if gamepad.action.pressed:
 		interact()
+	
+	velocity = velocity.limit_length(general_max_speed)
+	
+	inventory_label.text = "%d/%d Items" % [Inventory.get_size(), Stats.max_inventory_size]
 
 
 func _process_movement(delta: float) -> void:
@@ -233,6 +240,9 @@ func _process_movement(delta: float) -> void:
 				anim = &"fall"
 	else:
 		anim = &"float"
+	
+	if is_boosting:
+		anim = &"boost"
 	
 	block_animations_timer -= delta
 	if block_animations_timer < 0.0:

@@ -5,6 +5,11 @@ var picked_up := false
 
 func _interact() -> void:
 	if picked_up: return
+	
+	if Inventory.is_full():
+		DevTools.toast("Inventory is full")
+		return
+	
 	picked_up = true
 	DevTools.toast("+1 Zen Fruit")
 	Inventory.add_item(PlantItem.new())

@@ -32,7 +32,7 @@ func _end_game() -> void:
 	upgrades_menu.show()
 	
 func _change_scene() -> void:
-	get_tree().change_scene_to_file("res://scenes/test-ryly.tscn")
+	Game.transition_to_file("res://scenes/test-ryly.tscn", "HERE WE GO AGAIN")
 
 
 func _on_bg_music_finished() -> void:

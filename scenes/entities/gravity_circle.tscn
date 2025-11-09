@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://v1vo0fr5woac" path="res://scripts/entities/gravity_circle.gd" id="1_s0tdq"]
 [ext_resource type="Material" uid="uid://cy6fq6ytmcesy" path="res://resources/materials/gravity.tres" id="2_bvaev"]
-[ext_resource type="Texture2D" uid="uid://g1tw6ixsx44q" path="res://content/art/gravity-arrow-1.png" id="3_lmn5p"]
+[ext_resource type="Texture2D" uid="uid://cnvhlq4ltpq5f" path="res://content/art/gravity-arrow-2.png" id="3_s0tdq"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_spcul"]
 
@@ -28,7 +28,7 @@ texture_repeat = 2
 material = ExtResource("2_bvaev")
 scale = Vector2(960.00006, 960.00006)
 mesh = SubResource("QuadMesh_spcul")
-texture = ExtResource("3_lmn5p")
+texture = ExtResource("3_s0tdq")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_spcul")

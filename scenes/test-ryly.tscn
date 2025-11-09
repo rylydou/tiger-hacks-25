@@ -36,6 +36,7 @@ stream_1/stream = ExtResource("24_6otqx")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_548c8"]
 shader = ExtResource("16_asg5j")
 shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/scale = Vector2(1, 1)
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/bigStarSlow = 2.0
 shader_parameter/mediumStarSlow = 6.0
@@ -962,12 +963,12 @@ bus = &"bgm"
 [node name="Map Gen" type="Node2D" parent="." node_paths=PackedStringArray("planets_pool_node", "planets_parent")]
 script = ExtResource("1_vk337")
 planet_padding = 300.0
-branch_count = Array[int]([4, 2, 2, 2, 1, 1, 1, 1])
+branch_count = Array[int]([4, 2, 2, 2, 1, 1, 1])
 distance_ranges = Array[Vector2]([Vector2(0, 500), Vector2(1000, 3000), Vector2(2000, 5000)])
 planets_pool_node = NodePath("../Planet Libary")
 planets_parent = NodePath("../Planets")
 fish_spawn_tries = 1
-fish_odds_per_planet = 2.0
+fish_odds_per_planet = 1.0
 
 [node name="Background" type="MeshInstance2D" parent="."]
 z_index = -1000
@@ -977,13 +978,14 @@ material = SubResource("ShaderMaterial_548c8")
 scale = Vector2(100000, 100000)
 mesh = SubResource("QuadMesh_vk337")
 
-[node name="Player" parent="." node_paths=PackedStringArray("fuel_bar", "o2_bar", "fuel_warn_label", "o2_warn_label", "intense_animation_player") instance=ExtResource("3_1jrt7")]
+[node name="Player" parent="." node_paths=PackedStringArray("fuel_bar", "o2_bar", "fuel_warn_label", "o2_warn_label", "inventory_label", "intense_animation_player") instance=ExtResource("3_1jrt7")]
 position = Vector2(-37, -174)
 o2 = 60.0
 fuel_bar = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/Box/Fuel Bar")
 o2_bar = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/Box/O2 Bar")
 fuel_warn_label = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/Fuel Warning Label")
 o2_warn_label = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/O2 Warning Label")
+inventory_label = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/Inventory Label")
 intense_animation_player = NodePath("../CanvasLayer/UI/Intense/AnimationPlayer")
 
 [node name="Planets" type="Node2D" parent="."]
@@ -1250,6 +1252,12 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+
+[node name="Inventory Label" type="Label" parent="CanvasLayer/UI/Margin/VBoxContainer"]
+layout_mode = 2
+text = "0/20 Items"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Fuel Warning Label" type="Label" parent="CanvasLayer/UI/Margin/VBoxContainer"]
 visible = false

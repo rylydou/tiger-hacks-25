@@ -41,6 +41,11 @@ var picked_up := false
 
 func pickup() -> void:
 	if picked_up: return
+	
+	if Inventory.is_full():
+		DevTools.toast("Inventory is full")
+		return
+	
 	picked_up = true
 	
 	DevTools.toast("+1 Space Fish")

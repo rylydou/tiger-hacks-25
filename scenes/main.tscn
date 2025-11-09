@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cobt7kj4b7bjl"]
+[gd_scene load_steps=12 format=3 uid="uid://cobt7kj4b7bjl"]
 
 [ext_resource type="Script" uid="uid://owkekppbhw8q" path="res://scripts/main_menu.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://hpupyh8dlpw3" path="res://scripts/entities/camera.gd" id="2_sugp2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://tje23bwfsjg8" path="res://content/shaders/space.gdshader" id="3_tbgi4"]
 [ext_resource type="FontVariation" uid="uid://cdhiu1bi7qwhn" path="res://resources/fonts/regular.tres" id="5_tefeu"]
 [ext_resource type="FontVariation" uid="uid://bu2phahk26jxu" path="res://resources/fonts/bold.tres" id="6_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://sc3mgdekk5md" path="res://content/art/crater goods text.png" id="7_o6xl0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("3_tbgi4")
@@ -183,7 +184,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 64
 
+[node name="TextureRect" type="TextureRect" parent="UI/Control/VBoxContainer 2"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+texture = ExtResource("7_o6xl0")
+expand_mode = 5
+stretch_mode = 5
+
 [node name="Label" type="Label" parent="UI/Control/VBoxContainer 2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Crater Goods"
