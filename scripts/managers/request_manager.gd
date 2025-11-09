@@ -1,4 +1,7 @@
 extends Node2D
+class_name RequestManager
+
+signal request_completed()
 
 @export var possible_requests: Array[Item.ResourceType] = [
 	Item.ResourceType.ROCK,
@@ -69,13 +72,51 @@ func _try_spawn_scientist() -> void:
 	scientist.scientist_done.connect(func(): _on_scientist_done(location_idx))
 	
 	# Pick random request
-	var request_type = possible_requests.pick_random()
-	var quantity = randi_range(possible_quantity_range.x, possible_quantity_range.y)
-	scientist.create_request(request_type, quantity, time_limit)
+	# Build allowed request types from current inventory contents
+	var allowed_requests: Array[Item.ResourceType] = []
+	if Inventory and not Inventory.is_empty():
+		# Collect types present in inventory
+		var seen := {}
+		for it in Inventory.get_all_items():
+			seen[it.resource_type] = true
+		# Always include the refined variant for base types if base is present
+		if seen.has(Item.ResourceType.ROCK):
+			seen[Item.ResourceType.REFINED_ROCK] = true
+		if seen.has(Item.ResourceType.PLANT):
+			seen[Item.ResourceType.REFINED_PLANT] = true
+		if seen.has(Item.ResourceType.ANIMAL):
+			seen[Item.ResourceType.REFINED_ANIMAL] = true
+		# Build final array of available types that the inventory can satisfy (count > 0)
+		for t in seen.keys():
+			# Only include if inventory has at least one of that type, or it's a refined variant we just added
+			# If it's a refined we added but inventory doesn't have it, it's still allowed per spec
+			allowed_requests.append(t)
 	
+	# If no allowed requests could be determined, fallback to global possible_requests
+	if allowed_requests.size() == 0:
+		allowed_requests = possible_requests.duplicate()
+
+	var request_type = allowed_requests.pick_random()
+	# Determine quantity but cap it to available inventory for that type when possible
+	var quantity = randi_range(possible_quantity_range.x, possible_quantity_range.y)
+	var max_available = 9999
+	if Inventory:
+		max_available = Inventory.get_count(request_type)
+	if max_available > 0:
+		quantity = min(quantity, max_available)
+	scientist.create_request(request_type, quantity, time_limit)
+
 	print("Spawned scientist at location %d requesting %d of type %s" % [location_idx, quantity, str(request_type)])
 
 
 func _on_scientist_done(location_idx: int) -> void:
 	_occupied_locations[location_idx] = false
+	request_completed.emit()
 	print("Location %d is now available" % location_idx)
+
+func get_number_occupied_locations() -> int:
+	var count = 0
+	for occupied in _occupied_locations:
+		if occupied:
+			count += 1
+	return count

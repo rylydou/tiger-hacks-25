@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://df8bocc7xlpbs"]
+[gd_scene load_steps=13 format=3 uid="uid://df8bocc7xlpbs"]
 
 [ext_resource type="Script" uid="uid://dmjoq3abt61mj" path="res://scripts/entities/Ian_Testing/inventory_tester.gd" id="1_6g6dy"]
 [ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="1_i5c44"]
@@ -7,12 +7,16 @@
 [ext_resource type="Script" uid="uid://bkehau171e8i6" path="res://scripts/entities/Ian_Testing/money_count.gd" id="2_hykfq"]
 [ext_resource type="Texture2D" uid="uid://bhyj34djjck4v" path="res://content/art/Shop/rock grinder.png" id="3_veaf7"]
 [ext_resource type="PackedScene" uid="uid://dfwpcne8mxpak" path="res://scenes/entities/item_processor.tscn" id="4_ih210"]
-[ext_resource type="Script" uid="uid://c8uxdvw0d68jk" path="res://scripts/managers/shop_manager.gd" id="5_pbx1c"]
+[ext_resource type="Script" uid="uid://ceoaklxnk1fw6" path="res://scripts/managers/shop_manager.gd" id="5_pbx1c"]
 [ext_resource type="Texture2D" uid="uid://buir6w0lvcxiw" path="res://content/art/Shop/UI/table.png" id="7_v4hej"]
 [ext_resource type="Script" uid="uid://dtbr4yjdyrbsi" path="res://scripts/managers/request_manager.gd" id="7_w7qbk"]
 [ext_resource type="Texture2D" uid="uid://dwbj16yjccfk4" path="res://content/art/Shop/UI/coin counter.png" id="8_v4hej"]
+[ext_resource type="Script" uid="uid://dtrcfbpph1rl0" path="res://scripts/managers/upgrades_manager.gd" id="9_ys0qk"]
 
-[node name="TestIan" type="Node2D"]
+[node name="ShopScene" type="Node2D" node_paths=PackedStringArray("EndGameButton", "rq_mngr")]
+script = ExtResource("5_pbx1c")
+EndGameButton = NodePath("UI/EndSellingButton")
+rq_mngr = NodePath("Request_Manager")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
@@ -51,12 +55,38 @@ scale = Vector2(15, 15)
 texture = ExtResource("7_v4hej")
 
 [node name="CoinCounter" type="Sprite2D" parent="."]
-position = Vector2(233.00002, 159)
+position = Vector2(209, 139)
 scale = Vector2(15, 15)
 texture = ExtResource("8_v4hej")
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("1_6g6dy")
+
+[node name="BeginButton" type="Button" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 80
+text = "Ready?"
+
+[node name="EndSellingButton" type="Button" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -124.5
+offset_right = 124.5
+offset_bottom = 118.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 80
+text = "Done?"
 
 [node name="Button" type="Button" parent="UI"]
 offset_left = 725.0
@@ -81,16 +111,16 @@ offset_bottom = 1077.0
 text = "Increase Plant
 "
 
-[node name="Label" type="Label" parent="UI"]
+[node name="money" type="Label" parent="UI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -779.0
-offset_top = -418.0
-offset_right = -551.0
-offset_bottom = -308.0
+offset_left = -810.0
+offset_top = -430.0
+offset_right = -582.0
+offset_bottom = -320.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 80
@@ -98,7 +128,7 @@ text = "99999"
 vertical_alignment = 1
 script = ExtResource("2_hykfq")
 
-[node name="Shop" type="Control" parent="UI" node_paths=PackedStringArray("oxygen_upgrade_bar", "fuel_upgrade_bar", "processing_upgrade_bar", "inventory_upgrade_bar")]
+[node name="Upgrades" type="Control" parent="UI" node_paths=PackedStringArray("oxygen_upgrade_bar", "fuel_upgrade_bar", "processing_upgrade_bar", "inventory_upgrade_bar")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -106,13 +136,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("5_pbx1c")
+script = ExtResource("9_ys0qk")
 oxygen_upgrade_bar = NodePath("Panel/VBoxContainer/OxygenUpgrade")
 fuel_upgrade_bar = NodePath("Panel/VBoxContainer/FuelUpgrade")
 processing_upgrade_bar = NodePath("Panel/VBoxContainer/ProcessingUpgrade")
 inventory_upgrade_bar = NodePath("Panel/VBoxContainer/InventoryUpgrade")
 
-[node name="Panel" type="Panel" parent="UI/Shop"]
+[node name="Panel" type="Panel" parent="UI/Upgrades"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,7 +150,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Shop/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Upgrades/Panel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -131,18 +161,18 @@ offset_bottom = 463.0
 grow_horizontal = 2
 theme_override_constants/separation = 20
 
-[node name="Money" type="Label" parent="UI/Shop/Panel/VBoxContainer"]
+[node name="Money" type="Label" parent="UI/Upgrades/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "99999"
 vertical_alignment = 1
 script = ExtResource("2_hykfq")
 
-[node name="OxygenUpgrade" type="HBoxContainer" parent="UI/Shop/Panel/VBoxContainer"]
+[node name="OxygenUpgrade" type="HBoxContainer" parent="UI/Upgrades/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 335
 
-[node name="UpgradeName" type="Label" parent="UI/Shop/Panel/VBoxContainer/OxygenUpgrade"]
+[node name="UpgradeName" type="Label" parent="UI/Upgrades/Panel/VBoxContainer/OxygenUpgrade"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -151,12 +181,12 @@ text = "Oxygen"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UpgradeButton" type="Button" parent="UI/Shop/Panel/VBoxContainer/OxygenUpgrade"]
+[node name="UpgradeButton" type="Button" parent="UI/Upgrades/Panel/VBoxContainer/OxygenUpgrade"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "$100"
 
-[node name="NumberUpgrades" type="Label" parent="UI/Shop/Panel/VBoxContainer/OxygenUpgrade"]
+[node name="NumberUpgrades" type="Label" parent="UI/Upgrades/Panel/VBoxContainer/OxygenUpgrade"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 60
@@ -164,11 +194,11 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FuelUpgrade" type="HBoxContainer" parent="UI/Shop/Panel/VBoxContainer"]
+[node name="FuelUpgrade" type="HBoxContainer" parent="UI/Upgrades/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 335
 
-[node name="UpgradeName" type="Label" parent="UI/Shop/Panel/VBoxContainer/FuelUpgrade"]
+[node name="UpgradeName" type="Label" parent="UI/Upgrades/Panel/VBoxContainer/FuelUpgrade"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -177,23 +207,23 @@ text = "Fuel"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UpgradeButton" type="Button" parent="UI/Shop/Panel/VBoxContainer/FuelUpgrade"]
+[node name="UpgradeButton" type="Button" parent="UI/Upgrades/Panel/VBoxContainer/FuelUpgrade"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "$100"
 
-[node name="NumberUpgrades" type="Label" parent="UI/Shop/Panel/VBoxContainer/FuelUpgrade"]
+[node name="NumberUpgrades" type="Label" parent="UI/Upgrades/Panel/VBoxContainer/FuelUpgrade"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ProcessingUpgrade" type="HBoxContainer" parent="UI/Shop/Panel/VBoxContainer"]
+[node name="ProcessingUpgrade" type="HBoxContainer" parent="UI/Upgrades/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 335
 
-[node name="UpgradeName" type="Label" parent="UI/Shop/Panel/VBoxContainer/ProcessingUpgrade"]
+[node name="UpgradeName" type="Label" parent="UI/Upgrades/Panel/VBoxContainer/ProcessingUpgrade"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 60
@@ -201,23 +231,23 @@ text = "Processing"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UpgradeButton" type="Button" parent="UI/Shop/Panel/VBoxContainer/ProcessingUpgrade"]
+[node name="UpgradeButton" type="Button" parent="UI/Upgrades/Panel/VBoxContainer/ProcessingUpgrade"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "$100"
 
-[node name="NumberUpgrades" type="Label" parent="UI/Shop/Panel/VBoxContainer/ProcessingUpgrade"]
+[node name="NumberUpgrades" type="Label" parent="UI/Upgrades/Panel/VBoxContainer/ProcessingUpgrade"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InventoryUpgrade" type="HBoxContainer" parent="UI/Shop/Panel/VBoxContainer"]
+[node name="InventoryUpgrade" type="HBoxContainer" parent="UI/Upgrades/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 335
 
-[node name="UpgradeName" type="Label" parent="UI/Shop/Panel/VBoxContainer/InventoryUpgrade"]
+[node name="UpgradeName" type="Label" parent="UI/Upgrades/Panel/VBoxContainer/InventoryUpgrade"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 60
@@ -225,12 +255,12 @@ text = "Inventory"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UpgradeButton" type="Button" parent="UI/Shop/Panel/VBoxContainer/InventoryUpgrade"]
+[node name="UpgradeButton" type="Button" parent="UI/Upgrades/Panel/VBoxContainer/InventoryUpgrade"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "$100"
 
-[node name="NumberUpgrades" type="Label" parent="UI/Shop/Panel/VBoxContainer/InventoryUpgrade"]
+[node name="NumberUpgrades" type="Label" parent="UI/Upgrades/Panel/VBoxContainer/InventoryUpgrade"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "0"
@@ -282,6 +312,10 @@ item_texture = ExtResource("1_i5c44")
 output_item_type = 3
 count = 1
 
+[connection signal="button_down" from="UI/BeginButton" to="." method="_start_game"]
+[connection signal="button_down" from="UI/BeginButton" to="UI/BeginButton" method="hide"]
+[connection signal="button_down" from="UI/EndSellingButton" to="." method="_end_game"]
+[connection signal="button_down" from="UI/EndSellingButton" to="UI/EndSellingButton" method="hide"]
 [connection signal="button_down" from="UI/Button" to="UI" method="_increase_rocks"]
 [connection signal="button_down" from="UI/Button 2" to="UI" method="_increase_animal"]
 [connection signal="button_down" from="UI/Button 3" to="UI" method="_increase_plant"]

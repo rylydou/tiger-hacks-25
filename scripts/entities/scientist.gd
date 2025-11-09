@@ -169,10 +169,15 @@ func _on_request_fulfilled() -> void:
 	if _exit_location:
 		print("Scientist moving to exit location")
 		_start_move_to(_exit_location.global_position)
-		# Wait for movement to complete before signaling done
-		while _is_moving:
+		# Wait for movement to complete before signaling done.
+		# Guard against scene changes: if this node leaves the tree, get_tree() becomes null
+		while _is_moving and is_inside_tree():
 			await get_tree().process_frame
-	
+
+	# If the node was removed from the scene tree during the wait (scene change), abort
+	if not is_inside_tree():
+		return
+
 	scientist_done.emit()
 	queue_free()
 
@@ -184,10 +189,15 @@ func _on_time_out() -> void:
 	# Move to exit location if available
 	if _exit_location:
 		_start_move_to(_exit_location.global_position)
-		# Wait for movement to complete before signaling done
-		while _is_moving:
+		# Wait for movement to complete before signaling done.
+		# Guard against scene changes while waiting.
+		while _is_moving and is_inside_tree():
 			await get_tree().process_frame
-	
+
+	# If we're no longer in the scene tree (scene changed), abort further cleanup
+	if not is_inside_tree():
+		return
+
 	scientist_done.emit()
 	queue_free()
 
