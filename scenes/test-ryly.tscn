@@ -1,4 +1,4 @@
-[gd_scene load_steps=167 format=4 uid="uid://drgnc25yvxlqe"]
+[gd_scene load_steps=170 format=4 uid="uid://drgnc25yvxlqe"]
 
 [ext_resource type="Script" uid="uid://bmschkfueo481" path="res://scripts/map_gen.gd" id="1_vk337"]
 [ext_resource type="PackedScene" uid="uid://drbctbpnp652k" path="res://scenes/entities/player.tscn" id="3_1jrt7"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://8cm7tnjivvxx" path="res://resources/atmospheres/purple-gold.tres" id="12_548c8"]
 [ext_resource type="Script" uid="uid://cogko1d26b6ph" path="res://scripts/entities/planet.gd" id="13_548c8"]
 [ext_resource type="Material" uid="uid://bwpxb5ywxny0s" path="res://resources/materials/atmosphere.tres" id="14_1pos8"]
+[ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="16_6otqx"]
+[ext_resource type="Script" uid="uid://oeg44bebals3" path="res://scripts/shop_area.gd" id="16_afkmt"]
 [ext_resource type="Shader" uid="uid://tje23bwfsjg8" path="res://content/shaders/space.gdshader" id="16_asg5j"]
 [ext_resource type="Texture2D" uid="uid://ba251g1rf35k6" path="res://resources/atmospheres/ice.tres" id="16_n26kp"]
 [ext_resource type="Texture2D" uid="uid://3skofyyqxame" path="res://resources/atmospheres/sulfur.tres" id="19_rmxqu"]
@@ -167,6 +169,9 @@ _surfaces = [{
 script = ExtResource("7_548c8")
 texture = ExtResource("11_1pos8")
 mesh = SubResource("ArrayMesh_t4vwl")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aovi2"]
+size = Vector2(48, 6)
 
 [sub_resource type="Resource" id="Resource_1ybtr"]
 script = ExtResource("5_1pos8")
@@ -867,7 +872,7 @@ content_margin_left = 24.0
 content_margin_top = 24.0
 content_margin_right = 24.0
 content_margin_bottom = 24.0
-bg_color = Color(0, 0, 0, 0.5019608)
+bg_color = Color(0, 0, 0, 0.78431374)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -877,6 +882,7 @@ border_color = Color(1, 1, 1, 1)
 [node name="Ryly Testing" type="Node2D"]
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = SubResource("AudioStreamRandomizer_afkmt")
 autoplay = true
 bus = &"bgm"
@@ -900,7 +906,7 @@ scale = Vector2(100000, 100000)
 mesh = SubResource("QuadMesh_vk337")
 
 [node name="Player" parent="." node_paths=PackedStringArray("fuel_bar", "o2_bar") instance=ExtResource("3_1jrt7")]
-position = Vector2(1, -150)
+position = Vector2(-37, -174)
 o2 = 60.0
 fuel_bar = NodePath("../CanvasLayer/UI/Margin/Box/Fuel Bar")
 o2_bar = NodePath("../CanvasLayer/UI/Margin/Box/O2 Bar")
@@ -931,6 +937,23 @@ metadata/_custom_type_script = "uid://dhdc4b8yddyej"
 [node name="Collision" type="CollisionPolygon2D" parent="Planet - Start"]
 visible = false
 polygon = PackedVector2Array(42.975876, -154.8583, 109.56975, -133.00185, 153.28253, -80.75137, 162.16179, 24.091217, 130.40158, 110.4924, 38.194855, 160.35239, -47.8649, 143.96005, -115.82465, 124.4942, -160.90363, 72.92667, -171.83176, -4.2538147, -148.60938, -79.72684, -107.628494, -129.24527, -50.255447, -155.88284)
+
+[node name="Shop Area" type="Area2D" parent="Planet - Start" node_paths=PackedStringArray("prompt")]
+process_mode = 3
+position = Vector2(75.99999, -147)
+rotation = 0.2617994
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("16_afkmt")
+prompt = NodePath("../../CanvasLayer/UI/CenterContainer/Shop Confirm Prompt")
+
+[node name="Sprite2D" type="Sprite2D" parent="Planet - Start/Shop Area"]
+position = Vector2(0, -21)
+scale = Vector2(0.375, 0.375)
+texture = ExtResource("16_6otqx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet - Start/Shop Area"]
+shape = SubResource("RectangleShape2D_aovi2")
 
 [node name="Planet Libary" type="Node" parent="."]
 
@@ -1208,34 +1231,38 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="End Confirm Prompt" type="PanelContainer" parent="CanvasLayer/UI/CenterContainer"]
+[node name="Shop Confirm Prompt" type="PanelContainer" parent="CanvasLayer/UI/CenterContainer"]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1ybtr")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/CenterContainer/End Confirm Prompt"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/CenterContainer/Shop Confirm Prompt"]
 layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/CenterContainer/End Confirm Prompt/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/CenterContainer/Shop Confirm Prompt/VBoxContainer"]
 layout_mode = 2
 text = "Ready to sell your stuff?"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/CenterContainer/End Confirm Prompt/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/CenterContainer/Shop Confirm Prompt/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 64
 
-[node name="Button" type="Button" parent="CanvasLayer/UI/CenterContainer/End Confirm Prompt/VBoxContainer/HBoxContainer"]
+[node name="No Button" type="Button" parent="CanvasLayer/UI/CenterContainer/Shop Confirm Prompt/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Keep Exploring..."
 
-[node name="Button 2" type="Button" parent="CanvasLayer/UI/CenterContainer/End Confirm Prompt/VBoxContainer/HBoxContainer"]
+[node name="Yes Button" type="Button" parent="CanvasLayer/UI/CenterContainer/Shop Confirm Prompt/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Get Selling!"
+
+[connection signal="body_entered" from="Planet - Start/Shop Area" to="Planet - Start/Shop Area" method="_on_body_entered"]
+[connection signal="pressed" from="CanvasLayer/UI/CenterContainer/Shop Confirm Prompt/VBoxContainer/HBoxContainer/No Button" to="Planet - Start/Shop Area" method="resume"]
+[connection signal="pressed" from="CanvasLayer/UI/CenterContainer/Shop Confirm Prompt/VBoxContainer/HBoxContainer/Yes Button" to="Planet - Start/Shop Area" method="goto_shop"]

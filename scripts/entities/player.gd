@@ -1,6 +1,9 @@
 class_name Player extends CharacterBody2D
 
 
+static var instance: Player
+
+
 @export var o2 := 10.0
 @onready var o2_max := o2
 
@@ -11,6 +14,7 @@ class_name Player extends CharacterBody2D
 @export var jetpack_vfx: GPUParticles2D
 @export var interaction_area: Area2D
 @export var flip_node: Node2D
+@export var sprite: AnimatedSprite2D
 
 @export_group("Jetpack", "jetpack_")
 
@@ -45,6 +49,8 @@ class_name Player extends CharacterBody2D
 @export var planet_decel_ground_linear := 0.0
 @export var planet_decel_ground_mult := 1.0
 
+var step_timer := 0.0
+
 
 var gamepad := Gamepad.create(Gamepad.DEVICE_AUTO)
 
@@ -56,6 +62,10 @@ var wait_until_release_before_boosting := false
 var god := false
 var time := 0.0
 var is_dead := false
+
+
+func _enter_tree() -> void:
+	instance = self
 
 
 func _ready() -> void:
@@ -173,6 +183,29 @@ func _process_movement(delta: float) -> void:
 	
 	if not is_zero_approx(gamepad.move.x):
 		flip_node.scale.x = signf(gamepad.move.x)
+	
+	
+	# Update sprite
+	
+	var anim := &"idle"
+	
+	if has_gravity:
+		if is_on_floor():
+			if is_zero_approx(gamepad.move.x):
+				anim = &"idle"
+			else:
+				anim = &"walk"
+		else:
+			if velocity.dot(up) < 0.0 and is_jumping and jump_timer > 0.0:
+				anim = &"jump"
+			else:
+				anim = &"fall"
+	else:
+		anim = &"float"
+		
+	sprite.play(anim)
+	# if sprite.animation != anim:
+	# 	sprite.animation = anim
 
 
 func _process_space(delta: float) -> void:
@@ -219,14 +252,24 @@ func _process_gravity(delta: float) -> void:
 		
 		velocity = velocity.move_toward(Vector2.ZERO, decel_linear * delta) * decel_mult
 	
-	# Jumping and boosting
+	# Jumping
 	if is_grounded and gamepad.jump.pressed:
 		is_jumping = true
 		velocity += get_up_vector() * planet_jump_velocity
 		wait_until_release_before_boosting = true
+		SFX.event(&"sfx/jump").at(self).play()
+	
+	if is_grounded and not is_zero_approx(gamepad.move.x):
+		step_timer -= delta
+		if step_timer < 0.0:
+			step_timer = 0.2
+			SFX.event(&"sfx/step").at(self).play()
+	else:
+		step_timer -= delta
 
 
 func _draw() -> void:
+	return
 	var gravity := get_gravity()
 	
 	draw_line(Vector2.ZERO, gravity.rotated(-rotation), Color.RED, 4.0)
@@ -236,6 +279,8 @@ func _draw() -> void:
 func interact() -> void:
 	var objects := interaction_area.get_overlapping_bodies()
 	objects.append_array(interaction_area.get_overlapping_areas())
+	
+	SFX.event(&"sfx/punch").at(self).play()
 	
 	for object in objects:
 		object.propagate_call(&"_interact")
