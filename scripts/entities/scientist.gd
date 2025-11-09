@@ -12,6 +12,9 @@ signal scientist_done
 @onready var time_remaining: ProgressBar = $TimeRemaining
 @onready var item_display: Sprite2D = $ItemDisplay
 
+@onready var incorrect_sound: AudioStreamPlayer2D = $IncorrectSound
+@onready var correct_sound: AudioStreamPlayer2D = $CorrectSound
+
 var _countdown: float = 0.0
 var _request_created: bool = false
 var _display_timer: float = 0.0
@@ -166,6 +169,7 @@ func _start_move_to(target_pos: Vector2) -> void:
 
 
 func _on_request_fulfilled() -> void:
+	correct_sound.play()
 	# Hide item display
 	item_display.visible = false
 	item_matcher.queue_free()
@@ -188,6 +192,7 @@ func _on_request_fulfilled() -> void:
 
 
 func _on_time_out() -> void:
+	incorrect_sound.play()
 	# Hide item display
 	item_display.visible = false
 	
@@ -208,6 +213,7 @@ func _on_time_out() -> void:
 
 
 func _on_incorrect_item_received() -> void:
+	incorrect_sound.play()
 	# Hide item display
 	item_display.visible = false
 	item_matcher.queue_free()

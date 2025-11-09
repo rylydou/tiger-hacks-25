@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://df8bocc7xlpbs"]
+[gd_scene load_steps=22 format=3 uid="uid://df8bocc7xlpbs"]
 
 [ext_resource type="Script" uid="uid://dmjoq3abt61mj" path="res://scripts/entities/Ian_Testing/inventory_tester.gd" id="1_6g6dy"]
 [ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="1_i5c44"]
@@ -8,10 +8,15 @@
 [ext_resource type="Texture2D" uid="uid://bhyj34djjck4v" path="res://content/art/Shop/rock grinder.png" id="3_veaf7"]
 [ext_resource type="PackedScene" uid="uid://dfwpcne8mxpak" path="res://scenes/entities/item_processor.tscn" id="4_ih210"]
 [ext_resource type="Script" uid="uid://ceoaklxnk1fw6" path="res://scripts/managers/shop_manager.gd" id="5_pbx1c"]
+[ext_resource type="FontFile" uid="uid://cfjw1u3ncp4le" path="res://content/font/Chillax-Variable.woff2" id="7_b8ql7"]
 [ext_resource type="Texture2D" uid="uid://buir6w0lvcxiw" path="res://content/art/Shop/UI/table.png" id="7_v4hej"]
 [ext_resource type="Script" uid="uid://dtbr4yjdyrbsi" path="res://scripts/managers/request_manager.gd" id="7_w7qbk"]
+[ext_resource type="FontVariation" uid="uid://bu2phahk26jxu" path="res://resources/fonts/bold.tres" id="8_rnh5r"]
 [ext_resource type="Texture2D" uid="uid://dwbj16yjccfk4" path="res://content/art/Shop/UI/coin counter.png" id="8_v4hej"]
 [ext_resource type="Script" uid="uid://dtrcfbpph1rl0" path="res://scripts/managers/upgrades_manager.gd" id="9_ys0qk"]
+[ext_resource type="AudioStream" uid="uid://bwsjttk64kxea" path="res://content/art/Shop/Sounds/refining rock.wav" id="11_5sqoa"]
+[ext_resource type="FontVariation" uid="uid://cdhiu1bi7qwhn" path="res://resources/fonts/regular.tres" id="12_rnh5r"]
+[ext_resource type="AudioStream" uid="uid://b7rr5784bywmk" path="res://content/art/Shop/Sounds/refining plant.wav" id="13_6vqkv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvqsl"]
 content_margin_left = 24.0
@@ -107,6 +112,7 @@ offset_bottom = 59.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("7_b8ql7")
 theme_override_font_sizes/font_size = 80
 text = "Ready?"
 
@@ -120,6 +126,7 @@ offset_right = 83.75
 offset_bottom = 108.0
 grow_horizontal = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("8_rnh5r")
 theme_override_font_sizes/font_size = 50
 text = "Done?"
 
@@ -166,6 +173,7 @@ offset_right = -716.0
 offset_bottom = -388.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("8_rnh5r")
 theme_override_font_sizes/font_size = 50
 text = "99999"
 vertical_alignment = 1
@@ -211,12 +219,14 @@ alignment = 1
 
 [node name="Label" type="Label" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/MoneyVbox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
+theme_override_fonts/font = ExtResource("7_b8ql7")
+theme_override_font_sizes/font_size = 90
 text = "You have $"
 
 [node name="Money" type="Label" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/MoneyVbox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
+theme_override_fonts/font = ExtResource("7_b8ql7")
+theme_override_font_sizes/font_size = 90
 text = "99999"
 vertical_alignment = 1
 script = ExtResource("2_hykfq")
@@ -229,21 +239,24 @@ theme_override_constants/separation = 200
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
 text = "Oxygen"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="UpgradeButton" type="Button" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/OxygenUpgrade"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
 text = "$100"
 
 [node name="NumberUpgrades" type="Label" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/OxygenUpgrade"]
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 30
-text = "0"
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
+text = "Level: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -255,20 +268,23 @@ theme_override_constants/separation = 200
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
 text = "Fuel"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="UpgradeButton" type="Button" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/FuelUpgrade"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
 text = "$100"
 
 [node name="NumberUpgrades" type="Label" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/FuelUpgrade"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "0"
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
+text = "Level: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -279,20 +295,23 @@ theme_override_constants/separation = 200
 [node name="UpgradeName" type="Label" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/ProcessingUpgrade"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
 text = "Processing"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="UpgradeButton" type="Button" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/ProcessingUpgrade"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
 text = "$100"
 
 [node name="NumberUpgrades" type="Label" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/ProcessingUpgrade"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "0"
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
+text = "Level: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -303,20 +322,23 @@ theme_override_constants/separation = 200
 [node name="UpgradeName" type="Label" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/InventoryUpgrade"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
 text = "Inventory"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="UpgradeButton" type="Button" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/InventoryUpgrade"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
 text = "$100"
 
 [node name="NumberUpgrades" type="Label" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Panel/VBoxContainer/InventoryUpgrade"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "0"
+theme_override_fonts/font = ExtResource("12_rnh5r")
+theme_override_font_sizes/font_size = 90
+text = "Level: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -331,6 +353,8 @@ alignment = 1
 
 [node name="Label" type="Label" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Confirm Prompt/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("8_rnh5r")
+theme_override_font_sizes/font_size = 70
 text = "Ready to start exploring?"
 horizontal_alignment = 1
 vertical_alignment = 2
@@ -344,12 +368,15 @@ theme_override_constants/separation = 64
 [node name="Yes Button" type="Button" parent="UI/Upgrades/CenterContainer/VBoxContainer/Shop Confirm Prompt/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("8_rnh5r")
+theme_override_font_sizes/font_size = 70
 text = "Go!"
 
 [node name="Draggable_Areas" type="Node2D" parent="."]
 
 [node name="rock_processor" parent="Draggable_Areas" instance=ExtResource("4_ih210")]
 position = Vector2(155, 810)
+sound_clip = ExtResource("11_5sqoa")
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
 output_item_type = 4
@@ -367,6 +394,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_ys0qk")
 
 [node name="plant_processor" parent="Draggable_Areas" instance=ExtResource("4_ih210")]
 position = Vector2(1692, 292)
+sound_clip = ExtResource("13_6vqkv")
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
 output_item_type = 6

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SS2D_Material_Shape" load_steps=10 format=3 uid="uid://bd8c3tygyqs0a"]
+[gd_resource type="Resource" script_class="SS2D_Material_Shape" load_steps=10 format=3 uid="uid://b41kew15n0lda"]
 
 [ext_resource type="Script" uid="uid://0lhxan4cqrc1" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="1_u2f7m"]
 [ext_resource type="Script" uid="uid://d0xjijisx1woh" path="res://addons/rmsmartshape/materials/edge_material.gd" id="2_aw61y"]

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bwsjttk64kxea"
+path="res://.godot/imported/refining rock.wav-f76bd2963683bb46e70a6db492391404.sample"
+
+[deps]
+
+source_file="res://content/art/Shop/Sounds/refining rock.wav"
+dest_files=["res://.godot/imported/refining rock.wav-f76bd2963683bb46e70a6db492391404.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=true
+force/max_rate=true
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop_mode=1
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

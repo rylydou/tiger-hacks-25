@@ -6,6 +6,10 @@ signal processing_completed
 signal processing_progress_changed(progress: float)
 
 @export var max_capacity: int = 1
+
+@export var sound_clip: AudioStream = null
+@onready var refining_sound: AudioStreamPlayer2D = $RefiningSound
+
 var _processing_time: float = 0.0
 var _last_progress_emission: float = 0.0
 var _display_sprite: Sprite2D = null
@@ -13,6 +17,8 @@ var _display_sprite: Sprite2D = null
 
 func _ready() -> void:
 	# Start with processing enabled, not draggable until countdown completes
+	if sound_clip:
+		refining_sound.stream = sound_clip
 	super._ready()
 	is_draggable = false
 	_is_active = true
@@ -32,8 +38,11 @@ func _process(delta: float) -> void:
 	
 	# Only countdown if we have an item
 	if count <= 0 or _processing_time <= 0.0:
+		refining_sound.stop()
 		return
 	
+	if not refining_sound.playing:
+		refining_sound.play()
 	_processing_time -= delta
 	
 	# Emit progress (every 1%)
@@ -216,4 +225,3 @@ func turn_off_particles() -> void:
 	if has_node("ProcessingParticles"):
 		var particles = $ProcessingParticles
 		particles.emitting = false
-

@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dfwpcne8mxpak"]
+[gd_scene load_steps=12 format=3 uid="uid://dfwpcne8mxpak"]
 
 [ext_resource type="Script" uid="uid://brclw2aka383s" path="res://scripts/entities/drag_ui/item_processor.gd" id="1_qdks7"]
 [ext_resource type="Script" uid="uid://jtpckaifu51u" path="res://scripts/entities/Ian_Testing/progress_bar.gd" id="3_56fmi"]
 [ext_resource type="Script" uid="uid://oop22qcygl6r" path="res://scripts/entities/Ian_Testing/change_text_to_incoming.gd" id="3_jov01"]
 [ext_resource type="Texture2D" uid="uid://s7x3wra26x8v" path="res://content/art/Shop/smoke particle.png" id="4_teq4h"]
+[ext_resource type="AudioStream" uid="uid://bwsjttk64kxea" path="res://content/art/Shop/Sounds/refining rock.wav" id="5_o3dlr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4kl76"]
 radius = 136.1323
@@ -78,6 +79,10 @@ emitting = false
 texture = ExtResource("4_teq4h")
 randomness = 0.41
 process_material = SubResource("ParticleProcessMaterial_o3dlr")
+
+[node name="RefiningSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_o3dlr")
 
 [connection signal="count_changed" from="." to="Label" method="change_text_to_incoming"]
 [connection signal="processing_completed" from="." to="." method="turn_off_particles"]

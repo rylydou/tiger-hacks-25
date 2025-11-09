@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b7rr5784bywmk"
+path="res://.godot/imported/refining plant.wav-d96d6c49251f7a1078af08c1507884bd.sample"
+
+[deps]
+
+source_file="res://content/art/Shop/Sounds/refining plant.wav"
+dest_files=["res://.godot/imported/refining plant.wav-d96d6c49251f7a1078af08c1507884bd.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=true
+force/max_rate=true
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop_mode=1
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
