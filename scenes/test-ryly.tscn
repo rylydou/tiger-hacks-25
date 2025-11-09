@@ -1,4 +1,4 @@
-[gd_scene load_steps=163 format=4 uid="uid://drgnc25yvxlqe"]
+[gd_scene load_steps=167 format=4 uid="uid://drgnc25yvxlqe"]
 
 [ext_resource type="Script" uid="uid://bmschkfueo481" path="res://scripts/map_gen.gd" id="1_vk337"]
 [ext_resource type="PackedScene" uid="uid://drbctbpnp652k" path="res://scenes/entities/player.tscn" id="3_1jrt7"]
@@ -22,6 +22,13 @@
 [ext_resource type="Texture2D" uid="uid://c0c73410pcsa0" path="res://resources/atmospheres/puke.tres" id="21_t4vwl"]
 [ext_resource type="FontFile" uid="uid://cfjw1u3ncp4le" path="res://content/font/Chillax-Variable.woff2" id="22_1ybtr"]
 [ext_resource type="Resource" uid="uid://dx000dj5b03a0" path="res://resources/shape_materials/dev.tres" id="22_i4ty8"]
+[ext_resource type="AudioStream" uid="uid://bp47jeg7tv2mn" path="res://content/audio/music/space_1.ogg" id="23_aovi2"]
+[ext_resource type="AudioStream" uid="uid://dnd5hqpjr1rnh" path="res://content/audio/music/space_2.ogg" id="24_6otqx"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_afkmt"]
+streams_count = 2
+stream_0/stream = ExtResource("23_aovi2")
+stream_1/stream = ExtResource("24_6otqx")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_548c8"]
 shader = ExtResource("16_asg5j")
@@ -855,7 +862,24 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0, 0, 0, 0)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ybtr"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+bg_color = Color(0, 0, 0, 0.5019608)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
 [node name="Ryly Testing" type="Node2D"]
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_afkmt")
+autoplay = true
+bus = &"bgm"
 
 [node name="Map Gen" type="Node2D" parent="." node_paths=PackedStringArray("planets_pool_node", "planets_parent")]
 script = ExtResource("1_vk337")
@@ -1097,6 +1121,7 @@ visible = false
 polygon = PackedVector2Array(-139.87057, -141.81775, -148.7284, -206.23816, -45.65576, -209.4592, -44.850464, -151.48071, 20.375183, -126.517914, 78.35358, -176.44373, 141.96875, -127.32324, 93.65338, -85.44989, 99.29016, -15.3927, 167.73688, -5.729645, 157.26855, 86.06943, 102.51123, 73.99063, 73.52203, 155.32138, -18.277039, 170.62125, -29.55066, 226.1838, -139.06534, 192.36313, -112.49194, 125.52695, -162.41772, 65.93808, -133.42856, -17.808472, -178.52283, -44.381897)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="UI" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -1113,8 +1138,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
@@ -1124,6 +1152,7 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+mouse_filter = 2
 theme_override_constants/separation = 12
 
 [node name="Fuel Bar" type="ProgressBar" parent="CanvasLayer/UI/Margin/Box"]
@@ -1170,6 +1199,43 @@ label_settings = SubResource("LabelSettings_rmxqu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="End Confirm Prompt" type="PanelContainer" parent="CanvasLayer/UI/CenterContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1ybtr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/CenterContainer/End Confirm Prompt"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/CenterContainer/End Confirm Prompt/VBoxContainer"]
+layout_mode = 2
+text = "Ready to sell your stuff?"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/CenterContainer/End Confirm Prompt/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 64
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/CenterContainer/End Confirm Prompt/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Keep Exploring..."
+
+[node name="Button 2" type="Button" parent="CanvasLayer/UI/CenterContainer/End Confirm Prompt/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Get Selling!"

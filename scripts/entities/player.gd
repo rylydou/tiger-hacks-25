@@ -53,6 +53,7 @@ var is_boosting := false
 var jump_timer := 0.0
 var wait_until_release_before_boosting := false
 
+var god := false
 var time := 0.0
 var is_dead := false
 
@@ -65,6 +66,10 @@ func _ready() -> void:
 	jetpack_fuel_time = 1.0 + 1.0 * Stats.fuel_upgrades
 	jetpack_fuel_left = jetpack_fuel_time
 	fuel_bar.custom_minimum_size.x = jetpack_fuel_time * 200.0
+	
+	DevTools.new_command("Sell").exec(sell).describe("Go to the sell screen")
+	DevTools.new_command("Die").exec(die).describe("Kill the player")
+	DevTools.new_command("Activate god mod").exec(func(): god = true).describe("Enables god mode")
 
 
 func get_up_vector() -> Vector2:
@@ -108,6 +113,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _process_movement(delta: float) -> void:
+	if god:
+		jetpack_fuel_left = jetpack_fuel_time
+		o2 = o2_max
+	
 	var gravity := get_gravity()
 	var has_gravity := not gravity.is_zero_approx()
 	
@@ -235,4 +244,19 @@ func interact() -> void:
 func die() -> void:
 	if is_dead: return
 	is_dead = true
-	get_tree().change_scene_to_file("res://scenes/test-Ian.tscn")
+	
+	var removed_items: Array[Item.ResourceType] = []
+	
+	for item in Inventory.items:
+		if randf() < 0.5:
+			removed_items.append(item.resource_type)
+			Inventory.remove_item(item)
+	
+	DevTools.toast("You lost %d items" % removed_items.size())
+	Game.transition_to_file("res://scenes/test-Ian.tscn", "YOU RAN OUT OF OXYGEN!")
+
+
+func sell() -> void:
+	if is_dead: return
+	is_dead = true
+	Game.transition_to_file("res://scenes/test-Ian.tscn", "LET'S GET SELLING!")

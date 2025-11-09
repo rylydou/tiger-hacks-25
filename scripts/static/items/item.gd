@@ -24,15 +24,15 @@ func _init(p_name: String = "Item", p_type: ResourceType = ResourceType.ROCK, p_
 func get_type_string() -> String:
 	match resource_type:
 		ResourceType.ROCK:
-			return "Rock"
+			return "Boom Rock"
 		ResourceType.ANIMAL:
-			return "Animal"
+			return "Space Fish"
 		ResourceType.PLANT:
-			return "Plant"
+			return "Zen Fruit"
 		ResourceType.REFINED_ROCK:
-			return "Refined Rock"
+			return "Refined Minerals"
 		ResourceType.REFINED_ANIMAL:	
-			return "Refined Animal"
+			return "Fish Fillet"
 		ResourceType.REFINED_PLANT:
 			return "Refined Plant"
 	return "Unknown"
