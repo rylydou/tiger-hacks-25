@@ -230,6 +230,7 @@ func poll_keyboard(delta: float) -> void:
 	jump.track((
 			Input.is_physical_key_pressed(KEY_Z)
 			or Input.is_physical_key_pressed(KEY_SPACE)
+			or Input.is_physical_key_pressed(KEY_W)
 	), delta)
 	crouch.track((
 			Input.is_physical_key_pressed(KEY_S)
@@ -242,7 +243,10 @@ func poll_keyboard(delta: float) -> void:
 			or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	, delta)
 	action.track(
-			Input.is_physical_key_pressed(KEY_C)
+			Input.is_physical_key_pressed(KEY_X)
+			or Input.is_physical_key_pressed(KEY_E)
+			or Input.is_physical_key_pressed(KEY_ENTER)
+			or Input.is_physical_key_pressed(KEY_C)
 			or Input.is_physical_key_pressed(KEY_Q)
 			or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 	, delta)

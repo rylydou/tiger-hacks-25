@@ -63,6 +63,8 @@ var god := false
 var time := 0.0
 var is_dead := false
 
+var block_animations_timer := 0.0
+
 
 func _enter_tree() -> void:
 	instance = self
@@ -202,10 +204,10 @@ func _process_movement(delta: float) -> void:
 				anim = &"fall"
 	else:
 		anim = &"float"
-		
-	sprite.play(anim)
-	# if sprite.animation != anim:
-	# 	sprite.animation = anim
+	
+	block_animations_timer -= delta
+	if block_animations_timer < 0.0:
+		sprite.play(anim)
 
 
 func _process_space(delta: float) -> void:
@@ -280,7 +282,11 @@ func interact() -> void:
 	var objects := interaction_area.get_overlapping_bodies()
 	objects.append_array(interaction_area.get_overlapping_areas())
 	
-	SFX.event(&"sfx/punch").at(self).play()
+	SFX.event(&"sfx/jab").at(self).play()
+	
+	sprite.stop()
+	sprite.play(&"jab")
+	block_animations_timer = 0.33
 	
 	for object in objects:
 		object.propagate_call(&"_interact")
