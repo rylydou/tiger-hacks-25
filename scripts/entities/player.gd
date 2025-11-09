@@ -78,13 +78,13 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	o2_max = o2
 	o2 = 60 + 30 * Stats.oxygen_upgrades
-	o2_bar.custom_minimum_size.x = o2_max / 60.0 * 200.0
+	o2_max = o2
+	o2_bar.custom_minimum_size.x = mini((o2_max / 60.0) * 200.0, 1500.0)
 	
 	jetpack_fuel_time = 1.0 + 1.0 * Stats.fuel_upgrades
 	jetpack_fuel_left = jetpack_fuel_time
-	fuel_bar.custom_minimum_size.x = jetpack_fuel_time * 200.0
+	fuel_bar.custom_minimum_size.x = mini(jetpack_fuel_time * 200.0, 1500.0)
 	
 	DevTools.new_command("Sell").exec(sell).describe("Go to the sell screen")
 	DevTools.new_command("Die").exec(die).describe("Kill the player")

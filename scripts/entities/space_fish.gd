@@ -15,6 +15,11 @@ extends Area2D
 var dwell_timer := 0.0
 
 
+func _ready() -> void:
+	if Math.rand_bool():
+		$Sprite2D.flip_v = true
+
+
 func _physics_process(delta: float) -> void:
 	dwell_timer -= delta
 	if dwell_timer < 0.0:
@@ -26,7 +31,7 @@ func _physics_process(delta: float) -> void:
 func pick_new_target() -> void:
 	var test_pos := position + Math.rand_dir() * randf_range(move_range.x, move_range.y)
 	
-	if MapGen.instance.check_planet_pos(test_pos, 32.0) and test_pos.distance_squared_to(starting_pos) < max_stray_distance ** 2.0:
+	if (not is_instance_valid(MapGen.instance) or MapGen.instance.check_planet_pos(test_pos, 32.0)) and test_pos.distance_squared_to(starting_pos) < max_stray_distance ** 2.0:
 		target_pos = test_pos
 		dwell_timer = randf_range(dwell_time_range.x, dwell_time_range.y)
 		look_at(target_pos)

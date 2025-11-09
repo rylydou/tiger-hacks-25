@@ -1,16 +1,209 @@
-[gd_scene load_steps=4 format=3 uid="uid://cobt7kj4b7bjl"]
+[gd_scene load_steps=11 format=3 uid="uid://cobt7kj4b7bjl"]
 
-[ext_resource type="Material" uid="uid://cy6fq6ytmcesy" path="res://resources/materials/gravity.tres" id="1_o5qli"]
-[ext_resource type="Texture2D" uid="uid://g1tw6ixsx44q" path="res://content/art/gravity-arrow-1.png" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://owkekppbhw8q" path="res://scripts/main_menu.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://hpupyh8dlpw3" path="res://scripts/entities/camera.gd" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://dnc6d23wuk8d" path="res://scenes/entities/collectables/space_fish.tscn" id="3_jyhfs"]
+[ext_resource type="Shader" uid="uid://tje23bwfsjg8" path="res://content/shaders/space.gdshader" id="3_tbgi4"]
+[ext_resource type="FontVariation" uid="uid://cdhiu1bi7qwhn" path="res://resources/fonts/regular.tres" id="5_tefeu"]
+[ext_resource type="FontVariation" uid="uid://bu2phahk26jxu" path="res://resources/fonts/bold.tres" id="6_o6xl0"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_sgp6g"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
+shader = ExtResource("3_tbgi4")
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/bigStarSlow = 2.0
+shader_parameter/mediumStarSlow = 6.0
+shader_parameter/smallStarSlow = 8.0
+shader_parameter/smallStarAmount = 0.002
+shader_parameter/mediumStarAmount = 0.01
+shader_parameter/bigStarAmount = 0.02
 
-[node name="Main" type="Node"]
+[sub_resource type="QuadMesh" id="QuadMesh_o6xl0"]
 
-[node name="Gravity" type="MeshInstance2D" parent="."]
-texture_filter = 4
+[sub_resource type="Theme" id="Theme_tefeu"]
+default_font = ExtResource("6_o6xl0")
+default_font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_tefeu"]
+font = ExtResource("6_o6xl0")
+font_size = 64
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 8)
+
+[node name="Main Menu" type="Node2D"]
+script = ExtResource("1_o5qli")
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+script = ExtResource("2_sugp2")
+metadata/_custom_type_script = "uid://hpupyh8dlpw3"
+
+[node name="Background" type="MeshInstance2D" parent="."]
+z_index = -1000
+z_as_relative = false
 texture_repeat = 2
-material = ExtResource("1_o5qli")
+material = SubResource("ShaderMaterial_tefeu")
 scale = Vector2(1000, 1000)
-mesh = SubResource("QuadMesh_sgp6g")
-texture = ExtResource("2_0wfyh")
+mesh = SubResource("QuadMesh_o6xl0")
+
+[node name="Space Fish" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(-221, -96)
+max_stray_distance = 400.0
+
+[node name="Space Fish 2" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(-161, 86)
+max_stray_distance = 400.0
+
+[node name="Space Fish 3" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(34, -41)
+max_stray_distance = 400.0
+
+[node name="Space Fish 4" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(138, 81)
+max_stray_distance = 400.0
+
+[node name="Space Fish 5" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(213, -115)
+max_stray_distance = 400.0
+
+[node name="Space Fish 6" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(-10, -231)
+max_stray_distance = 400.0
+
+[node name="Space Fish 7" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(-349, -8)
+max_stray_distance = 400.0
+
+[node name="Space Fish 8" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(-49, 234)
+max_stray_distance = 400.0
+
+[node name="Space Fish 9" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(328, 265)
+max_stray_distance = 400.0
+
+[node name="Space Fish 10" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(428, 26)
+max_stray_distance = 400.0
+
+[node name="Space Fish 11" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(411, -269)
+max_stray_distance = 400.0
+
+[node name="Space Fish 12" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(-251, -299)
+max_stray_distance = 400.0
+
+[node name="Space Fish 13" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(-312, 324)
+max_stray_distance = 400.0
+
+[node name="Space Fish 14" parent="." instance=ExtResource("3_jyhfs")]
+position = Vector2(-500, -211)
+max_stray_distance = 400.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_tefeu")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Control/MarginContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("5_tefeu")
+theme_override_fonts/bold_font = ExtResource("6_o6xl0")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 40
+bbcode_enabled = true
+text = "[b]How to Play[/b]
+
+You're a small business owner astronaut. You start everyday by exploring the local solar system to find stuff to sell - Making sure that you don’t run out of oxygen. You’re equipped with your trusty jetpack that refills each time you land.
+
+After your expedition is done you’ll man your shop by refining your goods to sell to the local scientists. These scientists don’t like repeating themselves so you’ll have to remember what they wanted before they run out of patience.
+
+
+[b]Controls & TL;DR[/b]
+
+A/D - Move
+W - Jump / Use Jetpack
+E - Pickup item
+
+- Collect items
+- Jetpack refills when you land
+- Return before running out of Oxygen!
+- Remember what people want
+- Refine and sell it to them
+
+"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer 2" type="VBoxContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -76.5
+offset_right = 50.0
+offset_bottom = 76.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="UI/Control/VBoxContainer 2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Crater Goods"
+label_settings = SubResource("LabelSettings_tefeu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/VBoxContainer 2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Play Button" type="Button" parent="UI/Control/VBoxContainer 2/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="Quit Button" type="Button" parent="UI/Control/VBoxContainer 2/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="UI/Control/VBoxContainer 2/VBoxContainer/Play Button" to="." method="play"]
+[connection signal="pressed" from="UI/Control/VBoxContainer 2/VBoxContainer/Quit Button" to="." method="quit"]

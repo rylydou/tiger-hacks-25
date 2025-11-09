@@ -1,8 +1,84 @@
-[gd_scene load_steps=10 format=3 uid="uid://xjhugo0kty6y"]
+[gd_scene load_steps=14 format=3 uid="uid://xjhugo0kty6y"]
 
 [ext_resource type="Script" uid="uid://dy2j8yfpv8p0l" path="res://scripts/game.gd" id="1_uwrxv"]
 [ext_resource type="Shader" uid="uid://b2nkdt4blkcy2" path="res://content/shaders/transition.gdshader" id="2_yqjtg"]
 [ext_resource type="FontVariation" uid="uid://bu2phahk26jxu" path="res://resources/fonts/bold.tres" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://owkekppbhw8q" path="res://scripts/main_menu.gd" id="4_lbhrr"]
+
+[sub_resource type="Animation" id="Animation_yqjtg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Iris:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/Iris:material:shader_parameter/inner_fill")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Label:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/Label:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/Label:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Control/Label:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_uwrxv"]
 resource_name = "fade_in"
@@ -95,81 +171,6 @@ tracks/6/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_yqjtg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/Iris:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Control/Iris:material:shader_parameter/inner_fill")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Control/Label:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Control/Label:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Control/Label:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Control/Label:self_modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_lnu2h"]
 resource_name = "fade_out"
 length = 0.5
@@ -251,6 +252,22 @@ shader_parameter/outer_fill = 1.0
 font = ExtResource("3_lnu2h")
 font_size = 64
 
+[sub_resource type="Theme" id="Theme_lbhrr"]
+default_font = ExtResource("3_lnu2h")
+default_font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbhrr"]
+bg_color = Color(0, 0, 0, 0.78431374)
+
+[sub_resource type="LabelSettings" id="LabelSettings_iywne"]
+font = ExtResource("3_lnu2h")
+font_size = 64
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 8)
+
 [node name="Game" type="CanvasLayer" node_paths=PackedStringArray("trans_animation_player", "flavor_text_label")]
 process_mode = 3
 layer = 10
@@ -302,3 +319,46 @@ text = "LETS GET SELLING!"
 label_settings = SubResource("LabelSettings_lbhrr")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Pause Menu" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_lbhrr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_lbhrr")
+script = ExtResource("4_lbhrr")
+is_pause_menu = true
+
+[node name="VBoxContainer 2" type="VBoxContainer" parent="Pause Menu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="Pause Menu/VBoxContainer 2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Paused"
+label_settings = SubResource("LabelSettings_iywne")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause Menu/VBoxContainer 2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Resume Button" type="Button" parent="Pause Menu/VBoxContainer 2/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Main Menu Button" type="Button" parent="Pause Menu/VBoxContainer 2/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[connection signal="pressed" from="Pause Menu/VBoxContainer 2/VBoxContainer/Resume Button" to="Pause Menu" method="resume"]
+[connection signal="pressed" from="Pause Menu/VBoxContainer 2/VBoxContainer/Main Menu Button" to="Pause Menu" method="main_menu"]

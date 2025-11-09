@@ -1,6 +1,7 @@
 shader_type canvas_item;
 
 uniform vec4 bg_color: source_color;
+uniform vec2 scale = vec2(1.0, 1.0);
 uniform vec2 offset;
 uniform float bigStarSlow = 2.0;
 uniform float mediumStarSlow = 6.0;
@@ -15,9 +16,9 @@ float rand(vec2 st) {
 }
 
 void fragment() {
-	vec2 normCoordBig = FRAGCOORD.xy+floor(offset/bigStarSlow);
-	vec2 normCoordMedium = FRAGCOORD.xy+floor(offset/mediumStarSlow);
-	vec2 normCoordSmall = FRAGCOORD.xy+floor(offset/smallStarSlow);
+	vec2 normCoordBig = (FRAGCOORD.xy  * scale)+floor(offset/bigStarSlow);
+	vec2 normCoordMedium = (FRAGCOORD.xy * scale)+floor(offset/mediumStarSlow);
+	vec2 normCoordSmall = (FRAGCOORD.xy * scale)+floor(offset/smallStarSlow);
 	
 	float color = 0.0;
 	

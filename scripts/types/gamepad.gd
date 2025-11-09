@@ -150,24 +150,11 @@ func poll_gamepad(delta: float, device: int) -> void:
 			Input.is_joy_button_pressed(device, JOY_BUTTON_A)
 	), delta)
 	
-	crouch.track((
-			Input.is_joy_button_pressed(device, JOY_BUTTON_DPAD_DOWN)
-			or Input.get_joy_axis(device, JOY_AXIS_LEFT_Y) > crouch_threshold
-	), delta)
-	
-	mine.track((
-			Input.is_joy_button_pressed(device, JOY_BUTTON_X)
-			or Input.get_joy_axis(device, JOY_AXIS_TRIGGER_LEFT) >= trigger_deadzone
-			or Input.get_joy_axis(device, JOY_AXIS_TRIGGER_RIGHT) >= trigger_deadzone
-	), delta)
 	action.track((
 			Input.is_joy_button_pressed(device, JOY_BUTTON_B)
+			or Input.is_joy_button_pressed(device, JOY_BUTTON_X)
+			or Input.is_joy_button_pressed(device, JOY_BUTTON_Y)
 	), delta)
-	drop.track(Input.is_joy_button_pressed(device, JOY_BUTTON_B), delta)
-	switch_left.track(Input.is_joy_button_pressed(device, JOY_BUTTON_LEFT_SHOULDER), delta)
-	switch_right.track(Input.is_joy_button_pressed(device, JOY_BUTTON_RIGHT_SHOULDER), delta)
-	
-	self_destruct.track(Input.is_joy_button_pressed(device, JOY_BUTTON_BACK), delta)
 
 
 func poll_keyboard(delta: float) -> void:
@@ -227,21 +214,6 @@ func poll_keyboard(delta: float) -> void:
 	)
 	move.y = down - up
 	
-	jump.track((
-			Input.is_physical_key_pressed(KEY_Z)
-			or Input.is_physical_key_pressed(KEY_SPACE)
-			or Input.is_physical_key_pressed(KEY_W)
-	), delta)
-	crouch.track((
-			Input.is_physical_key_pressed(KEY_S)
-			or Input.is_physical_key_pressed(KEY_DOWN)
-	), delta)
-	
-	mine.track(
-			Input.is_physical_key_pressed(KEY_X)
-			or Input.is_physical_key_pressed(KEY_E)
-			or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
-	, delta)
 	action.track(
 			Input.is_physical_key_pressed(KEY_X)
 			or Input.is_physical_key_pressed(KEY_E)
@@ -250,24 +222,3 @@ func poll_keyboard(delta: float) -> void:
 			or Input.is_physical_key_pressed(KEY_Q)
 			or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 	, delta)
-	drop.track(Input.is_physical_key_pressed(KEY_T), delta)
-	switch_left.track((
-			Input.is_physical_key_pressed(KEY_COMMA)
-			or Input.is_physical_key_pressed(KEY_COLON)
-			or Input.is_physical_key_pressed(KEY_BRACELEFT)
-			or Input.is_physical_key_pressed(KEY_BRACKETLEFT)
-			or Input.is_physical_key_pressed(KEY_PAGEUP)
-			or Input.is_physical_key_pressed(KEY_HOME)
-			or Input.is_mouse_button_pressed(MOUSE_BUTTON_WHEEL_UP)
-	), delta)
-	switch_right.track((
-			Input.is_physical_key_pressed(KEY_PERIOD)
-			or Input.is_physical_key_pressed(KEY_SEMICOLON)
-			or Input.is_physical_key_pressed(KEY_BRACERIGHT)
-			or Input.is_physical_key_pressed(KEY_BRACKETRIGHT)
-			or Input.is_physical_key_pressed(KEY_PAGEDOWN)
-			or Input.is_physical_key_pressed(KEY_END)
-			or Input.is_mouse_button_pressed(MOUSE_BUTTON_WHEEL_DOWN)
-	), delta)
-	
-	self_destruct.track(Input.is_key_label_pressed(KEY_DELETE), delta)
