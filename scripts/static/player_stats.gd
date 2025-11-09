@@ -5,7 +5,7 @@ signal money_changed(new_money: int)
 
 
 # Money
-var current_money: int = 1000
+var current_money: int = 100
 var reward_multiplier: float = 1.0
 var incorrect_multiplier: float = 0.20
 
@@ -20,8 +20,8 @@ var oxygen_upgrade_current_cost: int = oxygen_upgrade_base_cost
 
 # Fuel upgrades
 var fuel_upgrades: int = 0
-var fuel_upgrade_base_cost: int = 50
-var fuel_upgrade_cost_multiplier: float = 1.2
+var fuel_upgrade_base_cost: int = 60
+var fuel_upgrade_cost_multiplier: float = 1.6
 var fuel_upgrade_current_cost: int = fuel_upgrade_base_cost
 
 # Processing upgrades
