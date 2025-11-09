@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://b5wu63p7ncbky"]
+[gd_scene load_steps=16 format=3 uid="uid://b5wu63p7ncbky"]
 
 [ext_resource type="Script" uid="uid://dc28gs7h6p8wo" path="res://scripts/entities/scientist.gd" id="1_rbq33"]
 [ext_resource type="Texture2D" uid="uid://dec2x55xjtwji" path="res://content/art/Shop/scientist idle (2).png" id="2_rbq33"]
 [ext_resource type="PackedScene" uid="uid://ix5hgno8iv4n" path="res://scenes/entities/item_matcher.tscn" id="3_olt48"]
 [ext_resource type="Texture2D" uid="uid://dcw1xh87sw4uy" path="res://content/art/Shop/UI/speech bubble.png" id="4_r3e82"]
+[ext_resource type="Texture2D" uid="uid://cdvo317evkgtp" path="res://content/art/Interactables/fish icon small.png" id="5_2jpqj"]
 [ext_resource type="AudioStream" uid="uid://c7fkojugflupw" path="res://content/art/Shop/Sounds/scientist yay.wav" id="5_hlge7"]
 [ext_resource type="AudioStream" uid="uid://do732li5vivbs" path="res://content/art/Shop/Sounds/scientist grr.wav" id="6_2jpqj"]
 
@@ -88,20 +89,28 @@ theme_override_styles/background = SubResource("StyleBoxFlat_r3e82")
 theme_override_styles/fill = SubResource("StyleBoxFlat_olt48")
 show_percentage = false
 
-[node name="ItemDisplay" type="Sprite2D" parent="."]
+[node name="ChatBox" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, -365)
 scale = Vector2(15, 15)
 texture = ExtResource("4_r3e82")
 
+[node name="ItemDisplay" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -405)
+scale = Vector2(15, 15)
+texture = ExtResource("5_2jpqj")
+
 [node name="CorrectSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("5_hlge7")
+volume_db = -10.0
 bus = &"sfx"
 
 [node name="IncorrectSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("6_2jpqj")
+volume_db = -15.0
 bus = &"sfx"
 
 [editable path="ItemMatcher"]

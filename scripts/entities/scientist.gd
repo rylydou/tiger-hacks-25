@@ -11,6 +11,7 @@ signal scientist_done
 @onready var item_matcher: ItemMatcher = $ItemMatcher
 @onready var time_remaining: ProgressBar = $TimeRemaining
 @onready var item_display: Sprite2D = $ItemDisplay
+@onready var chat_display: Sprite2D = $ChatBox
 
 @onready var incorrect_sound: AudioStreamPlayer2D = $IncorrectSound
 @onready var correct_sound: AudioStreamPlayer2D = $CorrectSound
@@ -33,6 +34,7 @@ var _has_arrived: bool = false
 func _ready() -> void:
 	# Hide item display initially
 	item_display.visible = false
+	chat_display.visible = false
 	
 	# Pick a random sprite and play its idle animation
 	if sprite_list.size() > 0:
@@ -140,6 +142,7 @@ func _process(delta: float) -> void:
 			if not _has_arrived:
 				_has_arrived = true
 				item_display.visible = true
+				chat_display.visible = true
 				_display_timer = 5.0
 	
 	# Handle item display timer
@@ -147,6 +150,7 @@ func _process(delta: float) -> void:
 		_display_timer -= delta
 		if _display_timer <= 0.0:
 			item_display.visible = false
+			chat_display.visible = false
 	
 	# Countdown timer
 	if _countdown > 0.0:
@@ -172,6 +176,7 @@ func _on_request_fulfilled() -> void:
 	correct_sound.play()
 	# Hide item display
 	item_display.visible = false
+	chat_display.visible = false
 	item_matcher.queue_free()
 	
 	# Move to exit location if available
@@ -195,6 +200,7 @@ func _on_time_out() -> void:
 	incorrect_sound.play()
 	# Hide item display
 	item_display.visible = false
+	chat_display.visible = false
 	
 	# Move to exit location if available
 	if _exit_location:
@@ -216,6 +222,7 @@ func _on_incorrect_item_received() -> void:
 	incorrect_sound.play()
 	# Hide item display
 	item_display.visible = false
+	chat_display.visible = false
 	item_matcher.queue_free()
 	
 	# Move to exit location if available

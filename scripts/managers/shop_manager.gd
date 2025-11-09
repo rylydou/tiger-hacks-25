@@ -3,6 +3,7 @@ extends Node2D
 @export var EndGameButton: Button
 @export var rq_mngr: RequestManager
 @export var upgrades_menu: Control
+@export var music_player: AudioStreamPlayer2D
 
 func _ready() -> void:
 	# Stop request manager while in shop
@@ -12,11 +13,9 @@ func _ready() -> void:
 
 	Inventory.item_removed.connect(_on_item_removed)
 
-
 func _start_game() -> void:
 	if Inventory.items.size() <= 0:
 		EndGameButton.show()
-		return
 	if rq_mngr:
 		rq_mngr.set_process(true)
 
@@ -34,3 +33,7 @@ func _end_game() -> void:
 	
 func _change_scene() -> void:
 	get_tree().change_scene_to_file("res://scenes/test-ryly.tscn")
+
+
+func _on_bg_music_finished() -> void:
+	music_player.play()

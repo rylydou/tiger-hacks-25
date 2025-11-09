@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://df8bocc7xlpbs"]
+[gd_scene load_steps=24 format=3 uid="uid://df8bocc7xlpbs"]
 
 [ext_resource type="Script" uid="uid://dmjoq3abt61mj" path="res://scripts/entities/Ian_Testing/inventory_tester.gd" id="1_6g6dy"]
 [ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="1_i5c44"]
 [ext_resource type="Texture2D" uid="uid://c7algp40j5523" path="res://content/art/Shop/background.png" id="1_v1yww"]
 [ext_resource type="PackedScene" uid="uid://b5njac57k28dv" path="res://scenes/entities/inventory_stock.tscn" id="2_4kl76"]
+[ext_resource type="AudioStream" uid="uid://d3v5li21yxv3w" path="res://content/audio/music/store_1.ogg" id="2_g6ocu"]
 [ext_resource type="Script" uid="uid://bkehau171e8i6" path="res://scripts/entities/Ian_Testing/money_count.gd" id="2_hykfq"]
 [ext_resource type="Texture2D" uid="uid://bhyj34djjck4v" path="res://content/art/Shop/rock grinder.png" id="3_veaf7"]
 [ext_resource type="PackedScene" uid="uid://dfwpcne8mxpak" path="res://scenes/entities/item_processor.tscn" id="4_ih210"]
@@ -17,6 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://bwsjttk64kxea" path="res://content/art/Shop/Sounds/refining rock.wav" id="11_5sqoa"]
 [ext_resource type="FontVariation" uid="uid://cdhiu1bi7qwhn" path="res://resources/fonts/regular.tres" id="12_rnh5r"]
 [ext_resource type="AudioStream" uid="uid://b7rr5784bywmk" path="res://content/art/Shop/Sounds/refining plant.wav" id="13_6vqkv"]
+[ext_resource type="AudioStream" uid="uid://ckdkw07ianrv3" path="res://content/art/Shop/Sounds/refining fish.mp3" id="18_5lkhm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvqsl"]
 content_margin_left = 24.0
@@ -31,7 +33,7 @@ border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ys0qk"]
-bg_color = Color(0.83137256, 0, 0, 1)
+bg_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
@@ -39,7 +41,7 @@ border_width_bottom = 4
 border_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5sqoa"]
-bg_color = Color(0.42352942, 0.42352942, 1, 1)
+bg_color = Color(0.3882353, 0.60784316, 1, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
@@ -47,18 +49,25 @@ border_width_bottom = 4
 border_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vqkv"]
-bg_color = Color(0, 0.42352942, 0, 1)
+bg_color = Color(0.23137255, 0.54509807, 0.4509804, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0, 0, 0, 0)
 
-[node name="ShopScene" type="Node2D" node_paths=PackedStringArray("EndGameButton", "rq_mngr", "upgrades_menu")]
+[node name="ShopScene" type="Node2D" node_paths=PackedStringArray("EndGameButton", "rq_mngr", "upgrades_menu", "music_player")]
 script = ExtResource("5_pbx1c")
 EndGameButton = NodePath("UI/EndSellingButton")
 rq_mngr = NodePath("Request_Manager")
 upgrades_menu = NodePath("UI/Upgrades")
+music_player = NodePath("BGMusic")
+
+[node name="BGMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_g6ocu")
+volume_db = 10.0
+autoplay = true
+bus = &"bgm"
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
@@ -81,7 +90,7 @@ position = Vector2(2073, 564)
 position = Vector2(548, 564)
 
 [node name="Scientist Location 2" type="Node2D" parent="Request_Manager"]
-position = Vector2(840, 564)
+position = Vector2(852, 564)
 
 [node name="Scientist Location" type="Node2D" parent="Request_Manager"]
 position = Vector2(1176, 564)
@@ -375,7 +384,7 @@ text = "Go!"
 [node name="Draggable_Areas" type="Node2D" parent="."]
 
 [node name="rock_processor" parent="Draggable_Areas" instance=ExtResource("4_ih210")]
-position = Vector2(155, 810)
+position = Vector2(155, 755)
 sound_clip = ExtResource("11_5sqoa")
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
@@ -386,10 +395,10 @@ receiving_items = Array[int]([1])
 position = Vector2(-7, -7.0000305)
 
 [node name="ProgressBar" parent="Draggable_Areas/rock_processor" index="2"]
-offset_left = -77.0
-offset_top = 86.0
-offset_right = 70.0
-offset_bottom = 113.0
+offset_left = -103.0
+offset_top = 128.0
+offset_right = 97.0
+offset_bottom = 178.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_ys0qk")
 
 [node name="plant_processor" parent="Draggable_Areas" instance=ExtResource("4_ih210")]
@@ -400,21 +409,29 @@ item_texture = ExtResource("1_i5c44")
 output_item_type = 6
 receiving_items = Array[int]([3])
 
+[node name="CollisionShape2D" parent="Draggable_Areas/plant_processor" index="0"]
+position = Vector2(0, -18)
+
 [node name="ProgressBar" parent="Draggable_Areas/plant_processor" index="2"]
-offset_top = 79.0
-offset_bottom = 106.0
+offset_left = -101.0
+offset_top = 123.0
+offset_right = 99.0
+offset_bottom = 173.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_5sqoa")
 
 [node name="animal_processor" parent="Draggable_Areas" instance=ExtResource("4_ih210")]
 position = Vector2(1539, 810)
+sound_clip = ExtResource("18_5lkhm")
 is_receiving = true
 item_texture = ExtResource("1_i5c44")
 output_item_type = 5
 receiving_items = Array[int]([2])
 
 [node name="ProgressBar" parent="Draggable_Areas/animal_processor" index="2"]
-offset_top = 94.0
-offset_bottom = 121.0
+offset_left = -104.0
+offset_top = 141.0
+offset_right = 96.0
+offset_bottom = 191.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_6vqkv")
 
 [node name="rock_stock" parent="Draggable_Areas" instance=ExtResource("2_4kl76")]
@@ -423,11 +440,17 @@ item_texture = ExtResource("1_i5c44")
 output_item_type = 1
 count = 1
 
+[node name="Label" parent="Draggable_Areas/rock_stock" index="1"]
+theme_override_colors/font_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
+
 [node name="animal_stock" parent="Draggable_Areas" instance=ExtResource("2_4kl76")]
 position = Vector2(1101, 803)
 item_texture = ExtResource("1_i5c44")
 output_item_type = 2
 count = 1
+
+[node name="Label" parent="Draggable_Areas/animal_stock" index="1"]
+theme_override_colors/font_color = Color(0.23137255, 0.54509807, 0.4509804, 1)
 
 [node name="plant_stock" parent="Draggable_Areas" instance=ExtResource("2_4kl76")]
 position = Vector2(576, 803)
@@ -435,6 +458,10 @@ item_texture = ExtResource("1_i5c44")
 output_item_type = 3
 count = 1
 
+[node name="Label" parent="Draggable_Areas/plant_stock" index="1"]
+theme_override_colors/font_color = Color(0.3882353, 0.60784316, 1, 1)
+
+[connection signal="finished" from="BGMusic" to="." method="_on_bg_music_finished"]
 [connection signal="button_down" from="UI/BeginButton" to="." method="_start_game"]
 [connection signal="button_down" from="UI/BeginButton" to="UI/BeginButton" method="hide"]
 [connection signal="button_down" from="UI/EndSellingButton" to="." method="_end_game"]
@@ -447,3 +474,6 @@ count = 1
 [editable path="Draggable_Areas/rock_processor"]
 [editable path="Draggable_Areas/plant_processor"]
 [editable path="Draggable_Areas/animal_processor"]
+[editable path="Draggable_Areas/rock_stock"]
+[editable path="Draggable_Areas/animal_stock"]
+[editable path="Draggable_Areas/plant_stock"]

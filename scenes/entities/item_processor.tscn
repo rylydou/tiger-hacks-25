@@ -64,10 +64,10 @@ vertical_alignment = 1
 script = ExtResource("3_jov01")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -73.0
-offset_top = 136.0
-offset_right = 74.0
-offset_bottom = 163.0
+offset_left = -122.0
+offset_top = 138.0
+offset_right = 124.0
+offset_bottom = 189.0
 theme_override_styles/background = SubResource("StyleBoxFlat_6gk4m")
 theme_override_styles/fill = SubResource("StyleBoxFlat_teq4h")
 show_percentage = false
@@ -83,6 +83,8 @@ process_material = SubResource("ParticleProcessMaterial_o3dlr")
 [node name="RefiningSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("5_o3dlr")
+volume_db = -5.0
+bus = &"sfx"
 
 [connection signal="count_changed" from="." to="Label" method="change_text_to_incoming"]
 [connection signal="processing_completed" from="." to="." method="turn_off_particles"]

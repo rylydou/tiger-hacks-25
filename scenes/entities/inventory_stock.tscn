@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5njac57k28dv"]
+[gd_scene load_steps=5 format=3 uid="uid://b5njac57k28dv"]
 
 [ext_resource type="Script" uid="uid://d2g3it0prc7jt" path="res://scripts/entities/drag_ui/inventory_stock.gd" id="1_yx766"]
+[ext_resource type="FontVariation" uid="uid://bu2phahk26jxu" path="res://resources/fonts/bold.tres" id="2_npp74"]
 [ext_resource type="Script" uid="uid://oop22qcygl6r" path="res://scripts/entities/Ian_Testing/change_text_to_incoming.gd" id="3_wrbnh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4kl76"]
@@ -21,12 +22,14 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -28.0
-offset_top = 131.0
+offset_top = 80.0
 offset_right = 28.0
-offset_bottom = 154.0
+offset_bottom = 187.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Count: "
+theme_override_fonts/font = ExtResource("2_npp74")
+theme_override_font_sizes/font_size = 81
+text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_wrbnh")
