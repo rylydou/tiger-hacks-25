@@ -19,6 +19,8 @@ func _ready() -> void:
 	
 	# Create display sprite for showing processed item
 	_display_sprite = Sprite2D.new()
+	_display_sprite.centered = true
+	_display_sprite.position = Vector2.ZERO
 	_display_sprite.visible = false
 	add_child(_display_sprite)
 
@@ -141,10 +143,14 @@ func _show_processed_item() -> void:
 	
 	if output_item and output_item.icon:
 		_display_sprite.texture = output_item.icon
+		# Ensure scale is NOT inherited from parent; set explicitly
 		_display_sprite.scale = output_item.sprite_scale
+		# Ensure position is at the processor's center
+		_display_sprite.position = Vector2.ZERO
 		_display_sprite.visible = true
 	elif item_texture:
 		_display_sprite.texture = item_texture
+		_display_sprite.position = Vector2.ZERO
 		_display_sprite.visible = true
 
 

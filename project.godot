@@ -33,9 +33,9 @@ soundscaper/todo_file.editor="user://sound_event_todo.txt"
 
 DevTools="*res://addons/devtools/autoload.tscn"
 SFX="*res://addons/soundscaper/scripts/sfx.gd"
-Game="*res://scenes/game.tscn"
 Inventory="*res://scripts/static/items/inventory.gd"
 Stats="*res://scripts/static/player_stats.gd"
+Game="*res://scenes/game.tscn"
 
 [debug]
 
@@ -45,9 +45,6 @@ shapes/collision/shape_color=Color(0, 0.6013788, 0.70120233, 0)
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/size/mode=3
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"

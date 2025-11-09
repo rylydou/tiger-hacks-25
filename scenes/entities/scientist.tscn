@@ -55,7 +55,7 @@ sprite_list = [NodePath("AnimatedSprite2D")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(10, -24.000004)
-scale = Vector2(15, 15)
+scale = Vector2(9, 9)
 sprite_frames = SubResource("SpriteFrames_pw32j")
 animation = &"idle"
 
@@ -63,20 +63,20 @@ animation = &"idle"
 unique_name_in_owner = true
 
 [node name="CollisionShape2D" parent="ItemMatcher" index="0"]
-position = Vector2(0, -101)
+position = Vector2(0, -51)
 
 [node name="TimeRemaining" type="ProgressBar" parent="."]
 unique_name_in_owner = true
 offset_left = -82.0
-offset_top = -236.0
+offset_top = -170.0
 offset_right = 86.0
-offset_bottom = -209.0
+offset_bottom = -143.0
 show_percentage = false
 
 [node name="ItemDisplay" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -347.00003)
-scale = Vector2(15, 15)
+position = Vector2(0, -240.00003)
+scale = Vector2(9, 9)
 texture = ExtResource("4_r3e82")
 
 [editable path="ItemMatcher"]

@@ -2,6 +2,7 @@ extends Node2D
 
 @export var EndGameButton: Button
 @export var rq_mngr: RequestManager
+@export var upgrades_menu: Control
 
 func _ready() -> void:
 	# Stop request manager while in shop
@@ -13,6 +14,9 @@ func _ready() -> void:
 
 
 func _start_game() -> void:
+	if Inventory.items.size() <= 0:
+		EndGameButton.show()
+		return
 	if rq_mngr:
 		rq_mngr.set_process(true)
 
@@ -22,4 +26,9 @@ func _on_item_removed(item: Item) -> void:
 		EndGameButton.show()
 
 func _end_game() -> void:
+	if rq_mngr:
+		rq_mngr.set_process(false)
+	upgrades_menu.show()
+	
+func _change_scene() -> void:
 	get_tree().change_scene_to_file("res://scenes/test-ryly.tscn")

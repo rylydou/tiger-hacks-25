@@ -114,6 +114,10 @@ func _configure_request() -> void:
 	if item and item.icon:
 		item_display.texture = item.icon
 
+	# Assign base reward for the matcher from the item definition (so different items reward differently)
+	if item:
+		item_matcher.base_reward = item.reward
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

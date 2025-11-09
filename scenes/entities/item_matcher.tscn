@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://oop22qcygl6r" path="res://scripts/entities/Ian_Testing/change_text_to_incoming.gd" id="3_q3uog"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u2vvq"]
-radius = 99.0
-height = 212.0
+radius = 66.0
+height = 168.0
 
 [node name="ItemMatcher" type="Area2D"]
 script = ExtResource("1_u2vvq")
