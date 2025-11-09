@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bml1wov087gd6"
+path="res://.godot/imported/Slime Jump.ogg-befa117143a833782c8fcdf81798eadd.oggvorbisstr"
+
+[deps]
+
+source_file="res://content/audio/sfx/fish/Slime Jump.ogg"
+dest_files=["res://.godot/imported/Slime Jump.ogg-befa117143a833782c8fcdf81798eadd.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

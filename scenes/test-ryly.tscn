@@ -1,4 +1,4 @@
-[gd_scene load_steps=170 format=4 uid="uid://drgnc25yvxlqe"]
+[gd_scene load_steps=171 format=4 uid="uid://drgnc25yvxlqe"]
 
 [ext_resource type="Script" uid="uid://bmschkfueo481" path="res://scripts/map_gen.gd" id="1_vk337"]
 [ext_resource type="PackedScene" uid="uid://drbctbpnp652k" path="res://scenes/entities/player.tscn" id="3_1jrt7"]
@@ -14,10 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://8cm7tnjivvxx" path="res://resources/atmospheres/purple-gold.tres" id="12_548c8"]
 [ext_resource type="Script" uid="uid://cogko1d26b6ph" path="res://scripts/entities/planet.gd" id="13_548c8"]
 [ext_resource type="Material" uid="uid://bwpxb5ywxny0s" path="res://resources/materials/atmosphere.tres" id="14_1pos8"]
-[ext_resource type="Texture2D" uid="uid://nnuxevdv2iao" path="res://icon.svg" id="16_6otqx"]
 [ext_resource type="Script" uid="uid://oeg44bebals3" path="res://scripts/shop_area.gd" id="16_afkmt"]
 [ext_resource type="Shader" uid="uid://tje23bwfsjg8" path="res://content/shaders/space.gdshader" id="16_asg5j"]
 [ext_resource type="Texture2D" uid="uid://ba251g1rf35k6" path="res://resources/atmospheres/ice.tres" id="16_n26kp"]
+[ext_resource type="Texture2D" uid="uid://cxbtxef0ws3tm" path="res://content/art/Shop/shop sprite.png" id="17_afkmt"]
 [ext_resource type="Texture2D" uid="uid://3skofyyqxame" path="res://resources/atmospheres/sulfur.tres" id="19_rmxqu"]
 [ext_resource type="Texture2D" uid="uid://6wdooay4tiy3" path="res://resources/atmospheres/fire.tres" id="20_n26kp"]
 [ext_resource type="Texture2D" uid="uid://vdmsum6tcn6f" path="res://content/art/terrain/fill_dev.png" id="21_1ybtr"]
@@ -843,6 +843,11 @@ z_index = -10
 [sub_resource type="Theme" id="Theme_i4ty8"]
 default_font = ExtResource("22_1ybtr")
 
+[sub_resource type="LabelSettings" id="LabelSettings_afkmt"]
+font_color = Color(1, 0, 0, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmxqu"]
 bg_color = Color(0, 0, 0, 0.5019608)
 
@@ -905,11 +910,13 @@ material = SubResource("ShaderMaterial_548c8")
 scale = Vector2(100000, 100000)
 mesh = SubResource("QuadMesh_vk337")
 
-[node name="Player" parent="." node_paths=PackedStringArray("fuel_bar", "o2_bar") instance=ExtResource("3_1jrt7")]
+[node name="Player" parent="." node_paths=PackedStringArray("fuel_bar", "o2_bar", "fuel_warn_label", "o2_warn_label") instance=ExtResource("3_1jrt7")]
 position = Vector2(-37, -174)
 o2 = 60.0
-fuel_bar = NodePath("../CanvasLayer/UI/Margin/Box/Fuel Bar")
-o2_bar = NodePath("../CanvasLayer/UI/Margin/Box/O2 Bar")
+fuel_bar = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/Box/Fuel Bar")
+o2_bar = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/Box/O2 Bar")
+fuel_warn_label = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/Fuel Warning Label")
+o2_warn_label = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/O2 Warning Label")
 
 [node name="Planets" type="Node2D" parent="."]
 
@@ -940,17 +947,17 @@ polygon = PackedVector2Array(42.975876, -154.8583, 109.56975, -133.00185, 153.28
 
 [node name="Shop Area" type="Area2D" parent="Planet - Start" node_paths=PackedStringArray("prompt")]
 process_mode = 3
-position = Vector2(75.99999, -147)
-rotation = 0.2617994
+z_index = -5
+position = Vector2(76, -146)
+rotation = 0.33850607
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("16_afkmt")
 prompt = NodePath("../../CanvasLayer/UI/CenterContainer/Shop Confirm Prompt")
 
 [node name="Sprite2D" type="Sprite2D" parent="Planet - Start/Shop Area"]
-position = Vector2(0, -21)
-scale = Vector2(0.375, 0.375)
-texture = ExtResource("16_6otqx")
+position = Vector2(0.7392955, -28.150555)
+texture = ExtResource("17_afkmt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planet - Start/Shop Area"]
 shape = SubResource("RectangleShape2D_aovi2")
@@ -1171,14 +1178,35 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="Box" type="VBoxContainer" parent="CanvasLayer/UI/Margin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Fuel Warning Label" type="Label" parent="CanvasLayer/UI/Margin/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "USING OXYGEN AS FUEL"
+label_settings = SubResource("LabelSettings_afkmt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="O2 Warning Label" type="Label" parent="CanvasLayer/UI/Margin/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "LOW OXYGEN - START HEADING HOME"
+label_settings = SubResource("LabelSettings_afkmt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Box" type="VBoxContainer" parent="CanvasLayer/UI/Margin/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 mouse_filter = 2
 theme_override_constants/separation = 12
 
-[node name="Fuel Bar" type="ProgressBar" parent="CanvasLayer/UI/Margin/Box"]
+[node name="Fuel Bar" type="ProgressBar" parent="CanvasLayer/UI/Margin/VBoxContainer/Box"]
 custom_minimum_size = Vector2(500, 48)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -1188,7 +1216,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_n26kp")
 value = 67.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/Margin/Box/Fuel Bar"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/Margin/VBoxContainer/Box/Fuel Bar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1200,7 +1228,7 @@ label_settings = SubResource("LabelSettings_rmxqu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="O2 Bar" type="ProgressBar" parent="CanvasLayer/UI/Margin/Box"]
+[node name="O2 Bar" type="ProgressBar" parent="CanvasLayer/UI/Margin/VBoxContainer/Box"]
 custom_minimum_size = Vector2(500, 48)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -1210,7 +1238,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_t4vwl")
 value = 67.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/Margin/Box/O2 Bar"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/Margin/VBoxContainer/Box/O2 Bar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

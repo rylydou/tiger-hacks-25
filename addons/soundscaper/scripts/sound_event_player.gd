@@ -101,7 +101,7 @@ func set_stream(stream: AudioStream) -> SoundEventPlayer:
 func set_event(event: SoundEvent) -> SoundEventPlayer:
 	player.stream = event.pick_stream()
 	player.bus = event.bus
-	player.process_mode = Node.PROCESS_MODE_PAUSABLE if event.pauseable else Node.AUTO_TRANSLATE_MODE_ALWAYS
+	player.process_mode = Node.PROCESS_MODE_PAUSABLE if event.pauseable else Node.PROCESS_MODE_ALWAYS
 	player.volume_db = SoundscaperUtil.rand_var(event.volume, event.random_volume_variation / 2.0)
 	var semitones := SoundscaperUtil.rand_var(event.pitch, event.random_pitch_variation / 2.0)
 	player.pitch_scale = SoundscaperUtil.semitone_to_pitch_scale(semitones)

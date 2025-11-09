@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SoundEvent" load_steps=3 format=3 uid="uid://dafg5oee0wt4l"]
+
+[ext_resource type="Script" uid="uid://crch1a5rk337u" path="res://addons/soundscaper/scripts/resources/sound_event.gd" id="1_v1u8f"]
+[ext_resource type="AudioStream" uid="uid://tlx7t3s5edu2" path="res://content/audio/sfx/death.wav" id="2_thx3i"]
+
+[resource]
+script = ExtResource("1_v1u8f")
+streams = Array[AudioStream]([ExtResource("2_thx3i")])
+bus = &"ui"
+metadata/_custom_type_script = "uid://crch1a5rk337u"

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SoundEvent" load_steps=7 format=3 uid="uid://fqfql2gem6qk"]
+
+[ext_resource type="Script" uid="uid://crch1a5rk337u" path="res://addons/soundscaper/scripts/resources/sound_event.gd" id="1_1awa4"]
+[ext_resource type="AudioStream" uid="uid://cncd8vml0if6r" path="res://content/audio/sfx/step/footstep_grass_000.ogg" id="2_q5r18"]
+[ext_resource type="AudioStream" uid="uid://nijyy8vk1npl" path="res://content/audio/sfx/step/footstep_grass_001.ogg" id="3_3hmsk"]
+[ext_resource type="AudioStream" uid="uid://3wu55dn3f2bu" path="res://content/audio/sfx/step/footstep_grass_002.ogg" id="4_iiuga"]
+[ext_resource type="AudioStream" uid="uid://dgtsgat7ip1lt" path="res://content/audio/sfx/step/footstep_grass_003.ogg" id="5_aivkr"]
+[ext_resource type="AudioStream" uid="uid://bo0hesadna470" path="res://content/audio/sfx/step/footstep_grass_004.ogg" id="6_dawvk"]
+
+[resource]
+script = ExtResource("1_1awa4")
+streams = Array[AudioStream]([ExtResource("2_q5r18"), ExtResource("3_3hmsk"), ExtResource("4_iiuga"), ExtResource("5_aivkr"), ExtResource("6_dawvk")])
+bus = &"sfx"
+volume = -10.0
+pitch = -8.0
+random_volume_variation = 4.0
+random_pitch_variation = 3.0
+metadata/_custom_type_script = "uid://crch1a5rk337u"

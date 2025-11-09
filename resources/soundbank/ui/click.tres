@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SoundEvent" load_steps=3 format=3 uid="uid://cs6tyba6j64st"]
+
+[ext_resource type="Script" uid="uid://crch1a5rk337u" path="res://addons/soundscaper/scripts/resources/sound_event.gd" id="1_41hn7"]
+[ext_resource type="AudioStream" uid="uid://dksv00k7qljow" path="res://content/audio/sfx/ui_ok.wav" id="2_41hn7"]
+
+[resource]
+script = ExtResource("1_41hn7")
+streams = Array[AudioStream]([ExtResource("2_41hn7")])
+bus = &"ui"
+volume = -6.0
+pitch = -12.0
+metadata/_custom_type_script = "uid://crch1a5rk337u"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SoundEvent" load_steps=6 format=3 uid="uid://fm5cmu57bcq8"]
+
+[ext_resource type="Script" uid="uid://crch1a5rk337u" path="res://addons/soundscaper/scripts/resources/sound_event.gd" id="1_d6rvb"]
+[ext_resource type="AudioStream" uid="uid://bml1wov087gd6" path="res://content/audio/sfx/fish/Slime Jump.ogg" id="2_7o74r"]
+[ext_resource type="AudioStream" uid="uid://dy04hfggpos2k" path="res://content/audio/sfx/fish/Slime Shoot 2.ogg" id="3_0a24f"]
+[ext_resource type="AudioStream" uid="uid://1q4v6ip2rr40" path="res://content/audio/sfx/fish/Slime Shoot.ogg" id="4_du4a1"]
+[ext_resource type="AudioStream" uid="uid://cljuv8xu7mgwc" path="res://content/audio/sfx/fish/Slime Splat 1.ogg" id="5_mbrf0"]
+
+[resource]
+script = ExtResource("1_d6rvb")
+streams = Array[AudioStream]([ExtResource("2_7o74r"), ExtResource("3_0a24f"), ExtResource("4_du4a1"), ExtResource("5_mbrf0")])
+bus = &"sfx"
+volume = 15.0
+pitch = -6.0
+metadata/_custom_type_script = "uid://crch1a5rk337u"

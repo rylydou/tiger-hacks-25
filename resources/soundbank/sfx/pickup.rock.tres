@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEvent" load_steps=4 format=3 uid="uid://v65sy4u767jt"]
+
+[ext_resource type="Script" uid="uid://crch1a5rk337u" path="res://addons/soundscaper/scripts/resources/sound_event.gd" id="1_s7n8t"]
+[ext_resource type="AudioStream" uid="uid://brhbrl2jo3axg" path="res://content/audio/sfx/impactPunch_heavy_000.ogg" id="2_7joqa"]
+[ext_resource type="AudioStream" uid="uid://6rvosony3fte" path="res://content/audio/sfx/impactPunch_heavy_001.ogg" id="3_n2pto"]
+
+[resource]
+script = ExtResource("1_s7n8t")
+streams = Array[AudioStream]([ExtResource("2_7joqa"), ExtResource("3_n2pto")])
+bus = &"sfx"
+metadata/_custom_type_script = "uid://crch1a5rk337u"

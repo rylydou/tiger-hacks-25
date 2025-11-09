@@ -80,6 +80,21 @@ import/blender/enabled=false
 
 common/snap_controls_to_pixels=false
 
+[importer_defaults]
+
+wav={
+"compress/mode": 2,
+"edit/loop_begin": 0,
+"edit/loop_end": -1,
+"edit/loop_mode": 1,
+"edit/normalize": true,
+"edit/trim": true,
+"force/8_bit": false,
+"force/max_rate": true,
+"force/max_rate_hz": 44100,
+"force/mono": true
+}
+
 [layer_names]
 
 2d_physics/layer_1="Ground"

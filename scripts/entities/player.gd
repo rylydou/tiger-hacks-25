@@ -12,9 +12,12 @@ static var instance: Player
 @export var fuel_bar: ProgressBar
 @export var o2_bar: ProgressBar
 @export var jetpack_vfx: GPUParticles2D
+@export var jetpack_vfx_o2: GPUParticles2D
 @export var interaction_area: Area2D
 @export var flip_node: Node2D
 @export var sprite: AnimatedSprite2D
+@export var fuel_warn_label: CanvasItem
+@export var o2_warn_label: CanvasItem
 
 @export_group("Jetpack", "jetpack_")
 
@@ -95,6 +98,8 @@ func _physics_process(delta: float) -> void:
 		die()
 		return
 	
+	fuel_warn_label.visible = jetpack_fuel_left <= 0.0
+	
 	time += delta
 	jump_timer -= delta
 	
@@ -112,8 +117,10 @@ func _physics_process(delta: float) -> void:
 	
 	if o2 < 10.0:
 		o2_bar.modulate.a = 0.0 if wrapf(time * 5.0, 0.0, 1.0) < 0.5 else 1.0
+		o2_warn_label.show()
 	elif o2 < o2_max / 3.0 or o2 < 30.0:
 		o2_bar.modulate.a = 0.0 if wrapf(time * 1.0, 0.0, 1.0) < 0.1 else 1.0
+		o2_warn_label.show()
 	
 	if jetpack_fuel_left <= 0.0:
 		fuel_bar.modulate.a = 0.0 if wrapf(time * 5.0, 0.0, 1.0) < 0.5 else 1.0
@@ -150,6 +157,7 @@ func _process_movement(delta: float) -> void:
 		wait_until_release_before_boosting = false
 	
 	jetpack_vfx.emitting = false
+	jetpack_vfx_o2.emitting = false
 	is_boosting = false
 	
 	if (
@@ -158,7 +166,10 @@ func _process_movement(delta: float) -> void:
 	):
 		var current_jetpack_speed := velocity.dot(up)
 		
-		jetpack_vfx.emitting = true
+		if jetpack_fuel_left <= 0.0:
+			jetpack_vfx_o2.emitting = true
+		else:
+			jetpack_vfx.emitting = true
 		
 		if current_jetpack_speed < jetpack_max_speed:
 			var using_o2 := false
@@ -303,6 +314,7 @@ func die() -> void:
 			removed_items.append(item.resource_type)
 			Inventory.remove_item(item)
 	
+	SFX.event(&"ui/die").play()
 	DevTools.toast("You lost %d items" % removed_items.size())
 	Game.transition_to_file("res://scenes/test-Ian.tscn", "YOU RAN OUT OF OXYGEN!")
 

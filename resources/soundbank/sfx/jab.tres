@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SoundEvent" load_steps=3 format=3 uid="uid://64ta743yff25"]
+
+[ext_resource type="Script" uid="uid://crch1a5rk337u" path="res://addons/soundscaper/scripts/resources/sound_event.gd" id="1_lolx8"]
+[ext_resource type="AudioStream" uid="uid://b2n1l62tr6ha1" path="res://content/audio/sfx/swing.punch-1.wav" id="2_0wpgg"]
+
+[resource]
+script = ExtResource("1_lolx8")
+streams = Array[AudioStream]([ExtResource("2_0wpgg")])
+bus = &"sfx"
+volume = -5.0
+pitch = -3.0
+random_pitch_variation = 6.0
+metadata/_custom_type_script = "uid://crch1a5rk337u"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://drbctbpnp652k"]
+[gd_scene load_steps=62 format=3 uid="uid://drbctbpnp652k"]
 
 [ext_resource type="Script" uid="uid://bjieh1uyr44c" path="res://scripts/entities/player.gd" id="1_ucweq"]
 [ext_resource type="Texture2D" uid="uid://bslv3yxot17o4" path="res://content/art/Player/space idle.png" id="2_42nxq"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dqir327j2x3w0" path="res://content/art/Player/space run.png" id="6_d4qa6"]
 [ext_resource type="Texture2D" uid="uid://u2uesxoatlid" path="res://content/art/Player/space jump.png" id="6_ss7kx"]
 [ext_resource type="Texture2D" uid="uid://c72d40nvs758q" path="res://content/art/Player/space hover.png" id="7_c5rqy"]
-[ext_resource type="Texture2D" uid="uid://7tmymv0lal47" path="res://content/art/Player/space jab.png" id="7_dnykm"]
+[ext_resource type="Texture2D" uid="uid://cymiaq2k7d4lu" path="res://content/art/Player/space jab.png" id="7_dnykm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_08t41"]
 radius = 16.0
@@ -27,12 +27,12 @@ font_size = 20
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_42nxq"]
 blend_mode = 1
 
-[sub_resource type="Gradient" id="Gradient_42nxq"]
+[sub_resource type="Gradient" id="Gradient_c5rqy"]
 offsets = PackedFloat32Array(0, 0.27003485, 0.6445993, 1)
-colors = PackedColorArray(1, 0, 0, 1, 1, 0.5019608, 0, 1, 1, 0.5257336, 0, 1, 1, 0.7372936, 0, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.5019608, 0, 1, 1, 0.5257336, 0, 1, 1, 0.7372549, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_5u6hq"]
-gradient = SubResource("Gradient_42nxq")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b6tgf"]
+gradient = SubResource("Gradient_c5rqy")
 width = 32
 
 [sub_resource type="Gradient" id="Gradient_5u6hq"]
@@ -64,7 +64,33 @@ scale_min = 5.0
 scale_max = 20.0
 scale_curve = SubResource("CurveTexture_5u6hq")
 color_ramp = SubResource("GradientTexture1D_d4qa6")
-color_initial_ramp = SubResource("GradientTexture1D_5u6hq")
+color_initial_ramp = SubResource("GradientTexture1D_b6tgf")
+hue_variation_min = -0.100000024
+hue_variation_max = 0.09999997
+
+[sub_resource type="Gradient" id="Gradient_b6tgf"]
+offsets = PackedFloat32Array(0, 0.3241107, 1)
+colors = PackedColorArray(0, 0, 1, 1, 0, 0.7372549, 1, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_73kkf"]
+gradient = SubResource("Gradient_b6tgf")
+width = 32
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c5rqy"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 6.0
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+direction = Vector3(0, 1, 0)
+spread = 25.0
+initial_velocity_min = 64.0
+initial_velocity_max = 128.0
+scale_min = 5.0
+scale_max = 20.0
+scale_curve = SubResource("CurveTexture_5u6hq")
+color_ramp = SubResource("GradientTexture1D_d4qa6")
+color_initial_ramp = SubResource("GradientTexture1D_73kkf")
 hue_variation_min = -0.100000024
 hue_variation_max = 0.09999997
 
@@ -354,7 +380,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_42nxq"]
 size = Vector2(45, 32)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "home_arrow_anchor", "jetpack_vfx", "interaction_area", "flip_node", "sprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "home_arrow_anchor", "jetpack_vfx", "jetpack_vfx_o2", "interaction_area", "flip_node", "sprite")]
 collision_layer = 5
 floor_constant_speed = true
 floor_max_angle = 1.553343
@@ -363,6 +389,7 @@ script = ExtResource("1_ucweq")
 camera = NodePath("Camera")
 home_arrow_anchor = NodePath("Home Arrow Anchor")
 jetpack_vfx = NodePath("Jetpack VFX")
+jetpack_vfx_o2 = NodePath("Jetpack VFX O2")
 interaction_area = NodePath("Flip/Pickup Area")
 flip_node = NodePath("Flip")
 sprite = NodePath("Flip/Sprite")
@@ -437,9 +464,20 @@ z_index = -20
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_42nxq")
 position = Vector2(1, 16)
+emitting = false
 amount = 128
 lifetime = 3.0
 process_material = SubResource("ParticleProcessMaterial_42nxq")
+
+[node name="Jetpack VFX O2" type="GPUParticles2D" parent="."]
+z_index = -20
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_42nxq")
+position = Vector2(1, 16)
+emitting = false
+amount = 128
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_c5rqy")
 
 [node name="Flip" type="Node2D" parent="."]
 
