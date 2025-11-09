@@ -2,31 +2,31 @@
 
 [ext_resource type="Script" uid="uid://0lhxan4cqrc1" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="1_5kuq4"]
 [ext_resource type="Script" uid="uid://d0xjijisx1woh" path="res://addons/rmsmartshape/materials/edge_material.gd" id="2_f8rk8"]
-[ext_resource type="Texture2D" uid="uid://d2mj57xwdy4p1" path="res://content/art/terrain/edge_grass.png" id="3_5kuq4"]
+[ext_resource type="Texture2D" uid="uid://uxshtcilbjit" path="res://content/art/terrain/edge_grass_purple.png" id="3_5kuq4"]
 [ext_resource type="Script" uid="uid://d218yx0d1ilsn" path="res://addons/rmsmartshape/normal_range.gd" id="4_4s22m"]
 [ext_resource type="Texture2D" uid="uid://bxnrye32g6pe4" path="res://content/art/terrain/fill_dirt.png" id="5_ghjqi"]
 [ext_resource type="Script" uid="uid://nc5bfedvnpgm" path="res://addons/rmsmartshape/materials/shape_material.gd" id="6_m7kkq"]
 
-[sub_resource type="Resource" id="Resource_jyvfk"]
+[sub_resource type="Resource" id="Resource_f8rk8"]
 script = ExtResource("2_f8rk8")
 textures = Array[Texture2D]([ExtResource("3_5kuq4")])
 use_corner_texture = false
 use_taper_texture = false
 metadata/_custom_type_script = "uid://d0xjijisx1woh"
 
-[sub_resource type="Resource" id="Resource_5rakq"]
+[sub_resource type="Resource" id="Resource_atdf5"]
 script = ExtResource("4_4s22m")
 distance = 360.0
 
-[sub_resource type="Resource" id="Resource_c6rrr"]
+[sub_resource type="Resource" id="Resource_4s22m"]
 script = ExtResource("1_5kuq4")
-edge_material = SubResource("Resource_jyvfk")
-normal_range = SubResource("Resource_5rakq")
+edge_material = SubResource("Resource_f8rk8")
+normal_range = SubResource("Resource_atdf5")
 weld = false
 metadata/_custom_type_script = "uid://0lhxan4cqrc1"
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("6_m7kkq")
-_edge_meta_materials = Array[ExtResource("1_5kuq4")]([SubResource("Resource_c6rrr")])
+_edge_meta_materials = Array[ExtResource("1_5kuq4")]([SubResource("Resource_4s22m")])
 fill_textures = Array[Texture2D]([ExtResource("5_ghjqi")])

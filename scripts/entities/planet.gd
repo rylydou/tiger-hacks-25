@@ -27,11 +27,19 @@ enum Type {
 var type := Type.Misc
 
 
+var run_setup := false
+var is_setup := false
+
+
 func _ready() -> void:
 	setup()
 
 
 func setup() -> void:
+	if not run_setup: return
+	if is_setup: return
+	is_setup = true
+	
 	var shape: SS2D_Shape = $"SS2D_Shape"
 	var atmosphere: MeshInstance2D = $"Atmosphere"
 	
@@ -61,12 +69,13 @@ func setup() -> void:
 		scene = preload("res://scenes/entities/collectables/boom_rock.tscn")
 	
 	if scene != null:
-		var curve := shape.get_point_array().get_curve()
-		var length := curve.get_baked_length()
-		var trans := curve.sample_baked_with_rotation(randf() * length)
-		var node: Node2D = scene.instantiate()
-		node.transform = trans
-		shape.add_child(node)
+		for i in [0, 1, 1, 2, 2, 3].pick_random():
+			var curve := shape.get_point_array().get_curve()
+			var length := curve.get_baked_length()
+			var trans := curve.sample_baked_with_rotation(randf() * length)
+			var node: Node2D = scene.instantiate()
+			node.transform = trans
+			shape.add_child(node)
 
 
 func randomize_types() -> void:

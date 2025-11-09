@@ -19,6 +19,7 @@ static var instance: Player
 @export var fuel_warn_label: CanvasItem
 @export var o2_warn_label: CanvasItem
 @export var jetpack_sfx: AudioStreamPlayer2D
+@export var intense_animation_player: AnimationPlayer
 
 @export_group("Jetpack", "jetpack_")
 
@@ -69,6 +70,8 @@ var is_dead := false
 
 var block_animations_timer := 0.0
 
+var override_zoom := false
+
 
 func _enter_tree() -> void:
 	instance = self
@@ -85,12 +88,15 @@ func _ready() -> void:
 	
 	DevTools.new_command("Sell").exec(sell).describe("Go to the sell screen")
 	DevTools.new_command("Die").exec(die).describe("Kill the player")
-	DevTools.new_command("Activate god mod").exec(func(): god = true).describe("Enables god mode")
+	DevTools.new_command("Activate God Mod").exec(func(): god = true).describe("Enables god mode")
+	DevTools.new_command("Zoom Out").exec(func(): override_zoom = not override_zoom)
 
 
 func get_up_vector() -> Vector2:
 	return transform.basis_xform(Vector2.UP)
 
+
+var triggered_intense := false
 
 func _physics_process(delta: float) -> void:
 	if is_dead: return
@@ -119,9 +125,12 @@ func _physics_process(delta: float) -> void:
 	if o2 < 10.0:
 		o2_bar.modulate.a = 0.0 if wrapf(time * 5.0, 0.0, 1.0) < 0.5 else 1.0
 		o2_warn_label.show()
-	elif o2 < o2_max / 3.0 or o2 < 30.0:
+	elif o2 < o2_max / 4.0 or o2 < 25.0:
 		o2_bar.modulate.a = 0.0 if wrapf(time * 1.0, 0.0, 1.0) < 0.1 else 1.0
 		o2_warn_label.show()
+		if not triggered_intense:
+			triggered_intense = true
+			intense_animation_player.play(&"intense")
 	
 	if jetpack_fuel_left <= 0.0:
 		fuel_bar.modulate.a = 0.0 if wrapf(time * 5.0, 0.0, 1.0) < 0.5 else 1.0
@@ -149,6 +158,9 @@ func _process_movement(delta: float) -> void:
 		motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	
 	var target_zoom := 2.0 if has_gravity else 0.5
+	if override_zoom:
+		target_zoom = 0.05
+	
 	camera.zoom = Vector2.ONE * lerpf(camera.zoom.x, target_zoom, Math.smooth(1.0, delta))
 	
 	var up := transform.basis_xform(Vector2.UP)
@@ -321,7 +333,8 @@ func die() -> void:
 			Inventory.remove_item(item)
 	
 	SFX.event(&"ui/die").play()
-	DevTools.toast("You lost %d items" % removed_items.size())
+	if removed_items.size() > 0:
+		DevTools.toast("You lost %d %s" % [removed_items.size(), "item" if removed_items.size() == 1 else "items"])
 	Game.transition_to_file("res://scenes/test-Ian.tscn", "YOU RAN OUT OF OXYGEN!")
 
 

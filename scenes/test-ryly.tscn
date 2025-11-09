@@ -1,4 +1,4 @@
-[gd_scene load_steps=171 format=4 uid="uid://drgnc25yvxlqe"]
+[gd_scene load_steps=176 format=4 uid="uid://drgnc25yvxlqe"]
 
 [ext_resource type="Script" uid="uid://bmschkfueo481" path="res://scripts/map_gen.gd" id="1_vk337"]
 [ext_resource type="PackedScene" uid="uid://drbctbpnp652k" path="res://scenes/entities/player.tscn" id="3_1jrt7"]
@@ -9,13 +9,13 @@
 [ext_resource type="Script" uid="uid://bo5f7qe27jfje" path="res://addons/rmsmartshape/shapes/point_array.gd" id="6_asg5j"]
 [ext_resource type="Script" uid="uid://llobjh5hvry" path="res://addons/rmsmartshape/shapes/mesh.gd" id="7_548c8"]
 [ext_resource type="Texture2D" uid="uid://bxnrye32g6pe4" path="res://content/art/terrain/fill_dirt.png" id="8_vk337"]
-[ext_resource type="Texture2D" uid="uid://d2mj57xwdy4p1" path="res://content/art/terrain/edge_grass.png" id="11_1pos8"]
 [ext_resource type="Resource" uid="uid://io311g0rqb4w" path="res://resources/shape_materials/dirt_with_grass.tres" id="12_5urus"]
 [ext_resource type="Texture2D" uid="uid://8cm7tnjivvxx" path="res://resources/atmospheres/purple-gold.tres" id="12_548c8"]
 [ext_resource type="Script" uid="uid://cogko1d26b6ph" path="res://scripts/entities/planet.gd" id="13_548c8"]
 [ext_resource type="Material" uid="uid://bwpxb5ywxny0s" path="res://resources/materials/atmosphere.tres" id="14_1pos8"]
+[ext_resource type="Texture2D" uid="uid://uxshtcilbjit" path="res://content/art/terrain/edge_grass_purple.png" id="14_afkmt"]
 [ext_resource type="Script" uid="uid://oeg44bebals3" path="res://scripts/shop_area.gd" id="16_afkmt"]
-[ext_resource type="Shader" path="res://content/shaders/space.gdshader" id="16_asg5j"]
+[ext_resource type="Shader" uid="uid://tje23bwfsjg8" path="res://content/shaders/space.gdshader" id="16_asg5j"]
 [ext_resource type="Texture2D" uid="uid://ba251g1rf35k6" path="res://resources/atmospheres/ice.tres" id="16_n26kp"]
 [ext_resource type="Texture2D" uid="uid://cxbtxef0ws3tm" path="res://content/art/Shop/shop sprite.png" id="17_afkmt"]
 [ext_resource type="Texture2D" uid="uid://3skofyyqxame" path="res://resources/atmospheres/sulfur.tres" id="19_rmxqu"]
@@ -23,9 +23,10 @@
 [ext_resource type="Texture2D" uid="uid://vdmsum6tcn6f" path="res://content/art/terrain/fill_dev.png" id="21_1ybtr"]
 [ext_resource type="Texture2D" uid="uid://c0c73410pcsa0" path="res://resources/atmospheres/puke.tres" id="21_t4vwl"]
 [ext_resource type="FontFile" uid="uid://cfjw1u3ncp4le" path="res://content/font/Chillax-Variable.woff2" id="22_1ybtr"]
-[ext_resource type="Resource" path="res://resources/shape_materials/dev.tres" id="22_i4ty8"]
+[ext_resource type="Resource" uid="uid://dx000dj5b03a0" path="res://resources/shape_materials/dev.tres" id="22_i4ty8"]
 [ext_resource type="AudioStream" uid="uid://bp47jeg7tv2mn" path="res://content/audio/music/space_1.ogg" id="23_aovi2"]
 [ext_resource type="AudioStream" uid="uid://dnd5hqpjr1rnh" path="res://content/audio/music/space_2.ogg" id="24_6otqx"]
+[ext_resource type="Shader" uid="uid://vx48v8ysio0v" path="res://content/shaders/vignette.gdshader" id="27_eyigu"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_afkmt"]
 streams_count = 2
@@ -167,7 +168,7 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_qfm3h"]
 script = ExtResource("7_548c8")
-texture = ExtResource("11_1pos8")
+texture = ExtResource("14_afkmt")
 mesh = SubResource("ArrayMesh_t4vwl")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aovi2"]
@@ -884,6 +885,72 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pl44h"]
+shader = ExtResource("27_eyigu")
+shader_parameter/radius = 0.66
+shader_parameter/feather = 1.0
+shader_parameter/contrast = 2.0
+
+[sub_resource type="Animation" id="Animation_pl44h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eyigu"]
+resource_name = "intense"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kufmi"]
+_data = {
+&"RESET": SubResource("Animation_pl44h"),
+&"intense": SubResource("Animation_eyigu")
+}
+
 [node name="Ryly Testing" type="Node2D"]
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
@@ -895,12 +962,12 @@ bus = &"bgm"
 [node name="Map Gen" type="Node2D" parent="." node_paths=PackedStringArray("planets_pool_node", "planets_parent")]
 script = ExtResource("1_vk337")
 planet_padding = 300.0
-branch_count = Array[int]([2, 5, 2, 1])
-distance_ranges = Array[Vector2]([Vector2(500, 1000), Vector2(1000, 2000), Vector2(1000, 3000), Vector2(2000, 5000)])
+branch_count = Array[int]([4, 2, 2, 2, 1, 1, 1, 1])
+distance_ranges = Array[Vector2]([Vector2(0, 500), Vector2(1000, 3000), Vector2(2000, 5000)])
 planets_pool_node = NodePath("../Planet Libary")
 planets_parent = NodePath("../Planets")
 fish_spawn_tries = 1
-fish_odds_per_planet = 7.0
+fish_odds_per_planet = 2.0
 
 [node name="Background" type="MeshInstance2D" parent="."]
 z_index = -1000
@@ -910,13 +977,14 @@ material = SubResource("ShaderMaterial_548c8")
 scale = Vector2(100000, 100000)
 mesh = SubResource("QuadMesh_vk337")
 
-[node name="Player" parent="." node_paths=PackedStringArray("fuel_bar", "o2_bar", "fuel_warn_label", "o2_warn_label") instance=ExtResource("3_1jrt7")]
+[node name="Player" parent="." node_paths=PackedStringArray("fuel_bar", "o2_bar", "fuel_warn_label", "o2_warn_label", "intense_animation_player") instance=ExtResource("3_1jrt7")]
 position = Vector2(-37, -174)
 o2 = 60.0
 fuel_bar = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/Box/Fuel Bar")
 o2_bar = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/Box/O2 Bar")
 fuel_warn_label = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/Fuel Warning Label")
 o2_warn_label = NodePath("../CanvasLayer/UI/Margin/VBoxContainer/O2 Warning Label")
+intense_animation_player = NodePath("../CanvasLayer/UI/Intense/AnimationPlayer")
 
 [node name="Planets" type="Node2D" parent="."]
 
@@ -1290,6 +1358,24 @@ text = "Keep Exploring..."
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Get Selling!"
+
+[node name="Intense" type="ColorRect" parent="CanvasLayer/UI"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_pl44h")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/UI/Intense"]
+libraries = {
+&"": SubResource("AnimationLibrary_kufmi")
+}
 
 [connection signal="body_entered" from="Planet - Start/Shop Area" to="Planet - Start/Shop Area" method="_on_body_entered"]
 [connection signal="pressed" from="CanvasLayer/UI/CenterContainer/Shop Confirm Prompt/VBoxContainer/HBoxContainer/No Button" to="Planet - Start/Shop Area" method="resume"]

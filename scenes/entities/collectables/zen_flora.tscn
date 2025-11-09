@@ -7,7 +7,7 @@
 size = Vector2(16, 16)
 
 [sub_resource type="Curve" id="Curve_bih4y"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.0, 0.0, 1, 0]
+_data = [Vector2(0.4703833, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.8881578, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_y8hs5"]
@@ -42,6 +42,7 @@ shape = SubResource("RectangleShape2D_bih4y")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 show_behind_parent = true
-amount = 4
-lifetime = 2.0
+position = Vector2(0, -7)
+amount = 16
+lifetime = 5.0
 process_material = SubResource("ParticleProcessMaterial_kx4yj")

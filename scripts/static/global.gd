@@ -14,15 +14,24 @@ static var atmospheres: Array[GradientTexture1D] = [
 ]
 
 static var materials_misc: Array[SS2D_Material_Shape] = [
+	preload("res://resources/shape_materials/cloud.tres"),
 	preload("res://resources/shape_materials/dirt.tres"),
 ]
 
 static var materials_mineral: Array[SS2D_Material_Shape] = [
 	preload("res://resources/shape_materials/dirt.tres"),
 	preload("res://resources/shape_materials/rock_gray.tres"),
+	preload("res://resources/shape_materials/dirt.tres"),
+	preload("res://resources/shape_materials/dirt_with_grass.tres"),
+	preload("res://resources/shape_materials/purple_dirt_with_blue_grass.tres"),
+	preload("res://resources/shape_materials/dirt_with_blue_grass.tres"),
+	preload("res://resources/shape_materials/dirt_with_purple_grass.tres"),
 ]
 
 static var materials_flora: Array[SS2D_Material_Shape] = [
 	preload("res://resources/shape_materials/dirt.tres"),
 	preload("res://resources/shape_materials/dirt_with_grass.tres"),
+	preload("res://resources/shape_materials/purple_dirt_with_blue_grass.tres"),
+	preload("res://resources/shape_materials/dirt_with_blue_grass.tres"),
+	preload("res://resources/shape_materials/dirt_with_purple_grass.tres"),
 ]

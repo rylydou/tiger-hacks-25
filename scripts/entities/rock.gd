@@ -10,3 +10,5 @@ func _interact() -> void:
 	Inventory.add_item(RockItem.new())
 	SFX.event(&"sfx/pickup", &"rock").at(self).play()
 	queue_free()
+	
+	Player.instance.velocity += global_position.direction_to(Player.instance.position) * 1000.0

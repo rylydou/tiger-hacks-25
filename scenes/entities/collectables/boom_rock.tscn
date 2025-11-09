@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://27x62iaa36sk"]
 
 [ext_resource type="Script" uid="uid://dpi187kjbtkl2" path="res://scripts/entities/rock.gd" id="1_dda4i"]
-[ext_resource type="Texture2D" uid="uid://bcjbekgvyaqm0" path="res://content/art/Interactables/rock sprite.png" id="2_dda4i"]
+[ext_resource type="Texture2D" uid="uid://g2f7i8lh6eaq" path="res://content/art/Interactables/big rock.png" id="2_dda4i"]
 
 [sub_resource type="Curve" id="Curve_bih4y"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.0, 0.0, 1, 0]
+_data = [Vector2(0.4703833, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.8881578, 0.0, 1, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_y8hs5"]
+[sub_resource type="CurveTexture" id="CurveTexture_dda4i"]
 curve = SubResource("Curve_bih4y")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kx4yj"]
@@ -20,7 +20,7 @@ initial_velocity_max = 28.0
 gravity = Vector3(0, 0, 0)
 scale_min = 2.0
 scale_max = 5.0
-scale_curve = SubResource("CurveTexture_y8hs5")
+scale_curve = SubResource("CurveTexture_dda4i")
 
 [node name="Boom Rock" type="AnimatableBody2D"]
 z_index = -20
@@ -30,15 +30,16 @@ collision_mask = 0
 script = ExtResource("1_dda4i")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(0, -12)
+position = Vector2(0.29999924, -22.900002)
 texture = ExtResource("2_dda4i")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 show_behind_parent = true
-amount = 4
-lifetime = 2.0
+position = Vector2(0, -21)
+amount = 16
+lifetime = 5.0
 process_material = SubResource("ParticleProcessMaterial_kx4yj")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(0, -2)
-polygon = PackedVector2Array(10, 10, -10, 10, -10, -11, -7, -14, -7, -18, -4, -21, 1, -21, 8, -18, 10, -12)
+position = Vector2(0.29999924, -12.900002)
+polygon = PackedVector2Array(-9.299999, 27.900002, -20, -17, -12, -29, -6, -32, 6, -32, 15, -26, 21, -15, 12.700001, 27.900002)

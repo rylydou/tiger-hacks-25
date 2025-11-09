@@ -26,7 +26,7 @@ var fish_count := 0
 
 
 var planet_count := 0
-var planets: Array[Vector3] = [Vector3(0, 0, 500)]
+var planets: Array[Vector3] = [Vector3(0, 0, 100)]
 
 var planet_pool: Array[Planet] = []
 var planet_pool_weights := PackedFloat32Array()
@@ -68,7 +68,7 @@ func generate() -> void:
 			var direction := Math.rand_dir()
 			var distance := randf_range(planet.z + planet_padding, planet.z + planet_padding + 500.0)
 			
-			var test_pos := position + direction * distance
+			var test_pos := pos + direction * distance
 			
 			# These planets will overlap!!! try again
 			if check_planet_pos(test_pos, 32.0):
@@ -92,7 +92,10 @@ func _trail(position: Vector2 , depth: int) -> void:
 	
 	for try_index in max_spawn_tries:
 		var direction := Math.rand_dir()
-		var distance_range := distance_ranges[depth]
+		var distance_range := distance_ranges.back()
+		if depth < distance_ranges.size():
+			distance_range = distance_ranges[depth]
+		
 		var distance := randf_range(distance_range.x, distance_range.y)
 		
 		var test_pos := position + direction * distance
@@ -107,9 +110,9 @@ func _trail(position: Vector2 , depth: int) -> void:
 	planets.append(Vector3(target_pos.x, target_pos.y, new_planet.gravity_radius))
 	new_planet.position = target_pos
 	new_planet.rotation = randf() * TAU
+	new_planet.run_setup = true
 	planets_parent.add_child(new_planet)
-	new_planet.setup()
-
+	
 	if depth < branch_count.size() - 1:
 		for branch_index in branch_count[depth]:
 			_trail(target_pos, depth + 1)

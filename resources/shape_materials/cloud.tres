@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="SS2D_Material_Shape" load_steps=10 format=3 uid="uid://bvndls7bvoplq"]
+
+[ext_resource type="Script" uid="uid://0lhxan4cqrc1" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="1_0ax7b"]
+[ext_resource type="Script" uid="uid://d0xjijisx1woh" path="res://addons/rmsmartshape/materials/edge_material.gd" id="2_bcjon"]
+[ext_resource type="Texture2D" uid="uid://dh7w44mmmncs5" path="res://content/art/terrain/edge_cloud.png" id="3_0ax7b"]
+[ext_resource type="Script" uid="uid://d218yx0d1ilsn" path="res://addons/rmsmartshape/normal_range.gd" id="4_br5dv"]
+[ext_resource type="Texture2D" uid="uid://b4fnilp7dvg6b" path="res://content/art/terrain/fill_cloud.png" id="5_bcjon"]
+[ext_resource type="Script" uid="uid://nc5bfedvnpgm" path="res://addons/rmsmartshape/materials/shape_material.gd" id="6_ci04g"]
+
+[sub_resource type="Resource" id="Resource_br1d2"]
+script = ExtResource("2_bcjon")
+textures = Array[Texture2D]([ExtResource("3_0ax7b")])
+use_corner_texture = false
+use_taper_texture = false
+metadata/_custom_type_script = "uid://d0xjijisx1woh"
+
+[sub_resource type="Resource" id="Resource_br5dv"]
+script = ExtResource("4_br5dv")
+distance = 360.0
+
+[sub_resource type="Resource" id="Resource_ovi07"]
+script = ExtResource("1_0ax7b")
+edge_material = SubResource("Resource_br1d2")
+normal_range = SubResource("Resource_br5dv")
+weld = false
+metadata/_custom_type_script = "uid://0lhxan4cqrc1"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("6_ci04g")
+_edge_meta_materials = Array[ExtResource("1_0ax7b")]([SubResource("Resource_ovi07")])
+fill_textures = Array[Texture2D]([ExtResource("5_bcjon")])
