@@ -49,7 +49,7 @@ func pickup() -> void:
 	picked_up = true
 	
 	DevTools.toast("+1 Space Fish")
-	Inventory.add_item(RockItem.new())
+	Inventory.add_item(AnimalItem.new())
 	SFX.event(&"sfx/pickup", &"fish").at(self).play()
 	queue_free()
 

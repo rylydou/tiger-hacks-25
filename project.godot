@@ -18,7 +18,9 @@ ss2d/version="3.3.0"
 
 [application]
 
-config/name="Tiger Hacks 25"
+config/name="Crater Goods"
+config/description="Made for Tiger Hacks 2025"
+config/version="1.0.0"
 run/main_scene="uid://cobt7kj4b7bjl"
 config/features=PackedStringArray("4.5")
 config/icon="res://icon.svg"
@@ -48,8 +50,6 @@ shapes/collision/shape_color=Color(0, 0.6013788, 0.70120233, 0)
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=3
-window/size/window_width_override=1280
-window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 
 [editor]

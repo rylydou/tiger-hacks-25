@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cobt7kj4b7bjl"]
+[gd_scene load_steps=13 format=3 uid="uid://cobt7kj4b7bjl"]
 
 [ext_resource type="Script" uid="uid://owkekppbhw8q" path="res://scripts/main_menu.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://hpupyh8dlpw3" path="res://scripts/entities/camera.gd" id="2_sugp2"]
@@ -34,6 +34,15 @@ outline_color = Color(0, 0, 0, 1)
 shadow_size = 16
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(0, 8)
+
+[sub_resource type="GDScript" id="GDScript_o6xl0"]
+resource_name = "web-notice"
+script/source = "extends CanvasItem
+
+
+func _ready() -> void:
+	visible = OS.has_feature(&\"web\")
+"
 
 [node name="Main Menu" type="Node2D"]
 script = ExtResource("1_o5qli")
@@ -213,6 +222,21 @@ text = "Play"
 [node name="Quit Button" type="Button" parent="UI/Control/VBoxContainer 2/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+
+[node name="Label" type="Label" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -554.0
+offset_top = -95.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "Fullscreen ->"
+script = SubResource("GDScript_o6xl0")
 
 [connection signal="pressed" from="UI/Control/VBoxContainer 2/VBoxContainer/Play Button" to="." method="play"]
 [connection signal="pressed" from="UI/Control/VBoxContainer 2/VBoxContainer/Quit Button" to="." method="quit"]

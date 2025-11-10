@@ -281,6 +281,7 @@ libraries = {
 }
 
 [node name="Control" type="Control" parent="."]
+texture_filter = 4
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -322,6 +323,7 @@ vertical_alignment = 1
 
 [node name="Pause Menu" type="PanelContainer" parent="."]
 visible = false
+texture_filter = 4
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

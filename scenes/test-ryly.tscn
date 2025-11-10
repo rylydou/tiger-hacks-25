@@ -1222,6 +1222,7 @@ polygon = PackedVector2Array(-139.87057, -141.81775, -148.7284, -206.23816, -45.
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
+visible = false
 
 [node name="UI" type="Control" parent="CanvasLayer"]
 layout_mode = 3

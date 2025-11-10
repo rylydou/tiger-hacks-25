@@ -4,6 +4,10 @@ extends CanvasItem
 @export var is_pause_menu := false
 
 
+func _ready() -> void:
+	randomize()
+
+
 func _process(delta: float) -> void:
 	if not is_pause_menu: return
 	
